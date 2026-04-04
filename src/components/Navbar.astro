@@ -1,0 +1,33 @@
+---
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#products', label: 'Products' },
+  { href: '#solutions', label: 'Solutions' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' }
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur">
+  <nav class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 lg:px-6">
+    <a href="#home" class="flex items-center gap-3">
+      <img src="/assets/images/logo.svg" class="h-8 w-auto" alt="AscentCrane logo" />
+      <span class="self-center whitespace-nowrap text-xl font-semibold text-brand-navy">AscentCrane</span>
+    </a>
+    <div class="hidden items-center gap-8 lg:flex">
+      <ul class="flex items-center gap-8 text-sm font-medium text-slate-600">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="transition hover:text-primary-700">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a href="#contact" class="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">
+        Get a Quote
+      </a>
+    </div>
+    <a href="#contact" class="rounded-lg bg-brand-orange px-4 py-2 text-sm font-medium text-white lg:hidden">
+      Quote
+    </a>
+  </nav>
+</header>

@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import Schema from '../components/Schema.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+interface ProductSchema {
+  name: string;
+  model?: string;
+  image?: string;
+  description?: string;
+  sku?: string;
+  availability?: string;
+  price?: string;
+  priceCurrency?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  pageType?: 'home' | 'product';
+  product?: ProductSchema;
+}
+
+const {
+  title = 'Ascent Crane | Leading Manufacturer of Micro Gantry Cranes & Lifting Platforms',
+  description = 'Ascent Crane manufactures micro gantry cranes, lifting platforms, hoists, and export-ready material handling equipment for global buyers.',
+  canonicalURL = 'https://ascentcrane.com',
+  ogImage = 'https://ascentcrane.com/assets/images/hero.png',
+  pageType = 'home',
+  product
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalURL={canonicalURL}
+      ogImage={ogImage}
+      type={pageType === 'product' ? 'product' : 'website'}
+    />
+    <Schema pageType={pageType} canonicalURL={canonicalURL} product={product} />
+    <link rel="icon" href="/assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-white font-sans text-slate-900 antialiased selection:bg-primary-100 selection:text-primary-900">
+    <slot />
+    <WhatsAppFloat />
+  </body>
+</html>

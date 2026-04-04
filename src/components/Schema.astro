@@ -1,0 +1,84 @@
+---
+interface ProductSchema {
+  name: string;
+  model?: string;
+  image?: string;
+  description?: string;
+  sku?: string;
+  availability?: string;
+  price?: string;
+  priceCurrency?: string;
+}
+
+interface Props {
+  pageType?: 'home' | 'product';
+  canonicalURL?: string;
+  product?: ProductSchema;
+}
+
+const siteUrl = 'https://ascentcrane.com';
+const {
+  pageType = 'home',
+  canonicalURL = siteUrl,
+  product
+} = Astro.props;
+
+const absoluteCanonical = canonicalURL.startsWith('http') ? canonicalURL : `${siteUrl}${canonicalURL}`;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Ascent Crane',
+  url: siteUrl,
+  logo: `${siteUrl}/assets/images/logo.svg`,
+  sameAs: []
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Ascent Crane',
+  image: `${siteUrl}/assets/images/hero.png`,
+  url: siteUrl,
+  telephone: '+86-000-0000-0000',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Changyuan',
+    addressRegion: 'Xinxiang',
+    addressCountry: 'CN'
+  },
+  areaServed: ['Europe', 'Middle East', 'Southeast Asia', 'South America'],
+  description: 'Manufacturer of micro gantry cranes, lifting platforms, hoists, and export-ready lifting solutions.'
+};
+
+const productSchema = product
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      brand: {
+        '@type': 'Brand',
+        name: 'Ascent Crane'
+      },
+      name: product.name,
+      model: product.model ?? product.name,
+      sku: product.sku ?? product.model ?? product.name,
+      description: product.description ?? 'Industrial lifting equipment manufactured by Ascent Crane.',
+      image: product.image ? (product.image.startsWith('http') ? product.image : `${siteUrl}${product.image}`) : `${siteUrl}/assets/images/hero.png`,
+      offers: {
+        '@type': 'Offer',
+        url: absoluteCanonical,
+        availability: product.availability ?? 'https://schema.org/InStock',
+        priceCurrency: product.priceCurrency ?? 'USD',
+        price: product.price ?? '0'
+      }
+    }
+  : null;
+
+const schemas = pageType === 'product' && product
+  ? [organizationSchema, localBusinessSchema, productSchema]
+  : [organizationSchema, localBusinessSchema];
+---
+
+{schemas.map((entry) => (
+  <script type="application/ld+json" set:html={JSON.stringify(entry)}></script>
+))}

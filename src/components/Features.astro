@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import featureOneImage from '../assets/images/feature-1.png';
+import featureTwoImage from '../assets/images/feature-2.png';
+
+const featureRows = [
+  {
+    id: 'products',
+    title: 'Engineered lifting products for complex industrial environments',
+    description:
+      'From gantry cranes to electric hoists, AscentCrane adapts proven lifting equipment for ports, precast yards, steel plants, and workshops that demand reliability at scale.',
+    points: [
+      'Custom span, lifting height, and duty classification',
+      'Voltage, frequency, and control systems for your market',
+      'Factory QA documentation and commissioning support'
+    ],
+    image: featureOneImage,
+    imageAlt: 'AscentCrane product feature overview',
+    reverse: false
+  },
+  {
+    id: 'solutions',
+    title: 'Export workflow designed for overseas project delivery',
+    description:
+      'We combine manufacturing coordination, technical clarification, and export packaging so your procurement team can move faster with fewer surprises.',
+    points: [
+      'Detailed drawings and proposal alignment before production',
+      'Container planning and shipping coordination',
+      'After-sales support for installation, training, and spare parts',
+      'Clear communication for EPC contractors and distributors'
+    ],
+    image: featureTwoImage,
+    imageAlt: 'AscentCrane export delivery workflow',
+    reverse: true
+  }
+];
+---
+
+<section class="bg-slate-50" id="products">
+  <div class="mx-auto flex max-w-screen-xl flex-col gap-16 px-4 py-16 lg:px-6 lg:py-24">
+    {featureRows.map((row) => (
+      <div class={`items-center gap-12 lg:grid lg:grid-cols-2 ${row.reverse ? '' : ''}`} id={row.id}>
+        <div class={row.reverse ? 'order-2 text-slate-600 sm:text-lg' : 'text-slate-600 sm:text-lg'}>
+          <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{row.title}</h2>
+          <p class="mb-8 font-light lg:text-xl">{row.description}</p>
+          <ul role="list" class="my-7 space-y-5 border-t border-slate-200 pt-8">
+            {row.points.map((point) => (
+              <li class="flex gap-3">
+                <svg class="h-5 w-5 shrink-0 text-brand-orange" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span class="text-base font-medium leading-tight text-slate-900">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Image src={row.image} alt={row.imageAlt} class={row.reverse ? 'order-1 hidden w-full rounded-2xl shadow-xl lg:flex' : 'hidden w-full rounded-2xl shadow-xl lg:flex'} format="webp" quality="mid" loading="lazy" widths={[640,960,1280]} sizes="(min-width: 1024px) 45vw, 100vw" />
+      </div>
+    ))}
+  </div>
+</section>

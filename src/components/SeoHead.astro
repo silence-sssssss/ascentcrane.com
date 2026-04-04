@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  type?: 'website' | 'article' | 'product';
+}
+
+const siteName = 'Ascent Crane';
+const siteUrl = 'https://ascentcrane.com';
+
+const {
+  title = 'Ascent Crane | Leading Manufacturer of Micro Gantry Cranes & Lifting Platforms',
+  description = 'Ascent Crane manufactures micro gantry cranes, lifting platforms, hoists, and export-ready material handling equipment for global buyers.',
+  canonicalURL = siteUrl,
+  ogImage = `${siteUrl}/assets/images/hero.png`,
+  type = 'website'
+} = Astro.props;
+
+const absoluteCanonical = canonicalURL.startsWith('http') ? canonicalURL : `${siteUrl}${canonicalURL}`;
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={absoluteCanonical} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={absoluteCanonical} />
+<meta property="og:image" content={absoluteOgImage} />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteOgImage} />
+<meta name="twitter:site" content="@ascentcrane" />
