@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: 轻型铝合金龙门吊
 description: 适用于设备维护、洁净环境和工位间快速转运的轻量化铝合金龙门吊。
 model: AAG-P300

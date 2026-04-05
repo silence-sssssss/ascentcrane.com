@@ -1,7 +1,7 @@
 ---
 lang: en
 slug: global-standards-for-lifting-equipment-a-complete-overview
-title: Global Standards for Lifting Equipment: A Complete Overview
+title: "Global Standards for Lifting Equipment: A Complete Overview"
 description: A complete overview of major global lifting equipment standards, compliance themes, and what international buyers should verify.
 ---
 

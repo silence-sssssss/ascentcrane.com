@@ -1,6 +1,7 @@
 ---
 lang: ru
 slug: adjustable-height-steel-gantry
+category: gantry
 title: Стальной козловой кран с регулируемой высотой
 description: Усиленный стальной козловой кран с регулировкой высоты для цехов, монтажных зон и сервисного обслуживания.
 model: SSG-AH500

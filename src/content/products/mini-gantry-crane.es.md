@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: mini-gantry-crane
+category: gantry
 title: Grúa pórtico mini
 description: Grúa pórtico portátil para talleres, almacenes y equipos de mantenimiento que necesitan una capacidad de elevación flexible.
 model: AGC-MG-2T

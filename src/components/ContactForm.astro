@@ -1,47 +1,273 @@
 ---
+import { defaultLang, type SiteLang } from '../data/i18n';
+
 interface Props {
   productName?: string;
+  lang?: SiteLang;
 }
 
-const { productName = '' } = Astro.props;
-const formAction = 'https://formspree.io/f/your-form-id';
-const subject = productName ? `Quote request for ${productName}` : 'Website inquiry from Ascent Crane';
+const { productName = '', lang = defaultLang } = Astro.props;
+const formCopy = {
+  en: {
+    subjectQuote: 'Quote request for',
+    subjectInquiry: 'Website inquiry from Ascent Crane',
+    eyebrow: 'Quick Inquiry',
+    title: 'Tell us what you need',
+    description: 'Send your project requirements directly to our inquiry handler for prompt review by the sales team.',
+    name: 'Name',
+    namePlaceholder: 'John Carter',
+    company: 'Company',
+    companyPlaceholder: 'Carter Industrial Ltd.',
+    email: 'Email',
+    emailPlaceholder: 'john@company.com',
+    requirement: 'Requirement Description',
+    requirementPlaceholder: 'Please share your lifting capacity, span, lifting height, quantity, destination country, and any technical requirements.',
+    note: 'Your inquiry will be sent securely without leaving the page.',
+    submit: 'Send Inquiry',
+    submitting: 'Sending...',
+    success: 'Your inquiry has been sent successfully.',
+    error: 'Submission failed. Please try again.'
+  },
+  zh: {
+    subjectQuote: '关于以下产品的报价请求：',
+    subjectInquiry: '来自 Ascent Crane 官网的询盘',
+    eyebrow: '快速询盘',
+    title: '请告诉我们您的需求',
+    description: '请将您的项目需求直接发送到询盘接收系统，销售团队会尽快跟进。',
+    name: '姓名',
+    namePlaceholder: '张先生',
+    company: '公司名称',
+    companyPlaceholder: '示例工业有限公司',
+    email: '邮箱',
+    emailPlaceholder: 'name@company.com',
+    requirement: '需求描述',
+    requirementPlaceholder: '请说明起重量、跨度、起升高度、数量、目的国以及其他技术要求。',
+    note: '提交过程将在当前页面内完成，无需刷新。',
+    submit: '发送询盘',
+    submitting: '提交中...',
+    success: '您的询盘已成功发送。',
+    error: '提交失败，请稍后重试。'
+  },
+  ru: {
+    subjectQuote: 'Запрос предложения на',
+    subjectInquiry: 'Запрос с сайта Ascent Crane',
+    eyebrow: 'Быстрый запрос',
+    title: 'Сообщите, что вам требуется',
+    description: 'Отправьте требования проекта напрямую в систему приема запросов, и отдел продаж быстро свяжется с вами.',
+    name: 'Имя',
+    namePlaceholder: 'Иван Петров',
+    company: 'Компания',
+    companyPlaceholder: 'Carter Industrial Ltd.',
+    email: 'Email',
+    emailPlaceholder: 'name@company.com',
+    requirement: 'Описание запроса',
+    requirementPlaceholder: 'Укажите грузоподъемность, пролет, высоту подъема, количество, страну назначения и другие технические требования.',
+    note: 'Форма отправляется асинхронно без перезагрузки страницы.',
+    submit: 'Отправить запрос',
+    submitting: 'Отправка...',
+    success: 'Ваш запрос успешно отправлен.',
+    error: 'Не удалось отправить. Повторите попытку позже.'
+  },
+  de: {
+    subjectQuote: 'Angebotsanfrage für',
+    subjectInquiry: 'Website-Anfrage von Ascent Crane',
+    eyebrow: 'Schnellanfrage',
+    title: 'Teilen Sie uns Ihren Bedarf mit',
+    description: 'Senden Sie Ihre Projektanforderungen direkt an unser Anfrage-System, damit das Vertriebsteam zeitnah reagieren kann.',
+    name: 'Name',
+    namePlaceholder: 'Max Mustermann',
+    company: 'Unternehmen',
+    companyPlaceholder: 'Carter Industrial GmbH',
+    email: 'E-Mail',
+    emailPlaceholder: 'name@company.com',
+    requirement: 'Anforderungsbeschreibung',
+    requirementPlaceholder: 'Bitte nennen Sie Tragfähigkeit, Spannweite, Hubhöhe, Menge, Zielland und weitere technische Anforderungen.',
+    note: 'Die Anfrage wird ohne Seitenneuladen sicher übermittelt.',
+    submit: 'Anfrage senden',
+    submitting: 'Wird gesendet...',
+    success: 'Ihre Anfrage wurde erfolgreich gesendet.',
+    error: 'Senden fehlgeschlagen. Bitte versuchen Sie es erneut.'
+  },
+  fr: {
+    subjectQuote: 'Demande de devis pour',
+    subjectInquiry: 'Demande depuis le site Ascent Crane',
+    eyebrow: 'Demande rapide',
+    title: 'Expliquez-nous votre besoin',
+    description: 'Envoyez directement vos besoins projet à notre système de réception des demandes pour un suivi rapide.',
+    name: 'Nom',
+    namePlaceholder: 'Jean Dupont',
+    company: 'Entreprise',
+    companyPlaceholder: 'Carter Industrial SARL',
+    email: 'E-mail',
+    emailPlaceholder: 'name@company.com',
+    requirement: 'Description du besoin',
+    requirementPlaceholder: 'Merci d’indiquer la capacité, la portée, la hauteur de levage, la quantité, le pays de destination et toute exigence technique.',
+    note: 'L’envoi se fait sans rechargement de page.',
+    submit: 'Envoyer la demande',
+    submitting: 'Envoi en cours...',
+    success: 'Votre demande a bien été envoyée.',
+    error: 'Échec de l’envoi. Veuillez réessayer.'
+  },
+  es: {
+    subjectQuote: 'Solicitud de cotización para',
+    subjectInquiry: 'Consulta del sitio web de Ascent Crane',
+    eyebrow: 'Consulta rápida',
+    title: 'Cuéntenos lo que necesita',
+    description: 'Envíe los requisitos de su proyecto directamente a nuestro sistema de consultas para una respuesta rápida del equipo comercial.',
+    name: 'Nombre',
+    namePlaceholder: 'Juan Pérez',
+    company: 'Empresa',
+    companyPlaceholder: 'Carter Industrial S.L.',
+    email: 'Correo electrónico',
+    emailPlaceholder: 'name@company.com',
+    requirement: 'Descripción del requerimiento',
+    requirementPlaceholder: 'Comparta capacidad de elevación, luz, altura de elevación, cantidad, país de destino y cualquier requisito técnico.',
+    note: 'La consulta se envía de forma asíncrona sin recargar la página.',
+    submit: 'Enviar consulta',
+    submitting: 'Enviando...',
+    success: 'Su consulta se ha enviado correctamente.',
+    error: 'El envío falló. Inténtelo de nuevo.'
+  }
+} as const;
+
+const formAction = 'https://ascent-inquiry-handler.silence-sssssss.workers.dev/api/inquiry';
+const copy = formCopy[lang];
+const subject = productName ? `${copy.subjectQuote} ${productName}` : copy.subjectInquiry;
+
 ---
 
-<section class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_70px_rgba(15,39,68,0.08)] sm:p-8">
+<section class="rounded-[28px] border border-slate-200 bg-white p-6 text-slate-900 shadow-[0_20px_70px_rgba(15,39,68,0.08)] sm:p-8">
   <div class="mb-8">
-    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">Quick Inquiry</p>
-    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-brand-navy">Tell us what you need</h2>
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.eyebrow}</p>
+    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-brand-navy">{copy.title}</h2>
     <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-      This static form is wired for Formspree. Replace the placeholder endpoint with your real Formspree form ID to receive inquiries by email in real time.
+      {copy.description}
     </p>
   </div>
-  <form action={formAction} method="POST" class="grid gap-5 md:grid-cols-2">
+  <form action={formAction} method="POST" data-inquiry-form data-lang={lang} data-endpoint={formAction} class="grid gap-5 md:grid-cols-2">
     <input type="hidden" name="_subject" value={subject} />
     <input type="hidden" name="product_interest" value={productName} />
+    <input type="hidden" name="lang" value={lang} />
     <div>
-      <label for="name" class="mb-2 block text-sm font-medium text-slate-800">Name</label>
-      <input id="name" name="name" type="text" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder="John Carter" />
+      <label for="name" class="mb-2 block text-sm font-medium text-slate-800">{copy.name}</label>
+      <input id="name" name="name" type="text" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder={copy.namePlaceholder} />
     </div>
     <div>
-      <label for="company" class="mb-2 block text-sm font-medium text-slate-800">Company</label>
-      <input id="company" name="company" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder="Carter Industrial Ltd." />
+      <label for="company" class="mb-2 block text-sm font-medium text-slate-800">{copy.company}</label>
+      <input id="company" name="company" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder={copy.companyPlaceholder} />
     </div>
     <div class="md:col-span-2">
-      <label for="email" class="mb-2 block text-sm font-medium text-slate-800">Email</label>
-      <input id="email" name="email" type="email" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder="john@company.com" />
+      <label for="email" class="mb-2 block text-sm font-medium text-slate-800">{copy.email}</label>
+      <input id="email" name="email" type="email" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder={copy.emailPlaceholder} />
     </div>
     <div class="md:col-span-2">
-      <label for="requirement" class="mb-2 block text-sm font-medium text-slate-800">Requirement Description</label>
-      <textarea id="requirement" name="requirement" rows="6" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder="Please share your lifting capacity, span, lifting height, quantity, destination country, and any technical requirements."></textarea>
+      <label for="requirement" class="mb-2 block text-sm font-medium text-slate-800">{copy.requirement}</label>
+      <textarea id="requirement" name="message" rows="6" required class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-100" placeholder={copy.requirementPlaceholder}></textarea>
     </div>
     <div class="md:col-span-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-xs leading-6 text-slate-500">
-        Optional next step: you can later add Cloudflare Turnstile to this form for anti-spam protection.
-      </p>
-      <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-brand-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">
-        Send Inquiry
+      <div>
+        <p class="text-xs leading-6 text-slate-500">
+          {copy.note}
+        </p>
+        <p data-form-status aria-live="polite" class="mt-2 text-sm text-slate-600"></p>
+      </div>
+      <button type="submit" data-submit-button class="inline-flex items-center justify-center rounded-2xl bg-brand-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white disabled:cursor-not-allowed disabled:opacity-70">
+        <span data-submit-text>{copy.submit}</span>
       </button>
     </div>
   </form>
 </section>
+
+<script is:inline define:vars={{ uiText: copy }}>
+  const forms = document.querySelectorAll('[data-inquiry-form]');
+
+  forms.forEach((form) => {
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const statusEl = form.querySelector('[data-form-status]');
+    const submitButton = form.querySelector('[data-submit-button]');
+    const submitText = form.querySelector('[data-submit-text]');
+    const endpoint = form.getAttribute('data-endpoint') || '';
+    const defaultButtonText = submitText?.textContent || '';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const payload = {
+        name: String(formData.get('name') || '').trim(),
+        email: String(formData.get('email') || '').trim(),
+        company: String(formData.get('company') || '').trim(),
+        message: String(formData.get('message') || '').trim(),
+        lang: String(formData.get('lang') || '').trim(),
+        sourcePage: window.location.pathname,
+        productInterest: String(formData.get('product_interest') || '').trim(),
+        subject: String(formData.get('_subject') || '').trim()
+      };
+
+      if (statusEl instanceof HTMLElement) {
+        statusEl.textContent = uiText.submitting;
+        statusEl.className = 'mt-2 text-sm text-slate-600';
+      }
+
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+      }
+
+      if (submitText instanceof HTMLElement) {
+        submitText.textContent = uiText.submitting;
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || 'Request failed');
+        }
+
+        form.reset();
+        const langInput = form.querySelector('input[name="lang"]');
+        const productInput = form.querySelector('input[name="product_interest"]');
+        const subjectInput = form.querySelector('input[name="_subject"]');
+
+        if (langInput instanceof HTMLInputElement) {
+          langInput.value = form.getAttribute('data-lang') || '';
+        }
+
+        if (productInput instanceof HTMLInputElement) {
+          productInput.value = productInput.defaultValue;
+        }
+
+        if (subjectInput instanceof HTMLInputElement) {
+          subjectInput.value = subjectInput.defaultValue;
+        }
+
+        if (statusEl instanceof HTMLElement) {
+          statusEl.textContent = uiText.success;
+          statusEl.className = 'mt-2 text-sm text-green-600';
+        }
+      } catch {
+        if (statusEl instanceof HTMLElement) {
+          statusEl.textContent = uiText.error;
+          statusEl.className = 'mt-2 text-sm text-red-600';
+        }
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = false;
+        }
+
+        if (submitText instanceof HTMLElement) {
+          submitText.textContent = defaultButtonText;
+        }
+      }
+    });
+  });
+</script>

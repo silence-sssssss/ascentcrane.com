@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: Grúa pórtico portátil de aluminio
 description: Grúa pórtico ligera de aluminio para mantenimiento, entornos limpios y reubicación rápida entre estaciones de trabajo.
 model: AAG-P300

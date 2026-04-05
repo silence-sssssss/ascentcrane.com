@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: adjustable-height-steel-gantry
+category: gantry
 title: Portique en acier à hauteur réglable
 description: Portique acier robuste à hauteur réglable pour ateliers, zones de fabrication et maintenance industrielle.
 model: SSG-AH500

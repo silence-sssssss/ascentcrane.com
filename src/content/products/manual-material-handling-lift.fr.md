@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: manual-material-handling-lift
+category: handling
 title: Élévateur manuel de manutention
 description: Dispositif manuel compact pour lever cartons, composants et petits équipements dans les magasins, ateliers et zones de service.
 model: MMHL-150

@@ -1,0 +1,202 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getLocalizedPath, type SiteLang } from '../data/i18n';
+import type { ProductCategory } from '../data/productCategories';
+
+interface TocItem {
+  id: string;
+  text: string;
+  level: 2 | 3;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface CategoryNavItem {
+  category: ProductCategory;
+  label: string;
+  href: string;
+  active?: boolean;
+}
+
+interface Props {
+  lang: SiteLang;
+  pathname: string;
+  title: string;
+  description: string;
+  canonicalURL: string;
+  ogImage?: string;
+  heroEyebrow?: string;
+  heroTitle: string;
+  heroDescription: string;
+  tocItems?: TocItem[];
+  stickyLabel: string;
+  stickyHref?: string;
+  ctaCopy: {
+    tocTitle: string;
+    getQuote: string;
+    readyTitle: string;
+    readyText: string;
+    whatsappLabel: string;
+    categoriesTitle: string;
+  };
+  breadcrumbItems: BreadcrumbItem[];
+  categoryItems: CategoryNavItem[];
+  product?: {
+    name: string;
+    model?: string;
+    image?: string;
+    description?: string;
+    sku?: string;
+    availability?: string;
+    price?: string;
+    priceCurrency?: string;
+  };
+}
+
+const {
+  lang,
+  pathname,
+  title,
+  description,
+  canonicalURL,
+  ogImage = 'https://ascentcrane.com/assets/images/hero.png',
+  heroEyebrow,
+  heroTitle,
+  heroDescription,
+  tocItems = [],
+  stickyLabel,
+  stickyHref = '#quote-form',
+  ctaCopy,
+  breadcrumbItems,
+  categoryItems,
+  product
+} = Astro.props;
+
+const whatsappNumber = '+8613800000000';
+---
+
+<BaseLayout
+  lang={lang}
+  pathname={pathname}
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+  pageType="product"
+  product={product}
+>
+  <Navbar lang={lang} currentPath={Astro.url.pathname} />
+
+  <main class="bg-slate-100 pt-24 text-slate-900">
+    <section id="detail-hero" class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1280px] px-4 py-14 lg:px-8 lg:py-16">
+        <nav aria-label="Breadcrumb" class="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+          {breadcrumbItems.map((item, index) => (
+            <>
+              {index > 0 && <span class="text-slate-300">/</span>}
+              {item.href ? (
+                <a href={item.href} class="transition hover:text-primary-700">{item.label}</a>
+              ) : (
+                <span class="font-medium text-slate-700">{item.label}</span>
+              )}
+            </>
+          ))}
+        </nav>
+        <div class="max-w-4xl">
+          {heroEyebrow && <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{heroEyebrow}</p>}
+          <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{heroTitle}</h1>
+          <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{heroDescription}</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
+      <div class="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 py-3 lg:px-8">
+        <div class="min-w-0">
+          <p class="truncate text-sm font-semibold text-brand-navy">{stickyLabel}</p>
+        </div>
+        <a
+          href={stickyHref}
+          class="inline-flex shrink-0 items-center justify-center rounded-xl bg-brand-orange px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white"
+        >
+          {ctaCopy.getQuote}
+        </a>
+      </div>
+    </div>
+
+    <section class="mx-auto max-w-[1280px] px-4 py-10 lg:px-8 lg:py-12">
+      <div class="grid gap-8 xl:grid-cols-[240px_minmax(0,1fr)_300px]">
+        <aside class="hidden xl:block">
+          <div class="sticky top-28 rounded-[24px] border border-slate-200 bg-white p-5 text-slate-900 shadow-sm">
+            <h2 class="text-sm font-bold uppercase tracking-[0.2em] text-brand-orange">{ctaCopy.tocTitle}</h2>
+            <nav class="mt-5 space-y-2">
+              {tocItems.map((item) => (
+                <a
+                  href={`#${item.id}`}
+                  class={`block rounded-lg px-3 py-2 text-sm transition hover:bg-slate-50 hover:text-primary-700 ${item.level === 3 ? 'ml-4 text-slate-500' : 'font-medium text-slate-700'}`}
+                >
+                  {item.text}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        <div class="min-w-0 rounded-[28px] border border-slate-200 bg-white p-6 text-slate-900 shadow-sm sm:p-8 lg:p-10">
+          <slot />
+        </div>
+
+        <aside>
+          <div class="space-y-6 xl:sticky xl:top-28">
+            <div class="rounded-[24px] border border-brand-orange/20 bg-brand-navy p-6 text-white shadow-xl">
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{ctaCopy.readyTitle}</p>
+              <p class="mt-4 text-2xl font-bold">{ctaCopy.getQuote}</p>
+              <p class="mt-3 text-sm leading-7 text-slate-200">{ctaCopy.readyText}</p>
+              <a
+                href={`https://wa.me/${whatsappNumber.replace(/[^\d]/g, '')}`}
+                class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-brand-orange px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 hover:text-white focus:text-white"
+              >
+                {ctaCopy.whatsappLabel}: {whatsappNumber}
+              </a>
+            </div>
+
+            <div class="rounded-[24px] border border-slate-200 bg-white p-6 text-slate-900 shadow-sm">
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{ctaCopy.categoriesTitle}</p>
+              <div class="mt-4 space-y-3 text-sm">
+                {categoryItems.map((item) => (
+                  <a
+                    href={item.href}
+                    class={`block rounded-lg px-4 py-3 transition ${item.active ? 'bg-slate-900 text-white hover:bg-slate-800 hover:text-white' : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900'}`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+
+  <script is:inline>
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (event) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', href);
+      });
+    });
+  </script>
+</BaseLayout>

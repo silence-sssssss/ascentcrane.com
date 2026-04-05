@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: manual-material-handling-lift
+category: handling
 title: Manual Material Handling Lift
 description: Compact manual lifting device for moving cartons, components, and light equipment in stores, workshops, and service areas.
 model: MMHL-150

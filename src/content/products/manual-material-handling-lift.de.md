@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: manual-material-handling-lift
+category: handling
 title: Manueller Materialhandling-Hubwagen
 description: Kompaktes manuelles Hebegerät für Kartons, Bauteile und leichte Ausrüstung in Handel, Werkstatt und Servicebereichen.
 model: MMHL-150

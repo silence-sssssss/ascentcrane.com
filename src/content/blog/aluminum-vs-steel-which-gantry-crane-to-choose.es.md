@@ -1,7 +1,7 @@
 ---
 lang: es
 slug: aluminum-vs-steel-which-gantry-crane-to-choose
-title: Aluminio o acero: ¿qué grúa pórtico elegir?
+title: "Aluminio o acero: ¿qué grúa pórtico elegir?"
 description: Comparación entre grúas pórtico de aluminio y acero según peso, rigidez, movilidad, corrosión y perfil de uso.
 ---
 

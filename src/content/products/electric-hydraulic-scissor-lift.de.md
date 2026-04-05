@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: Elektrische hydraulische Scherenhebebühne
 description: Elektrisch-hydraulische Scherenhebebühne für sichere Höhenzugänge, Wartung und innerbetriebliche Hubarbeiten.
 model: EHSL-450

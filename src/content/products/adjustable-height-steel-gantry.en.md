@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: adjustable-height-steel-gantry
+category: gantry
 title: Adjustable Height Steel Gantry
 description: Heavy-duty steel gantry with height adjustment for flexible lifting in workshops, fabrication bays, and plant maintenance.
 model: SSG-AH500

@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: adjustable-height-steel-gantry
+category: gantry
 title: Höhenverstellbarer Stahl-Portalkran
 description: Robuster Stahl-Portalkran mit Höhenverstellung für Werkstätten, Fertigungsbereiche und Instandhaltung.
 model: SSG-AH500

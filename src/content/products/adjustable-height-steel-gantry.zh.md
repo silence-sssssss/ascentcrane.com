@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: adjustable-height-steel-gantry
+category: gantry
 title: 可调高度钢制龙门吊
 description: 适用于车间、制造工位与设备检修区域的重载型可调高度钢制龙门吊。
 model: SSG-AH500

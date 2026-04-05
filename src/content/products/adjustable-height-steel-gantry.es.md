@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: adjustable-height-steel-gantry
+category: gantry
 title: Grúa pórtico de acero con altura ajustable
 description: Grúa pórtico de acero de alta resistencia con ajuste de altura para talleres, zonas de fabricación y mantenimiento industrial.
 model: SSG-AH500

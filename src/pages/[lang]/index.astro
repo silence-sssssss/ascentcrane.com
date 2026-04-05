@@ -10,6 +10,147 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
+const homePortalCopy = {
+  en: {
+    trustTitle: 'Trust & Figures',
+    trustItems: [
+      { value: '36+', label: 'export markets served' },
+      { value: '1200+', label: 'custom lifting projects delivered' },
+      { value: '72h', label: 'proposal turnaround for standard requests' }
+    ],
+    categoriesTitle: 'Product Series by Application',
+    categoriesDescription: 'Explore the major product families with a portal-style overview before entering the detailed catalog.',
+    categories: [
+      { title: 'Portable Gantry Cranes', description: 'Flexible gantry systems for workshops, warehouses, and field service.', image: '/assets/images/hero.png', href: '/products' },
+      { title: 'Hydraulic Lift Platforms', description: 'Stable lifting solutions for maintenance access and material positioning.', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: 'Custom Project Systems', description: 'Configured equipment packages for export, EPC, and distributor channels.', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: 'Explore Series',
+    articlesTitle: 'Latest Articles',
+    articlesDescription: 'A content matrix built for procurement education, specification comparison, and conversion support.',
+    articles: [
+      { title: 'How to choose the right portable gantry crane capacity', description: 'A buyer-focused framework for matching tonnage, span, and duty cycle to your real scenario.', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: 'Maintenance priorities for hydraulic lifting equipment', description: 'See what industrial teams should inspect first to reduce stoppage and extend service life.', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: 'What overseas buyers should confirm before ordering', description: 'A checklist-driven article path covering documents, standards, power supply, and shipping.', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  },
+  zh: {
+    trustTitle: '信任与数据',
+    trustItems: [
+      { value: '36+', label: '已服务出口市场' },
+      { value: '1200+', label: '已交付定制吊装项目' },
+      { value: '72h', label: '标准需求方案响应时间' }
+    ],
+    categoriesTitle: '按应用场景划分的产品系列',
+    categoriesDescription: '先以门户式视图了解核心产品家族，再进入详细目录页。',
+    categories: [
+      { title: '便携式龙门吊系列', description: '适用于车间、仓库与现场服务的灵活龙门吊系统。', image: '/assets/images/hero.png', href: '/products' },
+      { title: '液压升降平台系列', description: '适用于检修作业和物料定位的稳定升降方案。', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: '定制项目系统', description: '面向出口、EPC 与经销渠道的成套化配置设备。', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: '查看系列',
+    articlesTitle: '最新文章',
+    articlesDescription: '围绕采购教育、参数比较与商业转化搭建的内容矩阵。',
+    articles: [
+      { title: '如何选择合适的便携式龙门吊吨位', description: '从吨位、跨度和工况出发，快速匹配真实应用场景。', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: '液压升降设备的维护优先级', description: '帮助工业团队识别关键检查项，减少停机并延长设备寿命。', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: '海外采购下单前应确认的关键事项', description: '以清单方式覆盖文件、标准、电源与运输条件。', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  },
+  ru: {
+    trustTitle: 'Доверие и показатели',
+    trustItems: [
+      { value: '36+', label: 'экспортных рынков' },
+      { value: '1200+', label: 'реализованных подъемных проектов' },
+      { value: '72h', label: 'на подготовку стандартного предложения' }
+    ],
+    categoriesTitle: 'Серии продукции по применению',
+    categoriesDescription: 'Изучите ключевые продуктовые направления в формате отраслевого портала перед переходом в каталог.',
+    categories: [
+      { title: 'Мобильные козловые краны', description: 'Гибкие крановые системы для цехов, складов и выездного сервиса.', image: '/assets/images/hero.png', href: '/products' },
+      { title: 'Гидравлические подъемные платформы', description: 'Стабильные подъемные решения для обслуживания и позиционирования грузов.', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: 'Индивидуальные проектные системы', description: 'Комплексные решения для экспорта, EPC и дилерских каналов.', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: 'Открыть серию',
+    articlesTitle: 'Последние статьи',
+    articlesDescription: 'Контент-матрица для обучения закупщиков, сравнения спецификаций и роста конверсии.',
+    articles: [
+      { title: 'Как выбрать правильную грузоподъемность мобильного крана', description: 'Практический подход к выбору грузоподъемности, пролета и режима работы.', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: 'Приоритеты обслуживания гидравлического подъемного оборудования', description: 'Ключевые проверки для сокращения простоев и продления срока службы.', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: 'Что нужно подтвердить перед международным заказом', description: 'Контрольный список по документам, стандартам, питанию и логистике.', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  },
+  de: {
+    trustTitle: 'Vertrauen & Kennzahlen',
+    trustItems: [
+      { value: '36+', label: 'bediente Exportmärkte' },
+      { value: '1200+', label: 'realisierte Hebeprojekte' },
+      { value: '72h', label: 'für Standardangebote' }
+    ],
+    categoriesTitle: 'Produktserien nach Anwendung',
+    categoriesDescription: 'Verschaffen Sie sich zuerst einen portalartigen Überblick über die Kernserien und wechseln Sie dann in den Detailkatalog.',
+    categories: [
+      { title: 'Mobile Portalkrane', description: 'Flexible Kransysteme für Werkstätten, Lager und Außeneinsatz.', image: '/assets/images/hero.png', href: '/products' },
+      { title: 'Hydraulische Hebebühnen', description: 'Stabile Hebelösungen für Wartung und Materialpositionierung.', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: 'Projektbezogene Systemlösungen', description: 'Konfigurierte Gerätepakete für Export-, EPC- und Vertriebskanäle.', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: 'Serie ansehen',
+    articlesTitle: 'Latest Articles',
+    articlesDescription: 'Eine Content-Matrix für Beschaffungswissen, Spezifikationsvergleich und Conversion-Unterstützung.',
+    articles: [
+      { title: 'Wie wählt man die richtige Tragfähigkeit eines Portalkrans', description: 'Ein praxisnahes Raster für Tragfähigkeit, Spannweite und Einsatzprofil.', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: 'Wartungsprioritäten für hydraulische Hebetechnik', description: 'Welche Punkte Teams zuerst prüfen sollten, um Stillstand zu vermeiden.', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: 'Was internationale Käufer vor der Bestellung prüfen sollten', description: 'Checkliste zu Dokumentation, Standards, Stromversorgung und Versand.', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  },
+  fr: {
+    trustTitle: 'Confiance & chiffres',
+    trustItems: [
+      { value: '36+', label: 'marchés export servis' },
+      { value: '1200+', label: 'projets de levage livrés' },
+      { value: '72h', label: 'pour une proposition standard' }
+    ],
+    categoriesTitle: 'Séries produits par application',
+    categoriesDescription: 'Explorez les grandes familles de produits dans une logique portail avant d’entrer dans le catalogue détaillé.',
+    categories: [
+      { title: 'Portiques mobiles', description: 'Systèmes de portiques flexibles pour ateliers, entrepôts et interventions terrain.', image: '/assets/images/hero.png', href: '/products' },
+      { title: 'Plateformes hydrauliques', description: 'Solutions stables pour maintenance en hauteur et positionnement matière.', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: 'Systèmes projet sur mesure', description: 'Packages configurés pour l’export, les projets EPC et les distributeurs.', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: 'Explorer la série',
+    articlesTitle: 'Latest Articles',
+    articlesDescription: 'Une matrice de contenu pensée pour l’éducation achat, la comparaison technique et la conversion.',
+    articles: [
+      { title: 'Comment choisir la bonne capacité de portique mobile', description: 'Une méthode pratique pour relier capacité, portée et rythme d’utilisation.', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: 'Priorités de maintenance des équipements hydrauliques', description: 'Les points critiques à inspecter pour limiter les arrêts et prolonger la durée de vie.', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: 'Ce que les acheteurs export doivent confirmer avant commande', description: 'Un cadre de vérification couvrant documents, normes, alimentation et expédition.', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  },
+  es: {
+    trustTitle: 'Confianza y cifras',
+    trustItems: [
+      { value: '36+', label: 'mercados de exportación atendidos' },
+      { value: '1200+', label: 'proyectos de elevación entregados' },
+      { value: '72h', label: 'para una propuesta estándar' }
+    ],
+    categoriesTitle: 'Series de producto por aplicación',
+    categoriesDescription: 'Explore las principales familias de producto con una vista tipo portal antes de entrar al catálogo detallado.',
+    categories: [
+      { title: 'Grúas pórtico portátiles', description: 'Sistemas flexibles para talleres, almacenes y servicio en campo.', image: '/assets/images/hero.png', href: '/products' },
+      { title: 'Plataformas hidráulicas', description: 'Soluciones estables para mantenimiento en altura y posicionamiento de materiales.', image: '/assets/images/feature-1.png', href: '/products' },
+      { title: 'Sistemas para proyectos a medida', description: 'Paquetes configurados para exportación, EPC y distribuidores.', image: '/assets/images/feature-2.png', href: '/solutions' }
+    ],
+    explore: 'Explorar serie',
+    articlesTitle: 'Latest Articles',
+    articlesDescription: 'Una matriz de contenidos pensada para educación de compra, comparación técnica y conversión.',
+    articles: [
+      { title: 'Cómo elegir la capacidad correcta de una grúa pórtico portátil', description: 'Un marco práctico para relacionar capacidad, luz y ciclo de trabajo.', image: '/assets/images/feature-1.png', href: '/blog' },
+      { title: 'Prioridades de mantenimiento para equipos hidráulicos', description: 'Qué inspeccionar primero para reducir paradas y prolongar la vida útil.', image: '/assets/images/feature-2.png', href: '/blog' },
+      { title: 'Qué debe confirmar un comprador internacional antes de ordenar', description: 'Una guía de verificación para documentos, normas, alimentación y envío.', image: '/assets/images/hero.png', href: '/blog' }
+    ]
+  }
+} as const;
+const portalCopy = homePortalCopy[lang];
 ---
 
 <BaseLayout
@@ -21,17 +162,70 @@ const copy = siteCopy[lang];
   ogImage="https://ascentcrane.com/assets/images/hero.png"
 >
   <Navbar lang={lang} currentPath={Astro.url.pathname} />
-  <main>
-    <section class="bg-white">
-      <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-        <div class="mr-auto place-self-center lg:col-span-7">
+  <main class="bg-slate-50 pt-24">
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-20">
+        <div>
           <span class="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-brand-orange ring-1 ring-inset ring-orange-200">{copy.home.eyebrow}</span>
-          <h1 class="max-w-2xl mt-6 mb-4 text-4xl font-extrabold leading-none tracking-tight text-brand-navy md:text-5xl xl:text-6xl">{copy.home.title}</h1>
-          <p class="max-w-2xl mb-6 font-light text-slate-600 lg:mb-8 md:text-lg lg:text-xl">{copy.home.description}</p>
-          <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-            <a href={getLocalizedPath(lang, '/products')} class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-white rounded-lg sm:w-auto bg-brand-orange hover:bg-orange-600 focus:ring-4 focus:ring-orange-200">{copy.home.primaryCta}</a>
-            <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-slate-900 bg-white border border-slate-200 rounded-lg sm:w-auto hover:bg-slate-100 focus:ring-4 focus:ring-slate-100">{copy.home.secondaryCta}</a>
+          <h1 class="mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-brand-navy md:text-5xl xl:text-6xl">{copy.home.title}</h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">{copy.home.description}</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href={getLocalizedPath(lang, '/products')} class="inline-flex items-center justify-center rounded-xl bg-brand-orange px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white">{copy.home.primaryCta}</a>
+            <a href={getLocalizedPath(lang, '/blog')} class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-100 focus:text-slate-900">Blog</a>
           </div>
+        </div>
+        <div class="rounded-[32px] border border-slate-200 bg-gradient-to-br from-brand-navy via-blue-900 to-slate-900 p-8 text-white shadow-[0_24px_80px_rgba(15,39,68,0.22)]">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{portalCopy.trustTitle}</p>
+          <div class="mt-8 grid gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            {portalCopy.trustItems.map((item) => (
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div class="text-3xl font-extrabold text-white">{item.value}</div>
+                <p class="mt-2 text-sm leading-6 text-slate-200">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{portalCopy.categoriesTitle}</p>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{copy.products.title}</h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">{portalCopy.categoriesDescription}</p>
+      </div>
+      <div class="mt-10 grid gap-8 lg:grid-cols-3">
+        {portalCopy.categories.map((category) => (
+          <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-white text-slate-900 shadow-sm">
+            <div class="h-56 bg-slate-200 bg-cover bg-center" style={`background-image: linear-gradient(180deg, rgba(15,39,68,0.12), rgba(15,39,68,0.58)), url('${category.image}')`}></div>
+            <div class="p-7">
+              <h3 class="text-2xl font-bold text-brand-navy">{category.title}</h3>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{category.description}</p>
+              <a href={getLocalizedPath(lang, category.href)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{portalCopy.explore}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-y border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{portalCopy.articlesTitle}</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{copy.blog.title}</h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">{portalCopy.articlesDescription}</p>
+        </div>
+        <div class="mt-10 grid gap-8 lg:grid-cols-3">
+          {portalCopy.articles.map((article) => (
+            <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-50 text-slate-900 shadow-sm">
+              <div class="h-48 bg-slate-200 bg-cover bg-center" style={`background-image: url('${article.image}')`}></div>
+              <div class="p-7">
+                <h3 class="text-xl font-bold leading-8 text-brand-navy">{article.title}</h3>
+                <p class="mt-4 text-sm leading-7 text-slate-600">{article.description}</p>
+                <a href={getLocalizedPath(lang, article.href)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{portalCopy.explore}</a>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

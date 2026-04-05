@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: Plataforma elevadora de tijera eléctrica hidráulica
 description: Plataforma de tijera eléctrica e hidráulica para acceso vertical seguro, mantenimiento y trabajos internos en altura.
 model: EHSL-450

@@ -1,6 +1,7 @@
 ---
 lang: ru
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: Портативный алюминиевый козловой кран
 description: Легкий алюминиевый козловой кран для обслуживания оборудования, чистых зон и быстрого перемещения между рабочими постами.
 model: AAG-P300

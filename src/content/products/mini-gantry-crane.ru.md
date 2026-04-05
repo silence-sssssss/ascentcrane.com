@@ -1,6 +1,7 @@
 ---
 lang: ru
 slug: mini-gantry-crane
+category: gantry
 title: Мини козловой кран
 description: Компактный мобильный козловой кран для мастерских, складов и сервисных команд, которым нужна гибкая грузоподъемность.
 model: AGC-MG-2T

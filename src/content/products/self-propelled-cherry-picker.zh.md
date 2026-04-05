@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: self-propelled-cherry-picker
+category: lifts
 title: 自行走曲臂升降机
 description: 适用于高空维护、安装作业和绕障作业的自行走臂式高空作业平台。
 model: SPCP-180

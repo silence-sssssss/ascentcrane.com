@@ -1,7 +1,7 @@
 ---
 lang: fr
 slug: global-standards-for-lifting-equipment-a-complete-overview
-title: Normes mondiales pour les équipements de levage : vue d’ensemble complète
+title: "Normes mondiales pour les équipements de levage : vue d’ensemble complète"
 description: Vue d’ensemble complète des principales normes mondiales de levage, des enjeux de conformité et des points à vérifier pour les acheteurs.
 ---
 

@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: self-propelled-cherry-picker
+category: lifts
 title: Plataforma articulada autopropulsada
 description: Plataforma elevadora autopropulsada para mantenimiento en altura, instalación y alcance flexible alrededor de obstáculos.
 model: SPCP-180

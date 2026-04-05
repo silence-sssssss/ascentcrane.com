@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: mini-gantry-crane
+category: gantry
 title: Mini Gantry Crane
 description: Portable mini gantry crane engineered for workshops, warehouses, and maintenance teams that need flexible lifting capacity.
 model: AGC-MG-2T

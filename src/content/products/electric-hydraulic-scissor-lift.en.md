@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: Electric Hydraulic Scissor Lift
 description: Electric hydraulic scissor lift platform for safe vertical access, maintenance work, and internal material positioning.
 model: EHSL-450

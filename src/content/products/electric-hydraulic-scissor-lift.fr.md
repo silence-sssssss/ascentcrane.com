@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: Plateforme élévatrice à ciseaux électrique hydraulique
 description: Plateforme à ciseaux électrique hydraulique pour accès vertical sûr, maintenance et travaux en hauteur.
 model: EHSL-450

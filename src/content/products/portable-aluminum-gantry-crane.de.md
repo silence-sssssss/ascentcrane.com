@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: Mobiler Aluminium-Portalkran
 description: Leichter Aluminium-Portalkran für Wartung, saubere Arbeitsbereiche und schnelle Umpositionierung zwischen Einsatzorten.
 model: AAG-P300

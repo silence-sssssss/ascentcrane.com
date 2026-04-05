@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
+import { getProductCategoryAnchor, getProductCategoryDescription, getProductCategoryLabel, productCategoryOrder, type ProductCategory } from '../../../data/productCategories';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -11,9 +12,73 @@ export function getStaticPaths() {
 const productModules = import.meta.glob('../../../content/products/*.md', { eager: true });
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
+const productListCopy = {
+  en: {
+    tonnage: 'Tonnage', span: 'Span', liftingHeight: 'Lifting Height', cta: 'View Crane Specifications',
+    heroTag: 'Portal Catalog', heroStats: ['5 core product lines', '6 languages', 'Export-ready documentation'],
+    featuredTitle: 'Catalog Highlights', featuredText: 'A structured product center designed for industrial buyers comparing lifting range, deployment speed, and export readiness.',
+    directoryTitle: 'Product Category Directory',
+    directoryText: 'Browse the portfolio through a fixed six-category taxonomy so buyers can compare complete product families before opening a detail page.',
+    categoryNavTitle: 'Categories',
+    countSuffix: 'products'
+  },
+  zh: {
+    tonnage: '起重量', span: '跨度', liftingHeight: '起升高度', cta: '查看起重机参数',
+    heroTag: '门户目录', heroStats: ['5 大核心产品线', '6 种语言', '出口型资料齐备'],
+    featuredTitle: '目录亮点', featuredText: '面向工业采购商构建的结构化产品中心，便于对比起重范围、部署效率和出口适配性。',
+    directoryTitle: '产品分类目录',
+    directoryText: '按照固定的 6 大类目组织产品中心，便于采购方先按产品族浏览，再进入单个详情页。',
+    categoryNavTitle: '分类导航',
+    countSuffix: '个产品'
+  },
+  ru: {
+    tonnage: 'Грузоподъемность', span: 'Пролет', liftingHeight: 'Высота подъема', cta: 'Смотреть характеристики',
+    heroTag: 'Портальный каталог', heroStats: ['5 ключевых продуктовых линий', '6 языков', 'Экспортная документация'],
+    featuredTitle: 'Ключевые преимущества', featuredText: 'Структурированный центр продукции для промышленного покупателя, сравнивающего диапазон подъема, скорость развертывания и готовность к экспорту.',
+    directoryTitle: 'Каталог категорий продукции',
+    directoryText: 'Просматривайте ассортимент по фиксированной шестикатегорийной структуре, чтобы сравнивать семейства продукции до перехода в карточку товара.',
+    categoryNavTitle: 'Категории',
+    countSuffix: 'товаров'
+  },
+  de: {
+    tonnage: 'Tragfähigkeit', span: 'Spannweite', liftingHeight: 'Hubhöhe', cta: 'Spezifikationen ansehen',
+    heroTag: 'Portal-Katalog', heroStats: ['5 Kernproduktlinien', '6 Sprachen', 'Exportfähige Unterlagen'],
+    featuredTitle: 'Katalog-Highlights', featuredText: 'Ein strukturiertes Produktzentrum für industrielle Einkäufer, die Hubbereich, Einsatzgeschwindigkeit und Exportreife vergleichen.',
+    directoryTitle: 'Produktkategorien-Verzeichnis',
+    directoryText: 'Das Produktzentrum ist nach sechs festen Hauptkategorien organisiert, damit Einkäufer Produktfamilien strukturiert vergleichen können.',
+    categoryNavTitle: 'Kategorien',
+    countSuffix: 'Produkte'
+  },
+  fr: {
+    tonnage: 'Capacité', span: 'Portée', liftingHeight: 'Hauteur de levage', cta: 'Voir les spécifications',
+    heroTag: 'Catalogue portail', heroStats: ['5 gammes principales', '6 langues', 'Documentation export prête'],
+    featuredTitle: 'Points forts du catalogue', featuredText: 'Un centre produit structuré pour les acheteurs industriels qui comparent portée, rapidité de déploiement et préparation export.',
+    directoryTitle: 'Répertoire des catégories produits',
+    directoryText: 'Parcourez le portefeuille via une taxonomie fixe de six catégories afin de comparer les familles de produits avant d’ouvrir une fiche détail.',
+    categoryNavTitle: 'Catégories',
+    countSuffix: 'produits'
+  },
+  es: {
+    tonnage: 'Capacidad', span: 'Luz', liftingHeight: 'Altura de elevación', cta: 'Ver especificaciones',
+    heroTag: 'Catálogo portal', heroStats: ['5 líneas principales', '6 idiomas', 'Documentación lista para exportación'],
+    featuredTitle: 'Aspectos clave del catálogo', featuredText: 'Un centro de producto estructurado para compradores industriales que comparan rango de elevación, velocidad de despliegue y preparación exportadora.',
+    directoryTitle: 'Directorio de categorías de producto',
+    directoryText: 'Explore el portafolio mediante una taxonomía fija de seis categorías para comparar familias completas antes de entrar al detalle.',
+    categoryNavTitle: 'Categorías',
+    countSuffix: 'productos'
+  }
+} as const;
+const productListText = productListCopy[lang];
 const products = Object.values(productModules)
-  .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter)
+  .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter as Record<string, string> & { category: ProductCategory })
   .filter((product) => product.lang === lang);
+const categoryGroups = productCategoryOrder.map((category) => ({
+  category,
+  anchorId: getProductCategoryAnchor(category),
+  label: getProductCategoryLabel(lang, category),
+  description: getProductCategoryDescription(lang, category),
+  products: products.filter((product) => product.category === category)
+}));
 ---
 
 <BaseLayout
@@ -26,26 +91,88 @@ const products = Object.values(productModules)
 >
   <Navbar lang={lang} currentPath={Astro.url.pathname} />
   <main class="bg-slate-50 pt-28">
-    <section class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6 lg:py-24">
-      <div class="max-w-3xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.products.eyebrow}</p>
-        <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{copy.products.title}</h1>
-        <p class="mt-5 text-lg leading-8 text-slate-600">{copy.products.description}</p>
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto grid max-w-[1280px] gap-8 px-4 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-20">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.products.eyebrow}</p>
+          <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{copy.products.title}</h1>
+          <p class="mt-5 text-lg leading-8 text-slate-600">{copy.products.description}</p>
+        </div>
+        <div class="rounded-[30px] border border-slate-200 bg-gradient-to-br from-brand-navy via-blue-900 to-slate-900 p-8 text-white shadow-[0_24px_80px_rgba(15,39,68,0.20)]">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{productListText.heroTag}</p>
+          <h2 class="mt-4 text-2xl font-bold">{productListText.featuredTitle}</h2>
+          <p class="mt-3 text-sm leading-7 text-slate-200">{productListText.featuredText}</p>
+          <div class="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            {productListText.heroStats.map((stat) => (
+              <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-slate-100">{stat}</div>
+            ))}
+          </div>
+        </div>
       </div>
-      <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {products.map((product) => (
-          <article class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-[0_20px_70px_rgba(15,39,68,0.08)]">
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{product.model}</p>
-            <h2 class="mt-4 text-2xl font-bold text-brand-navy">{product.title}</h2>
-            <p class="mt-4 text-sm leading-7 text-slate-600">{product.description}</p>
-            <dl class="mt-6 space-y-3 text-sm text-slate-600">
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">Tonnage</dt><dd>{product.tonnage}</dd></div>
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">Span</dt><dd>{product.span}</dd></div>
-              <div class="flex items-center justify-between pb-1"><dt class="font-medium text-slate-900">Lifting Height</dt><dd>{product.liftingHeight}</dd></div>
-            </dl>
-            <a href={getLocalizedPath(lang, `/products/${product.slug}`)} class="mt-8 inline-flex items-center justify-center rounded-2xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">View Crane Specifications</a>
-          </article>
-        ))}
+    </section>
+
+    <section class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8 lg:py-20">
+      <div class="grid gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
+        <aside>
+          <div class="xl:sticky xl:top-28 rounded-[28px] border border-slate-200 bg-white p-6 text-slate-900 shadow-sm">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{productListText.categoryNavTitle}</p>
+            <h2 class="mt-4 text-2xl font-bold text-brand-navy">{productListText.directoryTitle}</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-600">{productListText.directoryText}</p>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+              {categoryGroups.map((group) => (
+                <a href={`#${group.anchorId}`} class="rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900">
+                  <div class="flex items-center justify-between gap-4">
+                    <span>{group.label}</span>
+                    <span class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-slate-500 ring-1 ring-slate-200">{group.products.length}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        <div class="space-y-12">
+          {categoryGroups.map((group) => (
+            <section id={group.anchorId} class="scroll-mt-28">
+              <div class="mb-8">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{group.label}</h2>
+                    <div class="mt-3 h-1 w-24 rounded-full bg-slate-300"></div>
+                  </div>
+                  <p class="text-sm font-semibold text-slate-500">{group.products.length} {productListText.countSuffix}</p>
+                </div>
+                <p class="mt-4 max-w-3xl text-base leading-8 text-slate-600">{group.description}</p>
+              </div>
+
+              {group.products.length > 0 ? (
+                <div class="grid gap-8 md:grid-cols-2 2xl:grid-cols-3">
+                  {group.products.map((product) => (
+                    <article class="overflow-hidden rounded-[30px] border border-slate-200 bg-white text-slate-900 shadow-[0_20px_70px_rgba(15,39,68,0.08)] transition hover:-translate-y-1 hover:shadow-[0_26px_90px_rgba(15,39,68,0.14)]">
+                      <div class="h-48 bg-gradient-to-br from-brand-navy via-blue-900 to-slate-800 p-8 text-white">
+                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{product.model}</p>
+                        <h3 class="mt-6 text-2xl font-bold leading-8">{product.title}</h3>
+                      </div>
+                      <div class="p-8">
+                        <p class="text-sm leading-7 text-slate-600">{product.description}</p>
+                        <dl class="mt-6 space-y-3 text-sm text-slate-600">
+                          <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">{productListText.tonnage}</dt><dd>{product.tonnage}</dd></div>
+                          <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">{productListText.span}</dt><dd>{product.span}</dd></div>
+                          <div class="flex items-center justify-between pb-1"><dt class="font-medium text-slate-900">{productListText.liftingHeight}</dt><dd>{product.liftingHeight}</dd></div>
+                        </dl>
+                        <a href={getLocalizedPath(lang, `/products/${product.slug}`)} class="mt-8 inline-flex items-center justify-center rounded-2xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white">{productListText.cta}</a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <div class="rounded-[24px] border border-dashed border-slate-300 bg-white px-6 py-10 text-sm text-slate-500">
+                  {group.label}
+                </div>
+              )}
+            </section>
+          ))}
+        </div>
       </div>
     </section>
   </main>

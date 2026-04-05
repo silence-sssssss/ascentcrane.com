@@ -1,7 +1,7 @@
 ---
 lang: de
 slug: aluminum-vs-steel-which-gantry-crane-to-choose
-title: Aluminium oder Stahl: Welchen Portalkran wählen?
+title: "Aluminium oder Stahl: Welchen Portalkran wählen?"
 description: Vergleich von Aluminium- und Stahl-Portalkranen nach Gewicht, Steifigkeit, Mobilität, Korrosionsschutz und Einsatzprofil.
 ---
 

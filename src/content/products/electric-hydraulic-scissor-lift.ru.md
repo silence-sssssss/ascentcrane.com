@@ -1,6 +1,7 @@
 ---
 lang: ru
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: Электрогидравлический ножничный подъемник
 description: Электрогидравлическая ножничная платформа для безопасного вертикального доступа и сервисных работ на высоте.
 model: EHSL-450

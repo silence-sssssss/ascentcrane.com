@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: mini-gantry-crane
+category: gantry
 title: 小型龙门吊
 description: 面向车间、仓库和维保团队设计的小型便携式龙门吊，兼顾灵活性与稳定起吊能力。
 model: AGC-MG-2T

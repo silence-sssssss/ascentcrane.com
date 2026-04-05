@@ -1,6 +1,7 @@
 ---
 lang: ru
 slug: self-propelled-cherry-picker
+category: lifts
 title: Самоходный коленчатый подъемник
 description: Самоходная стреловая платформа для обслуживания, монтажа и доступа на высоте с обходом препятствий.
 model: SPCP-180

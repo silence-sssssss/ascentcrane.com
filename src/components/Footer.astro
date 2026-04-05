@@ -7,32 +7,84 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const copy = siteCopy[lang];
+const footerCopy = {
+  en: {
+    description: 'AscentCrane supplies export-ready lifting equipment and technical support for industrial buyers who need dependable delivery, clear documentation, and long-term service.',
+    location: 'Zhengzhou, China',
+    productLinks: ['Gantry Cranes', 'Electric Hoists', 'Workstation Cranes'],
+    solutionLinks: ['Port Handling', 'Factory Lifting', 'Overseas EPC Support'],
+    companyLinks: ['About AscentCrane', 'Contact', 'Request a Quote'],
+    copyright: '\u00A9 2026 AscentCrane. All rights reserved.'
+  },
+  zh: {
+    description: 'AscentCrane 为工业采购商提供面向出口的起重设备与技术支持，帮助客户获得稳定交付、清晰文件与长期服务保障。',
+    location: '中国郑州',
+    productLinks: ['龙门吊', '电动葫芦', '工位起重设备'],
+    solutionLinks: ['港口装卸', '工厂吊装', '海外 EPC 支持'],
+    companyLinks: ['关于 AscentCrane', '联系我们', '获取报价'],
+    copyright: '(c) 2026 AscentCrane。保留所有权利。'
+  },
+  ru: {
+    description: 'AscentCrane поставляет экспортно-ориентированное подъемное оборудование и техническую поддержку для промышленных покупателей, которым важны надежная поставка, понятная документация и долгосрочный сервис.',
+    location: 'Чжэнчжоу, Китай',
+    productLinks: ['Козловые краны', 'Электрические тали', 'Рабочие крановые системы'],
+    solutionLinks: ['Портовая обработка', 'Заводской подъем', 'Поддержка зарубежных EPC'],
+    companyLinks: ['О компании AscentCrane', 'Контакты', 'Запросите предложение'],
+    copyright: '\u00A9 2026 AscentCrane. Все права защищены.'
+  },
+  de: {
+    description: 'AscentCrane liefert exportfähige Hebetechnik und technischen Support für industrielle Käufer, die verlässliche Lieferung, klare Dokumentation und langfristigen Service benötigen.',
+    location: 'Zhengzhou, China',
+    productLinks: ['Portalkrane', 'Elektrokettenzüge', 'Arbeitsplatzkrane'],
+    solutionLinks: ['Portumschlag', 'Fabrikheben', 'Internationaler EPC-Support'],
+    companyLinks: ['Über AscentCrane', 'Kontakt', 'Angebot anfordern'],
+    copyright: '\u00A9 2026 AscentCrane. Alle Rechte vorbehalten.'
+  },
+  fr: {
+    description: 'AscentCrane fournit des équipements de levage prêts pour l’export et un support technique aux acheteurs industriels qui recherchent une livraison fiable, une documentation claire et un service durable.',
+    location: 'Zhengzhou, Chine',
+    productLinks: ['Portiques', 'Palans électriques', 'Ponts de poste'],
+    solutionLinks: ['Manutention portuaire', 'Levage industriel', 'Support EPC international'],
+    companyLinks: ['À propos d’AscentCrane', 'Contact', 'Demander un devis'],
+    copyright: '\u00A9 2026 AscentCrane. Tous droits réservés.'
+  },
+  es: {
+    description: 'AscentCrane suministra equipos de elevación listos para exportación y soporte técnico para compradores industriales que necesitan entrega confiable, documentación clara y servicio a largo plazo.',
+    location: 'Zhengzhou, China',
+    productLinks: ['Grúas pórtico', 'Polipastos eléctricos', 'Grúas de puesto de trabajo'],
+    solutionLinks: ['Manipulación portuaria', 'Elevación industrial', 'Soporte EPC internacional'],
+    companyLinks: ['Sobre AscentCrane', 'Contacto', 'Solicitar cotización'],
+    copyright: '\u00A9 2026 AscentCrane. Todos los derechos reservados.'
+  }
+} as const;
+const footerText = footerCopy[lang];
 const footerGroups = [
   {
     title: copy.footer.products,
     links: [
-      { href: getLocalizedPath(lang, '/products'), label: 'Gantry Cranes' },
-      { href: getLocalizedPath(lang, '/products'), label: 'Electric Hoists' },
-      { href: getLocalizedPath(lang, '/products'), label: 'Workstation Cranes' }
+      { href: getLocalizedPath(lang, '/products'), label: footerText.productLinks[0] },
+      { href: getLocalizedPath(lang, '/products'), label: footerText.productLinks[1] },
+      { href: getLocalizedPath(lang, '/products'), label: footerText.productLinks[2] }
     ]
   },
   {
     title: copy.footer.solutions,
     links: [
-      { href: getLocalizedPath(lang, '/solutions'), label: 'Port Handling' },
-      { href: getLocalizedPath(lang, '/solutions'), label: 'Factory Lifting' },
-      { href: getLocalizedPath(lang, '/solutions'), label: 'Overseas EPC Support' }
+      { href: getLocalizedPath(lang, '/solutions'), label: footerText.solutionLinks[0] },
+      { href: getLocalizedPath(lang, '/solutions'), label: footerText.solutionLinks[1] },
+      { href: getLocalizedPath(lang, '/solutions'), label: footerText.solutionLinks[2] }
     ]
   },
   {
     title: copy.footer.company,
     links: [
-      { href: getLocalizedPath(lang, '/'), label: 'About AscentCrane' },
-      { href: getLocalizedPath(lang, '/contact'), label: 'Contact' },
-      { href: getLocalizedPath(lang, '/contact'), label: 'Request a Quote' }
+      { href: getLocalizedPath(lang, '/'), label: footerText.companyLinks[0] },
+      { href: getLocalizedPath(lang, '/contact'), label: footerText.companyLinks[1] },
+      { href: getLocalizedPath(lang, '/contact'), label: footerText.companyLinks[2] }
     ]
   }
 ];
+
 ---
 
 <footer class="bg-slate-50" id="about">
@@ -44,12 +96,12 @@ const footerGroups = [
           AscentCrane
         </a>
         <p class="max-w-md text-sm leading-7 text-slate-600">
-          AscentCrane supplies export-ready lifting equipment and technical support for industrial buyers who need dependable delivery, clear documentation, and long-term service.
+          {footerText.description}
         </p>
         <div class="mt-6 space-y-2 text-sm text-slate-600">
           <p>sales@ascentcrane.com</p>
           <p>+86 000 0000 0000</p>
-          <p>Zhengzhou, China</p>
+          <p>{footerText.location}</p>
         </div>
       </div>
       {footerGroups.map((group) => (
@@ -66,7 +118,7 @@ const footerGroups = [
       ))}
     </div>
     <div class="pt-6 text-center text-sm text-slate-500">
-      © 2026 AscentCrane. All rights reserved.
+      {footerText.copyright}
     </div>
   </div>
 </footer>

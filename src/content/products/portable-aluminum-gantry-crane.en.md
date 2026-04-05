@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: Portable Aluminum Gantry Crane
 description: Lightweight aluminum gantry crane for maintenance, clean environments, and fast relocation between workstations.
 model: AAG-P300

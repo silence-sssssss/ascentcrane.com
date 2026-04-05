@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: mini-gantry-crane
+category: gantry
 title: Mini portique mobile
 description: Mini portique portable conçu pour les ateliers, entrepôts et équipes de maintenance qui recherchent une capacité de levage flexible.
 model: AGC-MG-2T

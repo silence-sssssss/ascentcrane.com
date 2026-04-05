@@ -1,6 +1,7 @@
 ---
 lang: en
 slug: self-propelled-cherry-picker
+category: lifts
 title: Self-propelled Cherry Picker
 description: Self-propelled boom access platform for elevated maintenance, installation work, and flexible outreach around obstacles.
 model: SPCP-180

@@ -5,6 +5,7 @@ const products = defineCollection({
   schema: z.object({
     lang: z.enum(['en', 'zh', 'ru', 'de', 'fr', 'es']),
     slug: z.string(),
+    category: z.enum(['gantry', 'lifts', 'hoists', 'buffers', 'handling', 'parts']),
     title: z.string(),
     description: z.string(),
     model: z.string(),

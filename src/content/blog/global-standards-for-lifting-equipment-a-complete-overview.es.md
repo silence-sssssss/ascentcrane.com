@@ -1,7 +1,7 @@
 ---
 lang: es
 slug: global-standards-for-lifting-equipment-a-complete-overview
-title: Normas globales para equipos de elevación: una visión completa
+title: "Normas globales para equipos de elevación: una visión completa"
 description: Visión completa de las principales normas globales para equipos de elevación, temas de cumplimiento y verificaciones clave para compradores internacionales.
 ---
 

@@ -1,7 +1,7 @@
 ---
 lang: fr
 slug: aluminum-vs-steel-which-gantry-crane-to-choose
-title: Aluminium ou acier : quel portique choisir ?
+title: "Aluminium ou acier : quel portique choisir ?"
 description: Comparatif des portiques aluminium et acier selon le poids, la rigidité, la mobilité, la corrosion et l’usage réel.
 ---
 

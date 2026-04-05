@@ -1,7 +1,7 @@
 ---
 lang: de
 slug: global-standards-for-lifting-equipment-a-complete-overview
-title: Globale Normen für Hebetechnik: ein vollständiger Überblick
+title: "Globale Normen für Hebetechnik: ein vollständiger Überblick"
 description: Vollständiger Überblick über wichtige internationale Normen für Hebetechnik, Compliance-Themen und Prüfpunkte für Einkäufer.
 ---
 

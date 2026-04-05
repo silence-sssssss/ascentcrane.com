@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: portable-aluminum-gantry-crane
+category: gantry
 title: Portique mobile en aluminium
 description: Portique léger en aluminium pour maintenance, environnements propres et repositionnement rapide entre postes de travail.
 model: AAG-P300

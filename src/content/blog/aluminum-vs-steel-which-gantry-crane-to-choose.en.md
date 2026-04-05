@@ -1,7 +1,7 @@
 ---
 lang: en
 slug: aluminum-vs-steel-which-gantry-crane-to-choose
-title: Aluminum vs. Steel: Which Gantry Crane to Choose?
+title: "Aluminum vs. Steel: Which Gantry Crane to Choose?"
 description: Compare aluminum and steel gantry cranes by weight, strength, mobility, corrosion resistance, and project suitability.
 ---
 

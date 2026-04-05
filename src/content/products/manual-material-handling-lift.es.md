@@ -1,6 +1,7 @@
 ---
 lang: es
 slug: manual-material-handling-lift
+category: handling
 title: Elevador manual para manipulación de materiales
 description: Equipo manual compacto para levantar cajas, componentes y equipos ligeros en tiendas, talleres y áreas de servicio.
 model: MMHL-150

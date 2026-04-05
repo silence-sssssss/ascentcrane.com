@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: mini-gantry-crane
+category: gantry
 title: Mini-Portalkran
 description: Mobiler Mini-Portalkran für Werkstätten, Lager und Instandhaltungsteams mit flexiblem Hebeeinsatz.
 model: AGC-MG-2T

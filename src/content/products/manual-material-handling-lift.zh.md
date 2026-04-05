@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: manual-material-handling-lift
+category: handling
 title: 手动液压搬运升降机
 description: 适用于商超、车间和服务区域搬运纸箱、零件与轻型设备的紧凑型手动升降设备。
 model: MMHL-150

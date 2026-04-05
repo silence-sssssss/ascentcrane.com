@@ -1,6 +1,7 @@
 ---
 lang: fr
 slug: self-propelled-cherry-picker
+category: lifts
 title: Nacelle articulée automotrice
 description: Plateforme élévatrice automotrice pour maintenance en hauteur, installation et franchissement d’obstacles.
 model: SPCP-180

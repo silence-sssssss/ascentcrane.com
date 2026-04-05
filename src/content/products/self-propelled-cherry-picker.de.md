@@ -1,6 +1,7 @@
 ---
 lang: de
 slug: self-propelled-cherry-picker
+category: lifts
 title: Selbstfahrende Gelenkteleskopbühne
 description: Selbstfahrende Hubarbeitsbühne für Wartung, Montage und flexible Reichweite über Hindernisse hinweg.
 model: SPCP-180

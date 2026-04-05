@@ -10,11 +10,57 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
-const solutions = [
-  'Port and terminal lifting solutions',
-  'Workshop and plant material handling',
-  'Overseas EPC and distributor support'
-];
+const solutionsCopy = {
+  en: {
+    items: [
+      'Port and terminal lifting solutions',
+      'Workshop and plant material handling',
+      'Overseas EPC and distributor support'
+    ],
+    description: 'Ascent Crane adapts engineering, compliance, and delivery planning around this operating scenario.'
+  },
+  zh: {
+    items: [
+      '港口与码头吊装方案',
+      '车间与工厂物料搬运',
+      '海外 EPC 与经销支持'
+    ],
+    description: 'Ascent Crane 会围绕该应用场景调整工程方案、合规配置与交付规划。'
+  },
+  ru: {
+    items: [
+      'Подъемные решения для портов и терминалов',
+      'Перемещение материалов в цехах и на заводах',
+      'Поддержка зарубежных EPC и дистрибьюторов'
+    ],
+    description: 'Ascent Crane адаптирует проектирование, соответствие и поставку под данный сценарий эксплуатации.'
+  },
+  de: {
+    items: [
+      'Hebelösungen für Häfen und Terminals',
+      'Materialhandling für Werkstatt und Produktion',
+      'Support für internationale EPC- und Vertriebspartner'
+    ],
+    description: 'Ascent Crane passt Technik, Compliance und Lieferplanung an dieses Einsatzszenario an.'
+  },
+  fr: {
+    items: [
+      'Solutions de levage pour ports et terminaux',
+      'Manutention pour ateliers et usines',
+      'Support EPC international et distributeurs'
+    ],
+    description: 'Ascent Crane adapte l’ingénierie, la conformité et la planification de livraison à ce scénario opérationnel.'
+  },
+  es: {
+    items: [
+      'Soluciones de elevación para puertos y terminales',
+      'Manipulación de materiales para taller y planta',
+      'Soporte para EPC y distribuidores internacionales'
+    ],
+    description: 'Ascent Crane adapta ingeniería, cumplimiento y planificación de entrega según este escenario operativo.'
+  }
+} as const;
+const solutionsText = solutionsCopy[lang];
 ---
 
 <BaseLayout
@@ -34,10 +80,10 @@ const solutions = [
         <p class="mt-5 text-lg leading-8 text-slate-600">{copy.solutions.description}</p>
       </div>
       <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        {solutions.map((solution) => (
-          <article class="rounded-[28px] border border-slate-200 bg-slate-50 p-8">
+        {solutionsText.items.map((solution) => (
+          <article class="rounded-[28px] border border-slate-200 bg-slate-50 p-8 text-slate-900">
             <h2 class="text-2xl font-bold text-brand-navy">{solution}</h2>
-            <p class="mt-4 text-sm leading-7 text-slate-600">Ascent Crane adapts engineering, compliance, and delivery planning around this operating scenario.</p>
+            <p class="mt-4 text-sm leading-7 text-slate-600">{solutionsText.description}</p>
           </article>
         ))}
       </div>

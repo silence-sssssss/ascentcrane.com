@@ -1,6 +1,7 @@
 ---
 lang: zh
 slug: electric-hydraulic-scissor-lift
+category: lifts
 title: 电动液压剪叉式升降台
 description: 适用于高空检修、设备维护和室内垂直作业的电动液压剪叉式升降平台。
 model: EHSL-450
