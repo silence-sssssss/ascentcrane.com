@@ -1,16 +1,25 @@
 ---
+import { buildLanguageSwitcherPath, defaultLang, getLocalizedPath, languageLabels, siteCopy, supportedLangs, type SiteLang } from '../data/i18n';
+
+interface Props {
+  lang?: SiteLang;
+  currentPath?: string;
+}
+
+const { lang = defaultLang, currentPath = '/' } = Astro.props;
+const copy = siteCopy[lang].nav;
 const navLinks = [
-  { href: '#home', label: 'Home' },
-  { href: '#products', label: 'Products' },
-  { href: '#solutions', label: 'Solutions' },
-  { href: '#about', label: 'About' },
-  { href: '#contact', label: 'Request a Crane Quote' }
+  { href: getLocalizedPath(lang, '/'), label: copy.home },
+  { href: getLocalizedPath(lang, '/products'), label: copy.products },
+  { href: getLocalizedPath(lang, '/solutions'), label: copy.solutions },
+  { href: getLocalizedPath(lang, '/blog'), label: copy.blog },
+  { href: getLocalizedPath(lang, '/contact'), label: copy.contact }
 ];
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur">
   <nav class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 lg:px-6">
-    <a href="#home" class="flex items-center gap-3">
+    <a href={getLocalizedPath(lang, '/')} class="flex items-center gap-3">
       <img src="/assets/images/logo.svg" class="h-8 w-auto" alt="AscentCrane logo" />
       <span class="self-center whitespace-nowrap text-xl font-semibold text-brand-navy">AscentCrane</span>
     </a>
@@ -22,12 +31,32 @@ const navLinks = [
           </li>
         ))}
       </ul>
-      <a href="#contact" class="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">
-        Request Crane Quote
+      <div class="relative group">
+        <button type="button" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm focus:outline-none focus:ring-4 focus:ring-slate-100">
+          <span>{languageLabels[lang].flag}</span>
+          <span>{languageLabels[lang].short}</span>
+        </button>
+        <div class="absolute right-0 top-full h-3 w-full"></div>
+        <div class="invisible absolute right-0 top-[calc(100%-1px)] z-10 min-w-40 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+          <div class="rounded-xl border border-slate-200 bg-white p-2 shadow-xl">
+          {supportedLangs.map((item) => (
+            <a href={buildLanguageSwitcherPath(item, currentPath)} class={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition hover:bg-slate-50 ${item === lang ? 'bg-slate-50 text-brand-navy' : 'text-slate-700'}`}>
+              <span class="flex items-center gap-2">
+                <span>{languageLabels[item].flag}</span>
+                <span>{languageLabels[item].native}</span>
+              </span>
+              <span>{languageLabels[item].short}</span>
+            </a>
+          ))}
+          </div>
+        </div>
+      </div>
+      <a href={getLocalizedPath(lang, '/contact')} class="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">
+        {copy.quote}
       </a>
     </div>
-    <a href="#contact" class="rounded-lg bg-brand-orange px-4 py-2 text-sm font-medium text-white lg:hidden">
-      Crane Quote
+    <a href={getLocalizedPath(lang, '/contact')} class="rounded-lg bg-brand-orange px-4 py-2 text-sm font-medium text-white lg:hidden">
+      {copy.contact}
     </a>
   </nav>
 </header>

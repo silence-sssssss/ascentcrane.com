@@ -1,27 +1,35 @@
 ---
+import { defaultLang, getLocalizedPath, siteCopy, type SiteLang } from '../data/i18n';
+
+interface Props {
+  lang?: SiteLang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const copy = siteCopy[lang];
 const footerGroups = [
   {
-    title: 'Products',
+    title: copy.footer.products,
     links: [
-      { href: '#products', label: 'Gantry Cranes' },
-      { href: '#products', label: 'Electric Hoists' },
-      { href: '#products', label: 'Workstation Cranes' }
+      { href: getLocalizedPath(lang, '/products'), label: 'Gantry Cranes' },
+      { href: getLocalizedPath(lang, '/products'), label: 'Electric Hoists' },
+      { href: getLocalizedPath(lang, '/products'), label: 'Workstation Cranes' }
     ]
   },
   {
-    title: 'Solutions',
+    title: copy.footer.solutions,
     links: [
-      { href: '#solutions', label: 'Port Handling' },
-      { href: '#solutions', label: 'Factory Lifting' },
-      { href: '#solutions', label: 'Overseas EPC Support' }
+      { href: getLocalizedPath(lang, '/solutions'), label: 'Port Handling' },
+      { href: getLocalizedPath(lang, '/solutions'), label: 'Factory Lifting' },
+      { href: getLocalizedPath(lang, '/solutions'), label: 'Overseas EPC Support' }
     ]
   },
   {
-    title: 'Company',
+    title: copy.footer.company,
     links: [
-      { href: '#about', label: 'About AscentCrane' },
-      { href: '#contact', label: 'Contact' },
-      { href: '#contact', label: 'Request a Quote' }
+      { href: getLocalizedPath(lang, '/'), label: 'About AscentCrane' },
+      { href: getLocalizedPath(lang, '/contact'), label: 'Contact' },
+      { href: getLocalizedPath(lang, '/contact'), label: 'Request a Quote' }
     ]
   }
 ];
@@ -31,7 +39,7 @@ const footerGroups = [
   <div class="mx-auto max-w-screen-xl px-4 py-12 lg:px-6 lg:py-16">
     <div class="grid gap-10 border-b border-slate-200 pb-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
       <div>
-        <a href="#home" class="mb-5 flex items-center gap-3 text-2xl font-semibold text-brand-navy">
+        <a href={getLocalizedPath(lang, '/')} class="mb-5 flex items-center gap-3 text-2xl font-semibold text-brand-navy">
           <img src="/assets/images/logo.svg" class="h-8 w-auto" alt="AscentCrane logo" />
           AscentCrane
         </a>

@@ -1,10 +1,14 @@
 ---
+import { defaultLang, getLocalizedPath, languageLabels, supportedLangs, type SiteLang } from '../data/i18n';
+
 interface Props {
   title?: string;
   description?: string;
   canonicalURL?: string;
   ogImage?: string;
   type?: 'website' | 'article' | 'product';
+  lang?: SiteLang;
+  pathname?: string;
 }
 
 const siteName = 'Ascent Crane';
@@ -15,16 +19,25 @@ const {
   description = 'Ascent Crane manufactures portable gantry cranes, scissor lifts, hoists, and export-ready lifting equipment for factories, warehouses, and projects.',
   canonicalURL = siteUrl,
   ogImage = `${siteUrl}/assets/images/hero.png`,
-  type = 'website'
+  type = 'website',
+  lang = defaultLang,
+  pathname = '/'
 } = Astro.props;
 
 const absoluteCanonical = canonicalURL.startsWith('http') ? canonicalURL : `${siteUrl}${canonicalURL}`;
 const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const locale = languageLabels[lang].locale;
+const alternates = supportedLangs.map((item) => ({
+  hreflang: item,
+  href: `${siteUrl}${getLocalizedPath(item, pathname)}`
+}));
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={absoluteCanonical} />
+{alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+<link rel="alternate" hreflang="x-default" href={`${siteUrl}${getLocalizedPath(defaultLang, pathname)}`} />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={siteName} />
@@ -32,7 +45,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogIm
 <meta property="og:description" content={description} />
 <meta property="og:url" content={absoluteCanonical} />
 <meta property="og:image" content={absoluteOgImage} />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content={locale} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

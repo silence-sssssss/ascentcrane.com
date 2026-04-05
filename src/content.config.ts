@@ -3,6 +3,8 @@ import { defineCollection, z } from 'astro:content';
 const products = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'zh', 'ru', 'de', 'fr', 'es']),
+    slug: z.string(),
     title: z.string(),
     description: z.string(),
     model: z.string(),
@@ -17,9 +19,21 @@ const products = defineCollection({
   })
 });
 
+const solutions = defineCollection({
+  type: 'content',
+  schema: z.object({
+    lang: z.enum(['en', 'zh', 'ru', 'de', 'fr', 'es']),
+    slug: z.string(),
+    title: z.string(),
+    description: z.string()
+  })
+});
+
 const blog = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'zh', 'ru', 'de', 'fr', 'es']),
+    slug: z.string(),
     title: z.string(),
     description: z.string()
   })
@@ -27,5 +41,6 @@ const blog = defineCollection({
 
 export const collections = {
   products,
+  solutions,
   blog
 };

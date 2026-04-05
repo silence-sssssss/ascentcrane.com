@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import ContactForm from '../../../components/ContactForm.astro';
+import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
+
+export async function getStaticPaths() {
+  const productModules = import.meta.glob('../../../content/products/*.md');
+  const entries = await Promise.all(
+    Object.values(productModules).map(async (resolver) => {
+      const mod = (await resolver()) as {
+        frontmatter: Record<string, string>;
+        default: unknown;
+      };
+
+      return {
+        data: mod.frontmatter,
+        Content: mod.default
+      };
+    })
+  );
+
+  return entries
+    .filter((entry) => supportedLangs.includes(entry.data.lang as SiteLang))
+    .map((entry) => ({
+      params: { lang: entry.data.lang, slug: entry.data.slug },
+      props: { product: entry }
+    }));
+}
+
+const { lang, slug } = Astro.params as { lang: SiteLang; slug: string };
+const { product } = Astro.props as {
+  product: {
+    data: Record<string, string>;
+    Content: unknown;
+  };
+};
+const Content = product.Content;
+const { title, description, model, tonnage, span, liftingHeight, powerSource, stockStatus, price, priceCurrency, heroImage } = product.data;
+const specificationRows = [
+  ['Tonnage', tonnage],
+  ['Span', span],
+  ['Lifting Height', liftingHeight],
+  ['Power Source', powerSource],
+  ['Model', model]
+];
+---
+
+<BaseLayout
+  lang={lang}
+  pathname={`/products/${slug}`}
+  title={`${title} | Ascent Crane Product Detail`}
+  description={description}
+  canonicalURL={`https://ascentcrane.com${getLocalizedPath(lang, `/products/${slug}`)}`}
+  ogImage={`https://ascentcrane.com${heroImage}`}
+  pageType="product"
+  product={{ name: title, model, image: heroImage, description, sku: model, availability: stockStatus, price, priceCurrency }}
+>
+  <Navbar lang={lang} currentPath={Astro.url.pathname} />
+  <main class="bg-white pt-28">
+    <section class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-[1.25fr_0.75fr]">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">Product Detail</p>
+          <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{title}</h1>
+          <p class="mt-5 text-lg leading-8 text-slate-600">{description}</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="#quote-form" class="inline-flex items-center justify-center rounded-2xl bg-brand-orange px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">Request Quote for {title}</a>
+            <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-8 py-4 text-base font-semibold text-slate-900 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-100">Contact Crane Sales Team</a>
+          </div>
+          <article class="prose prose-slate mt-10 max-w-none prose-headings:text-brand-navy prose-a:text-primary-700">
+            <Content />
+          </article>
+          <div id="quote-form" class="mt-12">
+            <ContactForm productName={title} />
+          </div>
+        </div>
+        <aside class="h-fit rounded-[28px] border border-slate-200 bg-slate-50 p-8 shadow-[0_20px_70px_rgba(15,39,68,0.08)]">
+          <h2 class="text-2xl font-bold text-brand-navy">Technical Specifications</h2>
+          <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            {specificationRows.map(([label, value]) => (
+              <div class="grid grid-cols-2 border-b border-slate-200 last:border-b-0">
+                <div class="border-r border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800">{label}</div>
+                <div class="px-4 py-3 text-sm text-slate-600">{value}</div>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

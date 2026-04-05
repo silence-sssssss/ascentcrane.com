@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SeoHead from '../components/SeoHead.astro';
 import Schema from '../components/Schema.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { defaultLang, type SiteLang } from '../data/i18n';
 
 interface ProductSchema {
   name: string;
@@ -22,6 +23,8 @@ interface Props {
   ogImage?: string;
   pageType?: 'home' | 'product';
   product?: ProductSchema;
+  lang?: SiteLang;
+  pathname?: string;
 }
 
 const {
@@ -30,11 +33,13 @@ const {
   canonicalURL = 'https://ascentcrane.com',
   ogImage = 'https://ascentcrane.com/assets/images/hero.png',
   pageType = 'home',
-  product
+  product,
+  lang = defaultLang,
+  pathname = '/'
 } = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -45,6 +50,8 @@ const {
       canonicalURL={canonicalURL}
       ogImage={ogImage}
       type={pageType === 'product' ? 'product' : 'website'}
+      lang={lang}
+      pathname={pathname}
     />
     <Schema pageType={pageType} canonicalURL={canonicalURL} product={product} />
     <link rel="icon" href="/assets/favicon.ico" />

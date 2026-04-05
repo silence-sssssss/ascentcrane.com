@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../data/i18n';
+
+export function getStaticPaths() {
+  return getAllLangStaticPaths();
+}
+
+const { lang } = Astro.params as { lang: SiteLang };
+const copy = siteCopy[lang];
+---
+
+<BaseLayout
+  lang={lang}
+  pathname="/contact"
+  title={`Contact Ascent Crane | ${copy.contact.title}`}
+  description={copy.contact.description}
+  canonicalURL={`https://ascentcrane.com${getLocalizedPath(lang, '/contact')}`}
+  ogImage="https://ascentcrane.com/assets/images/hero.png"
+>
+  <Navbar lang={lang} currentPath={Astro.url.pathname} />
+  <main class="bg-slate-50 pt-28">
+    <section class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6 lg:py-24">
+      <div class="mb-12 max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.contact.eyebrow}</p>
+        <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{copy.contact.title}</h1>
+        <p class="mt-4 text-lg leading-8 text-slate-600">{copy.contact.description}</p>
+      </div>
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <ContactForm />
+        <aside class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-[0_20px_70px_rgba(15,39,68,0.08)]">
+          <h2 class="text-2xl font-bold text-brand-navy">Direct business contact</h2>
+          <div class="mt-6 space-y-5 text-sm leading-7 text-slate-600">
+            <div><p class="font-semibold text-slate-900">Email</p><p>sales@ascentcrane.com</p></div>
+            <div><p class="font-semibold text-slate-900">WhatsApp</p><p>+86 138 0000 0000</p></div>
+            <div><p class="font-semibold text-slate-900">Location</p><p>Changyuan / Xinxiang, Henan, China</p></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

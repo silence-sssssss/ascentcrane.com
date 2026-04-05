@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
+
+export function getStaticPaths() {
+  return getAllLangStaticPaths();
+}
+
+const productModules = import.meta.glob('../../../content/products/*.md', { eager: true });
+const { lang } = Astro.params as { lang: SiteLang };
+const copy = siteCopy[lang];
+const products = Object.values(productModules)
+  .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter)
+  .filter((product) => product.lang === lang);
+---
+
+<BaseLayout
+  lang={lang}
+  pathname="/products"
+  title={`Products | ${copy.products.title}`}
+  description={copy.products.description}
+  canonicalURL={`https://ascentcrane.com${getLocalizedPath(lang, '/products')}`}
+  ogImage="https://ascentcrane.com/assets/images/hero.png"
+>
+  <Navbar lang={lang} currentPath={Astro.url.pathname} />
+  <main class="bg-slate-50 pt-28">
+    <section class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6 lg:py-24">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.products.eyebrow}</p>
+        <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{copy.products.title}</h1>
+        <p class="mt-5 text-lg leading-8 text-slate-600">{copy.products.description}</p>
+      </div>
+      <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        {products.map((product) => (
+          <article class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-[0_20px_70px_rgba(15,39,68,0.08)]">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{product.model}</p>
+            <h2 class="mt-4 text-2xl font-bold text-brand-navy">{product.title}</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-600">{product.description}</p>
+            <dl class="mt-6 space-y-3 text-sm text-slate-600">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">Tonnage</dt><dd>{product.tonnage}</dd></div>
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3"><dt class="font-medium text-slate-900">Span</dt><dd>{product.span}</dd></div>
+              <div class="flex items-center justify-between pb-1"><dt class="font-medium text-slate-900">Lifting Height</dt><dd>{product.liftingHeight}</dd></div>
+            </dl>
+            <a href={getLocalizedPath(lang, `/products/${product.slug}`)} class="mt-8 inline-flex items-center justify-center rounded-2xl bg-brand-orange px-5 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200">View Crane Specifications</a>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
