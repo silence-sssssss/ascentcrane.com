@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import ContactForm from '../../components/ContactForm.astro';
-import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../data/i18n';
+import { getAllLangStaticPaths, getLocalizedPath, getLocalizedSiteAddress, siteCopy, type SiteLang } from '../../data/i18n';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -11,13 +11,14 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
+const localizedAddress = getLocalizedSiteAddress(lang);
 const contactInfoCopy = {
-  en: { title: 'Direct business contact', phone: 'Phone', email: 'Email', location: 'Location', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
-  zh: { title: '直接商务联系', phone: '手机', email: '邮箱', location: '地址', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
-  ru: { title: 'Прямой деловой контакт', phone: 'Телефон', email: 'Email', location: 'Адрес', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
-  de: { title: 'Direkter Geschäftskontakt', phone: 'Telefon', email: 'E-Mail', location: 'Adresse', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
-  fr: { title: 'Contact commercial direct', phone: 'Téléphone', email: 'E-mail', location: 'Adresse', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
-  es: { title: 'Contacto comercial directo', phone: 'Teléfono', email: 'Correo electrónico', location: 'Dirección', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' }
+  en: { title: 'Direct business contact', phone: 'Phone', email: 'Email', location: 'Location' },
+  zh: { title: '直接商务联系', phone: '手机', email: '邮箱', location: '地址' },
+  ru: { title: 'Прямой деловой контакт', phone: 'Телефон', email: 'Email', location: 'Адрес' },
+  de: { title: 'Direkter Geschäftskontakt', phone: 'Telefon', email: 'E-Mail', location: 'Adresse' },
+  fr: { title: 'Contact commercial direct', phone: 'Téléphone', email: 'E-mail', location: 'Adresse' },
+  es: { title: 'Contacto comercial directo', phone: 'Teléfono', email: 'Correo electrónico', location: 'Dirección' }
 } as const;
 const contactInfo = contactInfoCopy[lang];
 ---
@@ -45,7 +46,7 @@ const contactInfo = contactInfoCopy[lang];
           <div class="mt-6 space-y-5 text-sm leading-7 text-slate-600">
             <div><p class="font-semibold text-slate-900">{contactInfo.phone}</p><p>+86 15903067111</p></div>
             <div><p class="font-semibold text-slate-900">{contactInfo.email}</p><p>hntzs@gmail.com</p></div>
-            <div><p class="font-semibold text-slate-900">{contactInfo.location}</p><p>{contactInfo.locationValue}</p></div>
+            <div><p class="font-semibold text-slate-900">{contactInfo.location}</p><p>{localizedAddress}</p></div>
           </div>
         </aside>
       </div>

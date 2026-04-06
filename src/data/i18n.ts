@@ -13,6 +13,19 @@ export const languageLabels: Record<SiteLang, { short: string; native: string; l
   es: { short: 'ES', native: 'Español', locale: 'es_ES', flag: '🇪🇸' }
 };
 
+export const localizedSiteAddress: Record<SiteLang, string> = {
+  en: 'No. 35, Weier Road, Nanpu Industrial Zone, Changyuan City, Xinxiang, Henan, China',
+  zh: '河南省新乡市长垣市南蒲工业区纬二路35号',
+  ru: 'Китай, провинция Хэнань, г. Синьсян, г. Чанъюань, промышленная зона Наньпу, ул. Вэйэр, 35',
+  de: 'Nr. 35, Weier Road, Industriegebiet Nanpu, Stadt Changyuan, Xinxiang, Henan, China',
+  fr: 'No 35, route Weier, zone industrielle de Nanpu, ville de Changyuan, Xinxiang, Henan, Chine',
+  es: 'N.º 35, Weier Road, zona industrial de Nanpu, ciudad de Changyuan, Xinxiang, Henan, China'
+};
+
+export function getLocalizedSiteAddress(lang: SiteLang) {
+  return localizedSiteAddress[lang];
+}
+
 export const siteCopy = {
   en: {
     nav: { home: 'Home', products: 'Products', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Request a Crane Quote' },
@@ -243,4 +256,93 @@ export function buildLanguageSwitcherPath(targetLang: SiteLang, currentPath: str
 
 export function getAllLangStaticPaths() {
   return supportedLangs.map((lang) => ({ params: { lang } }));
+}
+
+const productFieldValueMap = {
+  '起重机防碰撞产品': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  'Crane anti-collision accessory': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  'Kranschutz gegen Kollision': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  'Accessoire anti-collision pour grue': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  'Accesorio anticolisión para grúa': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  'Антиколлизионный аксессуар для крана': {
+    en: 'Crane anti-collision accessory',
+    zh: '起重机防碰撞产品',
+    ru: 'Антиколлизионный аксессуар для крана',
+    de: 'Kranschutz gegen Kollision',
+    fr: 'Accessoire anti-collision pour grue',
+    es: 'Accesorio anticolisión para grúa'
+  },
+  '运行式0.5T-3米（单链）': {
+    en: 'Running Type 0.5T-3m (single chain)',
+    zh: '运行式0.5T-3米（单链）',
+    ru: 'Передвижной тип 0.5T-3м (одна цепь)',
+    de: 'Laufkatze 0.5T-3m (einsträngig)',
+    fr: 'Type roulant 0.5T-3m (chaîne simple)',
+    es: 'Tipo de traslación 0.5T-3m (cadena simple)'
+  },
+  '1吨吊钩': {
+    en: '1 ton hook',
+    zh: '1吨吊钩',
+    ru: 'Крюк 1 тонна',
+    de: '1-Tonnen-Haken',
+    fr: 'Crochet 1 tonne',
+    es: 'Gancho de 1 tonelada'
+  },
+  '1 tonhook': {
+    en: '1 ton hook',
+    zh: '1吨吊钩',
+    ru: 'Крюк 1 тонна',
+    de: '1-Tonnen-Haken',
+    fr: 'Crochet 1 tonne',
+    es: 'Gancho de 1 tonelada'
+  },
+  '自行走剪叉式升降平台': {
+    en: 'Self-Propelled Scissor Lift Platform',
+    zh: '自行走剪叉式升降平台',
+    ru: 'Самоходная ножничная подъемная платформа',
+    de: 'Selbstfahrende Scherenhebebühne',
+    fr: 'Plateforme élévatrice à ciseaux automotrice',
+    es: 'Plataforma elevadora de tijera autopropulsada'
+  }
+} as const;
+
+export function localizeProductFieldValue(lang: SiteLang, value: string) {
+  const normalized = String(value ?? '').trim();
+  if (!normalized) return normalized;
+  return productFieldValueMap[normalized as keyof typeof productFieldValueMap]?.[lang] ?? normalized;
 }

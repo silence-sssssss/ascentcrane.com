@@ -59,11 +59,164 @@ const headerLabels = {
   '序号': { en: 'No.', zh: '序号', ru: '№', de: 'Nr.', fr: 'N°', es: 'N.º' }
 } as const;
 
+const cellValueLabels = {
+  '门式': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  'Gantry Type': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  'Portalbauart': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  'Type portique': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  'Tipo pórtico': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  'Портальный тип': { en: 'Gantry Type', zh: '门式', ru: 'Портальный тип', de: 'Portalbauart', fr: 'Type portique', es: 'Tipo pórtico' },
+  '钢材': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  'Steel': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  'Stahl': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  'Acier': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  'Acero': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  'Сталь': { en: 'Steel', zh: '钢材', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  '镀锌中号': { en: 'Galvanized medium', zh: '镀锌中号', ru: 'Средний оцинкованный', de: 'Mittel verzinkt', fr: 'Moyen galvanisé', es: 'Mediano galvanizado' },
+  '镀锌大号': { en: 'Galvanized large', zh: '镀锌大号', ru: 'Большой оцинкованный', de: 'Groß verzinkt', fr: 'Grand galvanisé', es: 'Grande galvanizado' },
+  '环形': { en: 'Ring type', zh: '环形', ru: 'Кольцевой тип', de: 'Ringtyp', fr: 'Type annulaire', es: 'Tipo anular' },
+  '双轮': { en: 'Double wheel', zh: '双轮', ru: 'Двойное колесо', de: 'Doppelrad', fr: 'Double roue', es: 'Doble rueda' },
+  '蓝色': { en: 'Blue', zh: '蓝色', ru: 'Синий', de: 'Blau', fr: 'Bleu', es: 'Azul' },
+  '1t预付': { en: '1t standard', zh: '1t预付', ru: '1 т стандарт', de: '1t Standard', fr: '1t standard', es: '1t estándar' },
+  '2t预付': { en: '2t standard', zh: '2t预付', ru: '2 т стандарт', de: '2t Standard', fr: '2t standard', es: '2t estándar' },
+  '3t预付': { en: '3t standard', zh: '3t预付', ru: '3 т стандарт', de: '3t Standard', fr: '3t standard', es: '3t estándar' },
+  '5t预付': { en: '5t standard', zh: '5t预付', ru: '5 т стандарт', de: '5t Standard', fr: '5t standard', es: '5t estándar' },
+  '10t预付': { en: '10t standard', zh: '10t预付', ru: '10 т стандарт', de: '10t Standard', fr: '10t standard', es: '10t estándar' },
+  '16t预付': { en: '16t standard', zh: '16t预付', ru: '16 т стандарт', de: '16t Standard', fr: '16t standard', es: '16t estándar' }
+} as const;
+
+const tokenLabels = {
+  '运行式': { en: 'Running Type', zh: '运行式', ru: 'Передвижной тип', de: 'Laufkatze', fr: 'Type roulant', es: 'Tipo de traslación' },
+  '固定式': { en: 'Fixed Type', zh: '固定式', ru: 'Стационарный тип', de: 'Feste Ausführung', fr: 'Type fixe', es: 'Tipo fijo' },
+  '单链': { en: 'single chain', zh: '单链', ru: 'одна цепь', de: 'einsträngig', fr: 'chaîne simple', es: 'cadena simple' },
+  '双链': { en: 'double chain', zh: '双链', ru: 'двойная цепь', de: 'zweisträngig', fr: 'double chaîne', es: 'doble cadena' },
+  '条': { en: '', zh: '条', ru: '', de: '', fr: '', es: '' },
+  '工业自动化机械': { en: 'Industrial automation machinery', zh: '工业自动化机械', ru: 'Промышленное автоматизированное оборудование', de: 'Industrieautomationsmaschinen', fr: 'Machines d’automatisation industrielle', es: 'Maquinaria de automatización industrial' },
+  '钢质': { en: 'Steel', zh: '钢质', ru: 'Сталь', de: 'Stahl', fr: 'Acier', es: 'Acero' },
+  '加厚外壳': { en: 'Reinforced housing', zh: '加厚外壳', ru: 'Усиленный корпус', de: 'Verstärktes Gehäuse', fr: 'Boîtier renforcé', es: 'Carcasa reforzada' },
+  '普通': { en: 'Standard', zh: '普通', ru: 'Стандарт', de: 'Standard', fr: 'Standard', es: 'Estándar' },
+  '江阴款': { en: 'Jiangyin type', zh: '江阴款', ru: 'исполнение Jiangyin', de: 'Jiangyin-Ausführung', fr: 'version Jiangyin', es: 'versión Jiangyin' },
+  '欧式': { en: 'European type', zh: '欧式', ru: 'европейский тип', de: 'Europäische Ausführung', fr: 'type européen', es: 'tipo europeo' },
+  'hook': { en: 'hook', zh: '吊钩', ru: 'крюк', de: 'Haken', fr: 'crochet', es: 'gancho' }
+} as const;
+
+function localizeCellValue(value: string) {
+  if (value === '-' || value === '') return value;
+
+  const direct = cellValueLabels[value as keyof typeof cellValueLabels]?.[lang];
+  if (direct) return direct;
+
+  let normalized = value;
+
+  normalized = normalized.replace(/(\d+)吨/g, (_m, qty) => {
+    const tons = {
+      en: `${qty} ton`,
+      zh: `${qty}吨`,
+      ru: `${qty} тонна`,
+      de: `${qty} Ton`,
+      fr: `${qty} tonne`,
+      es: `${qty} tonelada`
+    } as const;
+    return tons[lang];
+  });
+
+  normalized = normalized.replace(/(\d+)条/g, (_m, qty) => {
+    const chains = {
+      en: qty,
+      zh: `${qty}条`,
+      ru: qty,
+      de: qty,
+      fr: qty,
+      es: qty
+    } as const;
+    return chains[lang];
+  });
+
+  normalized = normalized.replace(/(\d+T)江阴款/g, (_m, qty) => {
+    const labels = {
+      en: `${qty} Jiangyin type`,
+      zh: `${qty}江阴款`,
+      ru: `${qty} исполнение Jiangyin`,
+      de: `${qty} Jiangyin-Ausführung`,
+      fr: `${qty} version Jiangyin`,
+      es: `${qty} versión Jiangyin`
+    } as const;
+    return labels[lang];
+  });
+
+  normalized = normalized.replace(/欧式(\d+T)/g, (_m, qty) => {
+    const labels = {
+      en: `European type ${qty}`,
+      zh: `欧式${qty}`,
+      ru: `европейский тип ${qty}`,
+      de: `Europäische Ausführung ${qty}`,
+      fr: `type européen ${qty}`,
+      es: `tipo europeo ${qty}`
+    } as const;
+    return labels[lang];
+  });
+
+  normalized = normalized.replace(/(\d+)\s*tonhook/gi, (_m, qty) => {
+    const labels = {
+      en: `${qty} ton hook`,
+      zh: `${qty}吨吊钩`,
+      ru: `крюк ${qty} тонна`,
+      de: `${qty}-Tonnen-Haken`,
+      fr: `crochet ${qty} tonne`,
+      es: `gancho de ${qty} tonelada`
+    } as const;
+    return labels[lang];
+  });
+
+  normalized = normalized.replace(/(\d+)吨hook/gi, (_m, qty) => {
+    const labels = {
+      en: `${qty} ton hook`,
+      zh: `${qty}吨吊钩`,
+      ru: `крюк ${qty} тонна`,
+      de: `${qty}-Tonnen-Haken`,
+      fr: `crochet ${qty} tonne`,
+      es: `gancho de ${qty} tonelada`
+    } as const;
+    return labels[lang];
+  });
+
+  normalized = normalized.replace(/（单链）/g, {
+    en: ' (single chain)',
+    zh: '（单链）',
+    ru: ' (одна цепь)',
+    de: ' (einsträngig)',
+    fr: ' (chaîne simple)',
+    es: ' (cadena simple)'
+  }[lang]);
+
+  normalized = normalized.replace(/（双链）/g, {
+    en: ' (double chain)',
+    zh: '（双链）',
+    ru: ' (двойная цепь)',
+    de: ' (zweisträngig)',
+    fr: ' (double chaîne)',
+    es: ' (doble cadena)'
+  }[lang]);
+
+  for (const [token, translations] of Object.entries(tokenLabels)) {
+    normalized = normalized.replaceAll(token, translations[lang]);
+  }
+
+  return normalized.replace(/\s{2,}/g, ' ').trim();
+}
+
 const visibleHeaders = headers
   .filter((header) => String(header || '').trim() !== '')
   .map((header) => headerLabels[header as keyof typeof headerLabels]?.[lang] ?? header);
 const normalizedRows = rows
-  .map((row) => row.slice(0, visibleHeaders.length).map((cell) => String(cell ?? '').trim() || '-'))
+  .map((row) =>
+    row
+      .slice(0, visibleHeaders.length)
+      .map((cell) => {
+        const value = String(cell ?? '').trim() || '-';
+        return localizeCellValue(value);
+      })
+  )
   .filter((row) => row.some((cell) => cell !== '-'));
 ---
 

@@ -4,7 +4,7 @@ slug: self-propelled-scissor-lift-platform
 category: lifts
 title: "Self-Propelled Scissor Lift Platform"
 description: "Self-Propelled Scissor Lift Platform de Ascent Crane está diseñado para ofrecer rendimiento de elevación confiable, entrega exportadora y servicio industrial de largo plazo."
-model: "自行走剪叉式升降平台"
+model: "Plataforma elevadora de tijera autopropulsada"
 tonnage: "Ver tabla de variantes"
 span: "Según variante"
 liftingHeight: "Según variante"

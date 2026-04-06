@@ -17,7 +17,7 @@ seoTitle: "Chain-Driven Hydraulic Cargo Lift | Ascent Crane"
 metaDescription: "Chain-Driven Hydraulic Cargo Lift de Ascent Crane combina rendimiento confiable, calidad lista para exportación y soporte estable para compradores industriales y proyectos internacionales."
 videoUrls: ["/assets/videos/chain-driven-hydraulic-cargo-lift-01.mp4"]
 galleryImages: ["/assets/images/products/chain-driven-hydraulic-cargo-lift-01.webp", "/assets/images/products/chain-driven-hydraulic-cargo-lift-02.webp", "/assets/images/products/chain-driven-hydraulic-cargo-lift-03.webp", "/assets/images/products/chain-driven-hydraulic-cargo-lift-04.webp", "/assets/images/products/chain-driven-hydraulic-cargo-lift-05.webp"]
-tableHeaders: ["产品规格", "额定载荷(kg)", "最高高度(mm)", "台面尺寸(mm)", "本体高度", "电机功率", "电源电压(kw)", "上升时间", "工作行程(mm)", "设备材质", "设备自重", "价格", "进货数量"]
-tableRows: [["1T", "300kg", "8000mm", "1*1.28", "1500mm", "5.5kW", "380V", "30s", "10", "钢材", "2000", "1600", "-"], ["2T", "300kg", "8000mm", "1*1.28", "1500mm", "5.5kW", "380V", "35s", "10", "钢材", "2000", "1600", "-"]]
+tableHeaders: ["Especificación del producto", "Carga nominal (kg)", "Altura máxima (mm)", "Tamaño de plataforma (mm)", "Altura total", "Potencia del motor", "Voltaje de alimentación", "Tiempo de elevación", "Recorrido de trabajo (mm)", "Material del equipo", "Peso del equipo", "Precio", "MOQ"]
+tableRows: [["1T", "300kg", "8000mm", "1*1.28", "1500mm", "5.5kW", "380V", "30s", "10", "Acero", "2000", "1600", "-"], ["2T", "300kg", "8000mm", "1*1.28", "1500mm", "5.5kW", "380V", "35s", "10", "Acero", "2000", "1600", "-"]]
 ---
 

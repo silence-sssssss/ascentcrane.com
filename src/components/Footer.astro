@@ -1,5 +1,5 @@
 ---
-import { defaultLang, getLocalizedPath, siteCopy, type SiteLang } from '../data/i18n';
+import { defaultLang, getLocalizedPath, getLocalizedSiteAddress, siteCopy, type SiteLang } from '../data/i18n';
 
 interface Props {
   lang?: SiteLang;
@@ -10,7 +10,6 @@ const copy = siteCopy[lang];
 const footerCopy = {
   en: {
     description: 'AscentCrane supplies export-ready lifting equipment and technical support for industrial buyers who need dependable delivery, clear documentation, and long-term service.',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['Gantry Cranes', 'Electric Hoists', 'Workstation Cranes'],
     solutionLinks: ['Port Handling', 'Factory Lifting', 'Overseas EPC Support'],
     companyLinks: ['About AscentCrane', 'Contact', 'Request a Quote'],
@@ -18,7 +17,6 @@ const footerCopy = {
   },
   zh: {
     description: 'AscentCrane 为工业采购商提供面向出口的起重设备与技术支持，帮助客户获得稳定交付、清晰文件与长期服务保障。',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['龙门吊', '电动葫芦', '工位起重设备'],
     solutionLinks: ['港口装卸', '工厂吊装', '海外 EPC 支持'],
     companyLinks: ['关于 AscentCrane', '联系我们', '获取报价'],
@@ -26,7 +24,6 @@ const footerCopy = {
   },
   ru: {
     description: 'AscentCrane поставляет экспортно-ориентированное подъемное оборудование и техническую поддержку для промышленных покупателей, которым важны надежная поставка, понятная документация и долгосрочный сервис.',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['Козловые краны', 'Электрические тали', 'Рабочие крановые системы'],
     solutionLinks: ['Портовая обработка', 'Заводской подъем', 'Поддержка зарубежных EPC'],
     companyLinks: ['О компании AscentCrane', 'Контакты', 'Запросите предложение'],
@@ -34,7 +31,6 @@ const footerCopy = {
   },
   de: {
     description: 'AscentCrane liefert exportfähige Hebetechnik und technischen Support für industrielle Käufer, die verlässliche Lieferung, klare Dokumentation und langfristigen Service benötigen.',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['Portalkrane', 'Elektrokettenzüge', 'Arbeitsplatzkrane'],
     solutionLinks: ['Portumschlag', 'Fabrikheben', 'Internationaler EPC-Support'],
     companyLinks: ['Über AscentCrane', 'Kontakt', 'Angebot anfordern'],
@@ -42,7 +38,6 @@ const footerCopy = {
   },
   fr: {
     description: 'AscentCrane fournit des équipements de levage prêts pour l’export et un support technique aux acheteurs industriels qui recherchent une livraison fiable, une documentation claire et un service durable.',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['Portiques', 'Palans électriques', 'Ponts de poste'],
     solutionLinks: ['Manutention portuaire', 'Levage industriel', 'Support EPC international'],
     companyLinks: ['À propos d’AscentCrane', 'Contact', 'Demander un devis'],
@@ -50,7 +45,6 @@ const footerCopy = {
   },
   es: {
     description: 'AscentCrane suministra equipos de elevación listos para exportación y soporte técnico para compradores industriales que necesitan entrega confiable, documentación clara y servicio a largo plazo.',
-    location: '河南省新乡市长垣市南蒲工业区纬二路35号',
     productLinks: ['Grúas pórtico', 'Polipastos eléctricos', 'Grúas de puesto de trabajo'],
     solutionLinks: ['Manipulación portuaria', 'Elevación industrial', 'Soporte EPC internacional'],
     companyLinks: ['Sobre AscentCrane', 'Contacto', 'Solicitar cotización'],
@@ -58,6 +52,7 @@ const footerCopy = {
   }
 } as const;
 const footerText = footerCopy[lang];
+const localizedAddress = getLocalizedSiteAddress(lang);
 const footerGroups = [
   {
     title: copy.footer.products,
@@ -101,7 +96,7 @@ const footerGroups = [
         <div class="mt-6 grid gap-px border border-slate-200 bg-slate-200 text-sm">
           <p class="bg-white px-4 py-3 font-mono text-slate-700">hntzs@gmail.com</p>
           <p class="bg-white px-4 py-3 font-mono text-slate-700">+86 15903067111</p>
-          <p class="bg-white px-4 py-3 font-mono text-slate-700">{footerText.location}</p>
+          <p class="bg-white px-4 py-3 font-mono text-slate-700">{localizedAddress}</p>
         </div>
       </div>
       {footerGroups.map((group) => (

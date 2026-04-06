@@ -6,6 +6,7 @@ import HeroCarousel from '../../components/HeroCarousel.astro';
 import ExportFeatures from '../../components/ExportFeatures.astro';
 import GlobalReach from '../../components/GlobalReach.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../data/i18n';
+import { getBlogImage, getSolutionImage } from '../../data/contentMedia';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -13,6 +14,16 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
+const homeProductImages = {
+  gantry: '/assets/images/products/mobile-warehouse-gantry-crane-01.webp',
+  lifts: '/assets/images/products/chain-driven-hydraulic-cargo-lift-01.webp',
+  solutions: getSolutionImage('manufacturing-assembly-line-lift')
+} as const;
+const homeArticleSlugs = {
+  safety: '2025-safety-guide-for-portable-gantry-cranes',
+  maintenance: 'maintenance-tips-for-hydraulic-scissor-lifts',
+  digitalization: 'how-digitalization-improves-lifting-efficiency'
+} as const;
 const homePortalCopy = {
   en: {
     trustTitle: 'Trust & Figures',
@@ -24,17 +35,17 @@ const homePortalCopy = {
     categoriesTitle: 'Product Series by Application',
     categoriesDescription: 'Explore the major product families with a portal-style overview before entering the detailed catalog.',
     categories: [
-      { title: 'Portable Gantry Cranes', description: 'Flexible gantry systems for workshops, warehouses, and field service.', image: '/assets/images/hero.png', href: '/products' },
-      { title: 'Hydraulic Lift Platforms', description: 'Stable lifting solutions for maintenance access and material positioning.', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: 'Custom Project Systems', description: 'Configured equipment packages for export, EPC, and distributor channels.', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: 'Portable Gantry Cranes', description: 'Flexible gantry systems for workshops, warehouses, and field service.', image: homeProductImages.gantry, href: '/products' },
+      { title: 'Hydraulic Lift Platforms', description: 'Stable lifting solutions for maintenance access and material positioning.', image: homeProductImages.lifts, href: '/products' },
+      { title: 'Custom Project Systems', description: 'Configured equipment packages for export, EPC, and distributor channels.', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: 'Explore Series',
     articlesTitle: 'Latest Articles',
     articlesDescription: 'A content matrix built for procurement education, specification comparison, and conversion support.',
     articles: [
-      { title: 'How to choose the right portable gantry crane capacity', description: 'A buyer-focused framework for matching tonnage, span, and duty cycle to your real scenario.', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: 'Maintenance priorities for hydraulic lifting equipment', description: 'See what industrial teams should inspect first to reduce stoppage and extend service life.', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: 'What overseas buyers should confirm before ordering', description: 'A checklist-driven article path covering documents, standards, power supply, and shipping.', image: '/assets/images/hero.png', href: '/blog' }
+      { title: 'How to choose the right portable gantry crane capacity', description: 'A buyer-focused framework for matching tonnage, span, and duty cycle to your real scenario.', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: 'Maintenance priorities for hydraulic lifting equipment', description: 'See what industrial teams should inspect first to reduce stoppage and extend service life.', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: 'What overseas buyers should confirm before ordering', description: 'A checklist-driven article path covering documents, standards, power supply, and shipping.', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: 'Verified Platforms',
     platformsTitle: 'Officially Verified Marketplace Presence',
@@ -51,17 +62,17 @@ const homePortalCopy = {
     categoriesTitle: '按应用场景划分的产品系列',
     categoriesDescription: '先以门户式视图了解核心产品家族，再进入详细目录页。',
     categories: [
-      { title: '便携式龙门吊系列', description: '适用于车间、仓库与现场服务的灵活龙门吊系统。', image: '/assets/images/hero.png', href: '/products' },
-      { title: '液压升降平台系列', description: '适用于检修作业和物料定位的稳定升降方案。', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: '定制项目系统', description: '面向出口、EPC 与经销渠道的成套化配置设备。', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: '便携式龙门吊系列', description: '适用于车间、仓库与现场服务的灵活龙门吊系统。', image: homeProductImages.gantry, href: '/products' },
+      { title: '液压升降平台系列', description: '适用于检修作业和物料定位的稳定升降方案。', image: homeProductImages.lifts, href: '/products' },
+      { title: '定制项目系统', description: '面向出口、EPC 与经销渠道的成套化配置设备。', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: '查看系列',
     articlesTitle: '最新文章',
     articlesDescription: '围绕采购教育、参数比较与商业转化搭建的内容矩阵。',
     articles: [
-      { title: '如何选择合适的便携式龙门吊吨位', description: '从吨位、跨度和工况出发，快速匹配真实应用场景。', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: '液压升降设备的维护优先级', description: '帮助工业团队识别关键检查项，减少停机并延长设备寿命。', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: '海外采购下单前应确认的关键事项', description: '以清单方式覆盖文件、标准、电源与运输条件。', image: '/assets/images/hero.png', href: '/blog' }
+      { title: '如何选择合适的便携式龙门吊吨位', description: '从吨位、跨度和工况出发，快速匹配真实应用场景。', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: '液压升降设备的维护优先级', description: '帮助工业团队识别关键检查项，减少停机并延长设备寿命。', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: '海外采购下单前应确认的关键事项', description: '以清单方式覆盖文件、标准、电源与运输条件。', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: '官方入驻平台',
     platformsTitle: '官方入驻平台与核验渠道',
@@ -78,17 +89,17 @@ const homePortalCopy = {
     categoriesTitle: 'Серии продукции по применению',
     categoriesDescription: 'Изучите ключевые продуктовые направления в формате отраслевого портала перед переходом в каталог.',
     categories: [
-      { title: 'Мобильные козловые краны', description: 'Гибкие крановые системы для цехов, складов и выездного сервиса.', image: '/assets/images/hero.png', href: '/products' },
-      { title: 'Гидравлические подъемные платформы', description: 'Стабильные подъемные решения для обслуживания и позиционирования грузов.', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: 'Индивидуальные проектные системы', description: 'Комплексные решения для экспорта, EPC и дилерских каналов.', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: 'Мобильные козловые краны', description: 'Гибкие крановые системы для цехов, складов и выездного сервиса.', image: homeProductImages.gantry, href: '/products' },
+      { title: 'Гидравлические подъемные платформы', description: 'Стабильные подъемные решения для обслуживания и позиционирования грузов.', image: homeProductImages.lifts, href: '/products' },
+      { title: 'Индивидуальные проектные системы', description: 'Комплексные решения для экспорта, EPC и дилерских каналов.', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: 'Открыть серию',
     articlesTitle: 'Последние статьи',
     articlesDescription: 'Контент-матрица для обучения закупщиков, сравнения спецификаций и роста конверсии.',
     articles: [
-      { title: 'Как выбрать правильную грузоподъемность мобильного крана', description: 'Практический подход к выбору грузоподъемности, пролета и режима работы.', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: 'Приоритеты обслуживания гидравлического подъемного оборудования', description: 'Ключевые проверки для сокращения простоев и продления срока службы.', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: 'Что нужно подтвердить перед международным заказом', description: 'Контрольный список по документам, стандартам, питанию и логистике.', image: '/assets/images/hero.png', href: '/blog' }
+      { title: 'Как выбрать правильную грузоподъемность мобильного крана', description: 'Практический подход к выбору грузоподъемности, пролета и режима работы.', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: 'Приоритеты обслуживания гидравлического подъемного оборудования', description: 'Ключевые проверки для сокращения простоев и продления срока службы.', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: 'Что нужно подтвердить перед международным заказом', description: 'Контрольный список по документам, стандартам, питанию и логистике.', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: 'Verified Platforms',
     platformsTitle: 'Официальные платформы присутствия',
@@ -105,17 +116,17 @@ const homePortalCopy = {
     categoriesTitle: 'Produktserien nach Anwendung',
     categoriesDescription: 'Verschaffen Sie sich zuerst einen portalartigen Überblick über die Kernserien und wechseln Sie dann in den Detailkatalog.',
     categories: [
-      { title: 'Mobile Portalkrane', description: 'Flexible Kransysteme für Werkstätten, Lager und Außeneinsatz.', image: '/assets/images/hero.png', href: '/products' },
-      { title: 'Hydraulische Hebebühnen', description: 'Stabile Hebelösungen für Wartung und Materialpositionierung.', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: 'Projektbezogene Systemlösungen', description: 'Konfigurierte Gerätepakete für Export-, EPC- und Vertriebskanäle.', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: 'Mobile Portalkrane', description: 'Flexible Kransysteme für Werkstätten, Lager und Außeneinsatz.', image: homeProductImages.gantry, href: '/products' },
+      { title: 'Hydraulische Hebebühnen', description: 'Stabile Hebelösungen für Wartung und Materialpositionierung.', image: homeProductImages.lifts, href: '/products' },
+      { title: 'Projektbezogene Systemlösungen', description: 'Konfigurierte Gerätepakete für Export-, EPC- und Vertriebskanäle.', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: 'Serie ansehen',
     articlesTitle: 'Latest Articles',
     articlesDescription: 'Eine Content-Matrix für Beschaffungswissen, Spezifikationsvergleich und Conversion-Unterstützung.',
     articles: [
-      { title: 'Wie wählt man die richtige Tragfähigkeit eines Portalkrans', description: 'Ein praxisnahes Raster für Tragfähigkeit, Spannweite und Einsatzprofil.', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: 'Wartungsprioritäten für hydraulische Hebetechnik', description: 'Welche Punkte Teams zuerst prüfen sollten, um Stillstand zu vermeiden.', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: 'Was internationale Käufer vor der Bestellung prüfen sollten', description: 'Checkliste zu Dokumentation, Standards, Stromversorgung und Versand.', image: '/assets/images/hero.png', href: '/blog' }
+      { title: 'Wie wählt man die richtige Tragfähigkeit eines Portalkrans', description: 'Ein praxisnahes Raster für Tragfähigkeit, Spannweite und Einsatzprofil.', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: 'Wartungsprioritäten für hydraulische Hebetechnik', description: 'Welche Punkte Teams zuerst prüfen sollten, um Stillstand zu vermeiden.', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: 'Was internationale Käufer vor der Bestellung prüfen sollten', description: 'Checkliste zu Dokumentation, Standards, Stromversorgung und Versand.', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: 'Verified Platforms',
     platformsTitle: 'Offiziell verifizierte Plattformpräsenz',
@@ -132,17 +143,17 @@ const homePortalCopy = {
     categoriesTitle: 'Séries produits par application',
     categoriesDescription: 'Explorez les grandes familles de produits dans une logique portail avant d’entrer dans le catalogue détaillé.',
     categories: [
-      { title: 'Portiques mobiles', description: 'Systèmes de portiques flexibles pour ateliers, entrepôts et interventions terrain.', image: '/assets/images/hero.png', href: '/products' },
-      { title: 'Plateformes hydrauliques', description: 'Solutions stables pour maintenance en hauteur et positionnement matière.', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: 'Systèmes projet sur mesure', description: 'Packages configurés pour l’export, les projets EPC et les distributeurs.', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: 'Portiques mobiles', description: 'Systèmes de portiques flexibles pour ateliers, entrepôts et interventions terrain.', image: homeProductImages.gantry, href: '/products' },
+      { title: 'Plateformes hydrauliques', description: 'Solutions stables pour maintenance en hauteur et positionnement matière.', image: homeProductImages.lifts, href: '/products' },
+      { title: 'Systèmes projet sur mesure', description: 'Packages configurés pour l’export, les projets EPC et les distributeurs.', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: 'Explorer la série',
     articlesTitle: 'Latest Articles',
     articlesDescription: 'Une matrice de contenu pensée pour l’éducation achat, la comparaison technique et la conversion.',
     articles: [
-      { title: 'Comment choisir la bonne capacité de portique mobile', description: 'Une méthode pratique pour relier capacité, portée et rythme d’utilisation.', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: 'Priorités de maintenance des équipements hydrauliques', description: 'Les points critiques à inspecter pour limiter les arrêts et prolonger la durée de vie.', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: 'Ce que les acheteurs export doivent confirmer avant commande', description: 'Un cadre de vérification couvrant documents, normes, alimentation et expédition.', image: '/assets/images/hero.png', href: '/blog' }
+      { title: 'Comment choisir la bonne capacité de portique mobile', description: 'Une méthode pratique pour relier capacité, portée et rythme d’utilisation.', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: 'Priorités de maintenance des équipements hydrauliques', description: 'Les points critiques à inspecter pour limiter les arrêts et prolonger la durée de vie.', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: 'Ce que les acheteurs export doivent confirmer avant commande', description: 'Un cadre de vérification couvrant documents, normes, alimentation et expédition.', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: 'Verified Platforms',
     platformsTitle: 'Présence officielle sur les plateformes',
@@ -159,17 +170,17 @@ const homePortalCopy = {
     categoriesTitle: 'Series de producto por aplicación',
     categoriesDescription: 'Explore las principales familias de producto con una vista tipo portal antes de entrar al catálogo detallado.',
     categories: [
-      { title: 'Grúas pórtico portátiles', description: 'Sistemas flexibles para talleres, almacenes y servicio en campo.', image: '/assets/images/hero.png', href: '/products' },
-      { title: 'Plataformas hidráulicas', description: 'Soluciones estables para mantenimiento en altura y posicionamiento de materiales.', image: '/assets/images/feature-1.png', href: '/products' },
-      { title: 'Sistemas para proyectos a medida', description: 'Paquetes configurados para exportación, EPC y distribuidores.', image: '/assets/images/feature-2.png', href: '/solutions' }
+      { title: 'Grúas pórtico portátiles', description: 'Sistemas flexibles para talleres, almacenes y servicio en campo.', image: homeProductImages.gantry, href: '/products' },
+      { title: 'Plataformas hidráulicas', description: 'Soluciones estables para mantenimiento en altura y posicionamiento de materiales.', image: homeProductImages.lifts, href: '/products' },
+      { title: 'Sistemas para proyectos a medida', description: 'Paquetes configurados para exportación, EPC y distribuidores.', image: homeProductImages.solutions, href: '/solutions' }
     ],
     explore: 'Explorar serie',
     articlesTitle: 'Latest Articles',
     articlesDescription: 'Una matriz de contenidos pensada para educación de compra, comparación técnica y conversión.',
     articles: [
-      { title: 'Cómo elegir la capacidad correcta de una grúa pórtico portátil', description: 'Un marco práctico para relacionar capacidad, luz y ciclo de trabajo.', image: '/assets/images/feature-1.png', href: '/blog' },
-      { title: 'Prioridades de mantenimiento para equipos hidráulicos', description: 'Qué inspeccionar primero para reducir paradas y prolongar la vida útil.', image: '/assets/images/feature-2.png', href: '/blog' },
-      { title: 'Qué debe confirmar un comprador internacional antes de ordenar', description: 'Una guía de verificación para documentos, normas, alimentación y envío.', image: '/assets/images/hero.png', href: '/blog' }
+      { title: 'Cómo elegir la capacidad correcta de una grúa pórtico portátil', description: 'Un marco práctico para relacionar capacidad, luz y ciclo de trabajo.', image: getBlogImage(homeArticleSlugs.safety), href: `/blog/${homeArticleSlugs.safety}` },
+      { title: 'Prioridades de mantenimiento para equipos hidráulicos', description: 'Qué inspeccionar primero para reducir paradas y prolongar la vida útil.', image: getBlogImage(homeArticleSlugs.maintenance), href: `/blog/${homeArticleSlugs.maintenance}` },
+      { title: 'Qué debe confirmar un comprador internacional antes de ordenar', description: 'Una guía de verificación para documentos, normas, alimentación y envío.', image: getBlogImage(homeArticleSlugs.digitalization), href: `/blog/${homeArticleSlugs.digitalization}` }
     ],
     platformsEyebrow: 'Verified Platforms',
     platformsTitle: 'Presencia oficial en plataformas verificadas',

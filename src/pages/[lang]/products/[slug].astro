@@ -2,7 +2,7 @@
 import ProductLayout from '../../../layouts/ProductLayout.astro';
 import DataSheetTable from '../../../components/DataSheetTable.astro';
 import ContactForm from '../../../components/ContactForm.astro';
-import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
+import { supportedLangs, getLocalizedPath, localizeProductFieldValue, type SiteLang } from '../../../data/i18n';
 import { getProductCategoryAnchor, getProductCategoryLabel, productCategoryOrder, type ProductCategory } from '../../../data/productCategories';
 
 export async function getStaticPaths() {
@@ -124,6 +124,7 @@ const detailCopy = {
   }
 } as const;
 const detailText = detailCopy[lang];
+const localizedModel = localizeProductFieldValue(lang, model);
 const tocItems = [
   { id: 'overview', text: detailText.eyebrow, level: 2 },
   { id: 'excel-spec-table', text: detailText.excelTable, level: 2 },
@@ -166,7 +167,7 @@ const categoryItems = productCategoryOrder.map((item) => ({
   categoryItems={categoryItems}
   stickyLabel={title}
   pageType="product"
-  product={{ name: title, model, image: heroImage, description, sku: model, availability: stockStatus, price, priceCurrency }}
+  product={{ name: title, model: localizedModel, image: heroImage, description, sku: localizedModel, availability: stockStatus, price, priceCurrency }}
 >
   <section id="overview">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

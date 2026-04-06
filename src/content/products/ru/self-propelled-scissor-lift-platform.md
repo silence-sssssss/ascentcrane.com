@@ -4,7 +4,7 @@ slug: self-propelled-scissor-lift-platform
 category: lifts
 title: "Self-Propelled Scissor Lift Platform"
 description: "Self-Propelled Scissor Lift Platform от Ascent Crane разработан для надежной подъемной работы, экспортных поставок и долгосрочной промышленной эксплуатации."
-model: "自行走剪叉式升降平台"
+model: "Самоходная ножничная подъемная платформа"
 tonnage: "См. таблицу вариантов"
 span: "По варианту модели"
 liftingHeight: "По варианту модели"

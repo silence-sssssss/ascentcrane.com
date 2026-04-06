@@ -1,4 +1,6 @@
 ---
+import { defaultLang, getLocalizedSiteAddress, type SiteLang } from '../data/i18n';
+
 interface ProductSchema {
   name: string;
   model?: string;
@@ -14,16 +16,19 @@ interface Props {
   pageType?: 'home' | 'product';
   canonicalURL?: string;
   product?: ProductSchema;
+  lang?: SiteLang;
 }
 
 const siteUrl = 'https://ascentcrane.com';
 const {
   pageType = 'home',
   canonicalURL = siteUrl,
-  product
+  product,
+  lang = defaultLang
 } = Astro.props;
 
 const absoluteCanonical = canonicalURL.startsWith('http') ? canonicalURL : `${siteUrl}${canonicalURL}`;
+const localizedAddress = getLocalizedSiteAddress(lang);
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -43,9 +48,9 @@ const localBusinessSchema = {
   telephone: '+86 15903067111',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '南蒲工业区纬二路35号',
-    addressLocality: '长垣市',
-    addressRegion: '河南省新乡市',
+    streetAddress: localizedAddress,
+    addressLocality: 'Changyuan City',
+    addressRegion: 'Xinxiang, Henan',
     addressCountry: 'CN'
   },
   areaServed: ['Europe', 'Middle East', 'Southeast Asia', 'South America'],
