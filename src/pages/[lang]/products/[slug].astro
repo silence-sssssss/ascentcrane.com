@@ -6,7 +6,7 @@ import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i
 import { getProductCategoryAnchor, getProductCategoryLabel, productCategoryOrder, type ProductCategory } from '../../../data/productCategories';
 
 export async function getStaticPaths() {
-  const productModules = import.meta.glob('../../../content/products/*.md');
+  const productModules = import.meta.glob('../../../content/products/**/*.md');
   const entries = await Promise.all(
     Object.values(productModules).map(async (resolver) => {
       const mod = (await resolver()) as {

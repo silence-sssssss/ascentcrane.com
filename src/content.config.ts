@@ -16,7 +16,11 @@ const products = defineCollection({
     stockStatus: z.string().default('https://schema.org/InStock'),
     price: z.string().default('0'),
     priceCurrency: z.string().default('USD'),
-    heroImage: z.string().default('/assets/images/hero.png')
+    heroImage: z.string().default('/assets/images/hero.png'),
+    seoTitle: z.string().optional(),
+    metaDescription: z.string().optional(),
+    videoUrls: z.array(z.string()).optional(),
+    galleryImages: z.array(z.string()).optional()
   })
 });
 

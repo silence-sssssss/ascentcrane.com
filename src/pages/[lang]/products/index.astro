@@ -9,7 +9,7 @@ export function getStaticPaths() {
   return getAllLangStaticPaths();
 }
 
-const productModules = import.meta.glob('../../../content/products/*.md', { eager: true });
+const productModules = import.meta.glob('../../../content/products/**/*.md', { eager: true });
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
 const productListCopy = {
