@@ -3,64 +3,46 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
+import { getSolutionImage } from '../../../data/contentMedia';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
 }
 
+const solutionModules = import.meta.glob('../../../content/solutions/*.md', { eager: true });
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
 const solutionsCopy = {
   en: {
-    items: [
-      'Port and terminal lifting solutions',
-      'Workshop and plant material handling',
-      'Overseas EPC and distributor support'
-    ],
-    description: 'Ascent Crane adapts engineering, compliance, and delivery planning around this operating scenario.'
+    description: 'Browse scenario-based lifting recommendations built around portable gantries, access platforms, and practical deployment requirements.',
+    cta: 'View Solution'
   },
   zh: {
-    items: [
-      '港口与码头吊装方案',
-      '车间与工厂物料搬运',
-      '海外 EPC 与经销支持'
-    ],
-    description: 'Ascent Crane 会围绕该应用场景调整工程方案、合规配置与交付规划。'
+    description: '浏览围绕便携式龙门架、升降平台与实际部署需求整理的场景化解决方案。',
+    cta: '查看方案'
   },
   ru: {
-    items: [
-      'Подъемные решения для портов и терминалов',
-      'Перемещение материалов в цехах и на заводах',
-      'Поддержка зарубежных EPC и дистрибьюторов'
-    ],
-    description: 'Ascent Crane адаптирует проектирование, соответствие и поставку под данный сценарий эксплуатации.'
+    description: 'Изучите сценарные решения по подъему грузов на базе мобильных порталов, подъемных платформ и практических условий эксплуатации.',
+    cta: 'Открыть решение'
   },
   de: {
-    items: [
-      'Hebelösungen für Häfen und Terminals',
-      'Materialhandling für Werkstatt und Produktion',
-      'Support für internationale EPC- und Vertriebspartner'
-    ],
-    description: 'Ascent Crane passt Technik, Compliance und Lieferplanung an dieses Einsatzszenario an.'
+    description: 'Entdecken Sie einsatzbezogene Hebelösungen rund um mobile Portale, Hebebühnen und praktische Einsatzanforderungen.',
+    cta: 'Lösung ansehen'
   },
   fr: {
-    items: [
-      'Solutions de levage pour ports et terminaux',
-      'Manutention pour ateliers et usines',
-      'Support EPC international et distributeurs'
-    ],
-    description: 'Ascent Crane adapte l’ingénierie, la conformité et la planification de livraison à ce scénario opérationnel.'
+    description: 'Découvrez des solutions de levage par scénario autour des portiques mobiles, plateformes élévatrices et contraintes réelles de déploiement.',
+    cta: 'Voir la solution'
   },
   es: {
-    items: [
-      'Soluciones de elevación para puertos y terminales',
-      'Manipulación de materiales para taller y planta',
-      'Soporte para EPC y distribuidores internacionales'
-    ],
-    description: 'Ascent Crane adapta ingeniería, cumplimiento y planificación de entrega según este escenario operativo.'
+    description: 'Explore soluciones de elevación por escenario basadas en pórticos portátiles, plataformas elevadoras y requisitos reales de despliegue.',
+    cta: 'Ver solución'
   }
 } as const;
 const solutionsText = solutionsCopy[lang];
+const solutions = Object.values(solutionModules)
+  .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter)
+  .filter((solution) => solution.lang === lang)
+  .sort((a, b) => a.slug.localeCompare(b.slug));
 ---
 
 <BaseLayout
@@ -80,10 +62,14 @@ const solutionsText = solutionsCopy[lang];
         <p class="mt-5 text-lg leading-8 text-slate-600">{copy.solutions.description}</p>
       </div>
       <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        {solutionsText.items.map((solution) => (
-          <article class="rounded-[28px] border border-slate-200 bg-slate-50 p-8 text-slate-900">
-            <h2 class="text-2xl font-bold text-brand-navy">{solution}</h2>
-            <p class="mt-4 text-sm leading-7 text-slate-600">{solutionsText.description}</p>
+        {solutions.map((solution) => (
+          <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-50 text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.12)]">
+            <img src={getSolutionImage(solution.slug)} alt={solution.title} class="h-52 w-full object-cover" loading="lazy" />
+            <div class="p-8">
+              <h2 class="text-2xl font-bold text-brand-navy">{solution.title}</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{solution.description}</p>
+              <a href={getLocalizedPath(lang, `/solutions/${solution.slug}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{solutionsText.cta}</a>
+            </div>
           </article>
         ))}
       </div>

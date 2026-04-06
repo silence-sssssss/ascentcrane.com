@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import HeroCarousel from '../../components/HeroCarousel.astro';
+import ExportFeatures from '../../components/ExportFeatures.astro';
+import GlobalReach from '../../components/GlobalReach.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../data/i18n';
 
 export function getStaticPaths() {
@@ -32,7 +35,11 @@ const homePortalCopy = {
       { title: 'How to choose the right portable gantry crane capacity', description: 'A buyer-focused framework for matching tonnage, span, and duty cycle to your real scenario.', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: 'Maintenance priorities for hydraulic lifting equipment', description: 'See what industrial teams should inspect first to reduce stoppage and extend service life.', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: 'What overseas buyers should confirm before ordering', description: 'A checklist-driven article path covering documents, standards, power supply, and shipping.', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: 'Verified Platforms',
+    platformsTitle: 'Officially Verified Marketplace Presence',
+    platformsDescription: 'Discover our officially listed industrial platforms and verified partner channels for procurement validation and external credibility checks.',
+    platformBadge: 'Verified'
   },
   zh: {
     trustTitle: '信任与数据',
@@ -55,7 +62,11 @@ const homePortalCopy = {
       { title: '如何选择合适的便携式龙门吊吨位', description: '从吨位、跨度和工况出发，快速匹配真实应用场景。', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: '液压升降设备的维护优先级', description: '帮助工业团队识别关键检查项，减少停机并延长设备寿命。', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: '海外采购下单前应确认的关键事项', description: '以清单方式覆盖文件、标准、电源与运输条件。', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: '官方入驻平台',
+    platformsTitle: '官方入驻平台与核验渠道',
+    platformsDescription: '展示企业已正式入驻的重点工业平台与核验渠道，方便客户进行资质确认、平台背书与外部店铺访问。',
+    platformBadge: '官方核验'
   },
   ru: {
     trustTitle: 'Доверие и показатели',
@@ -78,7 +89,11 @@ const homePortalCopy = {
       { title: 'Как выбрать правильную грузоподъемность мобильного крана', description: 'Практический подход к выбору грузоподъемности, пролета и режима работы.', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: 'Приоритеты обслуживания гидравлического подъемного оборудования', description: 'Ключевые проверки для сокращения простоев и продления срока службы.', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: 'Что нужно подтвердить перед международным заказом', description: 'Контрольный список по документам, стандартам, питанию и логистике.', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: 'Verified Platforms',
+    platformsTitle: 'Официальные платформы присутствия',
+    platformsDescription: 'Проверьте наши официальные отраслевые площадки и внешние каналы доверия для закупочной проверки и подтверждения поставщика.',
+    platformBadge: 'Проверено'
   },
   de: {
     trustTitle: 'Vertrauen & Kennzahlen',
@@ -101,7 +116,11 @@ const homePortalCopy = {
       { title: 'Wie wählt man die richtige Tragfähigkeit eines Portalkrans', description: 'Ein praxisnahes Raster für Tragfähigkeit, Spannweite und Einsatzprofil.', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: 'Wartungsprioritäten für hydraulische Hebetechnik', description: 'Welche Punkte Teams zuerst prüfen sollten, um Stillstand zu vermeiden.', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: 'Was internationale Käufer vor der Bestellung prüfen sollten', description: 'Checkliste zu Dokumentation, Standards, Stromversorgung und Versand.', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: 'Verified Platforms',
+    platformsTitle: 'Offiziell verifizierte Plattformpräsenz',
+    platformsDescription: 'Hier finden Sie unsere offiziell gelisteten Industrieplattformen und verifizierten Kanäle zur Lieferantenprüfung und externen Bestätigung.',
+    platformBadge: 'Verifiziert'
   },
   fr: {
     trustTitle: 'Confiance & chiffres',
@@ -124,7 +143,11 @@ const homePortalCopy = {
       { title: 'Comment choisir la bonne capacité de portique mobile', description: 'Une méthode pratique pour relier capacité, portée et rythme d’utilisation.', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: 'Priorités de maintenance des équipements hydrauliques', description: 'Les points critiques à inspecter pour limiter les arrêts et prolonger la durée de vie.', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: 'Ce que les acheteurs export doivent confirmer avant commande', description: 'Un cadre de vérification couvrant documents, normes, alimentation et expédition.', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: 'Verified Platforms',
+    platformsTitle: 'Présence officielle sur les plateformes',
+    platformsDescription: 'Consultez nos plateformes industrielles officielles et nos canaux vérifiés pour confirmer notre présence fournisseur et notre crédibilité externe.',
+    platformBadge: 'Vérifié'
   },
   es: {
     trustTitle: 'Confianza y cifras',
@@ -147,10 +170,127 @@ const homePortalCopy = {
       { title: 'Cómo elegir la capacidad correcta de una grúa pórtico portátil', description: 'Un marco práctico para relacionar capacidad, luz y ciclo de trabajo.', image: '/assets/images/feature-1.png', href: '/blog' },
       { title: 'Prioridades de mantenimiento para equipos hidráulicos', description: 'Qué inspeccionar primero para reducir paradas y prolongar la vida útil.', image: '/assets/images/feature-2.png', href: '/blog' },
       { title: 'Qué debe confirmar un comprador internacional antes de ordenar', description: 'Una guía de verificación para documentos, normas, alimentación y envío.', image: '/assets/images/hero.png', href: '/blog' }
-    ]
+    ],
+    platformsEyebrow: 'Verified Platforms',
+    platformsTitle: 'Presencia oficial en plataformas verificadas',
+    platformsDescription: 'Revise nuestras plataformas industriales oficiales y canales verificados para confirmar credenciales, presencia comercial y enlaces externos de tienda.',
+    platformBadge: 'Verificado'
   }
 } as const;
 const portalCopy = homePortalCopy[lang];
+const imageAspectRatios: Record<string, string> = {
+  '/assets/images/hero.png': '1064 / 832',
+  '/assets/images/feature-1.png': '2200 / 1600',
+  '/assets/images/feature-2.png': '2200 / 1600'
+};
+const getImageAspectRatio = (imagePath: string) => imageAspectRatios[imagePath] ?? '4 / 3';
+const verifiedPlatformsCopy = {
+  en: [
+    {
+      name: 'Baidu B2B',
+      description: 'Baidu B2B Verified Gold Supplier'
+    },
+    {
+      name: 'China Crane Network',
+      description: 'Member of China Crane Network'
+    },
+    {
+      name: 'Lifting Solutions',
+      description: 'Specialized Lifting Solutions Partner'
+    }
+  ],
+  zh: [
+    {
+      name: '百度爱采购',
+      description: 'Baidu B2B Verified Gold Supplier（百度爱采购核验金牌供应商）'
+    },
+    {
+      name: '中国起重机械网',
+      description: 'Member of China Crane Network（中国起重机械网资深会员）'
+    },
+    {
+      name: '升降平台专项站',
+      description: 'Specialized Lifting Solutions Partner（升降平台专项合作伙伴）'
+    }
+  ],
+  ru: [
+    {
+      name: 'Baidu B2B',
+      description: 'Проверенный Gold Supplier на Baidu B2B'
+    },
+    {
+      name: 'China Crane Network',
+      description: 'Участник China Crane Network'
+    },
+    {
+      name: 'Lifting Solutions',
+      description: 'Партнер по специализированным подъемным решениям'
+    }
+  ],
+  de: [
+    {
+      name: 'Baidu B2B',
+      description: 'Verifizierter Gold-Lieferant auf Baidu B2B'
+    },
+    {
+      name: 'China Crane Network',
+      description: 'Mitglied des China Crane Network'
+    },
+    {
+      name: 'Lifting Solutions',
+      description: 'Partner für spezialisierte Hebelösungen'
+    }
+  ],
+  fr: [
+    {
+      name: 'Baidu B2B',
+      description: 'Fournisseur Gold vérifié sur Baidu B2B'
+    },
+    {
+      name: 'China Crane Network',
+      description: 'Membre du China Crane Network'
+    },
+    {
+      name: 'Lifting Solutions',
+      description: 'Partenaire spécialisé en solutions de levage'
+    }
+  ],
+  es: [
+    {
+      name: 'Baidu B2B',
+      description: 'Proveedor Gold verificado en Baidu B2B'
+    },
+    {
+      name: 'China Crane Network',
+      description: 'Miembro de China Crane Network'
+    },
+    {
+      name: 'Lifting Solutions',
+      description: 'Socio especializado en soluciones de elevación'
+    }
+  ]
+} as const;
+const verifiedPlatforms = [
+  {
+    mark: 'B2B',
+    accent: 'from-sky-500 via-blue-600 to-indigo-700',
+    href: 'https://b2b.baidu.com/shop/32919567?fid=0%2C1775471920846&pi=b2b.land....7325104072624709'
+  },
+  {
+    mark: 'CCN',
+    accent: 'from-slate-500 via-slate-700 to-slate-900',
+    href: 'http://hntzs.chinacrane.net/'
+  },
+  {
+    mark: 'LSP',
+    accent: 'from-amber-500 via-orange-500 to-red-600',
+    href: 'https://www.aksjgpt.com/index.php?homepage=15903067111a'
+  }
+] as const;
+const localizedPlatforms = verifiedPlatforms.map((platform, index) => ({
+  ...platform,
+  ...verifiedPlatformsCopy[lang][index]
+}));
 ---
 
 <BaseLayout
@@ -162,46 +302,38 @@ const portalCopy = homePortalCopy[lang];
   ogImage="https://ascentcrane.com/assets/images/hero.png"
 >
   <Navbar lang={lang} currentPath={Astro.url.pathname} />
-  <main class="bg-slate-50 pt-24">
-    <section class="border-b border-slate-200 bg-white">
-      <div class="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-20">
-        <div>
-          <span class="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-brand-orange ring-1 ring-inset ring-orange-200">{copy.home.eyebrow}</span>
-          <h1 class="mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-brand-navy md:text-5xl xl:text-6xl">{copy.home.title}</h1>
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">{copy.home.description}</p>
-          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-            <a href={getLocalizedPath(lang, '/products')} class="inline-flex items-center justify-center rounded-xl bg-brand-orange px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white">{copy.home.primaryCta}</a>
-            <a href={getLocalizedPath(lang, '/blog')} class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-100 focus:text-slate-900">Blog</a>
-          </div>
-        </div>
-        <div class="rounded-[32px] border border-slate-200 bg-gradient-to-br from-brand-navy via-blue-900 to-slate-900 p-8 text-white shadow-[0_24px_80px_rgba(15,39,68,0.22)]">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{portalCopy.trustTitle}</p>
-          <div class="mt-8 grid gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-            {portalCopy.trustItems.map((item) => (
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div class="text-3xl font-extrabold text-white">{item.value}</div>
-                <p class="mt-2 text-sm leading-6 text-slate-200">{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+  <main class="bg-brand-cold pt-24">
+    <HeroCarousel lang={lang} />
 
-    <section class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8">
+    <ExportFeatures lang={lang} />
+
+    <div class="pt-[60px]">
+      <GlobalReach lang={lang} />
+    </div>
+
+    <section class="mx-auto max-w-[1280px] px-4 py-7 lg:px-8 lg:py-8">
       <div class="max-w-3xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{portalCopy.categoriesTitle}</p>
-        <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{copy.products.title}</h2>
+        <p class="industrial-eyebrow">{portalCopy.categoriesTitle}</p>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tighter text-brand-navy sm:text-4xl">{copy.products.title}</h2>
         <p class="mt-4 text-base leading-8 text-slate-600">{portalCopy.categoriesDescription}</p>
       </div>
-      <div class="mt-10 grid gap-8 lg:grid-cols-3">
+      <div class="mt-5 grid gap-6 lg:grid-cols-3">
         {portalCopy.categories.map((category) => (
-          <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-white text-slate-900 shadow-sm">
-            <div class="h-56 bg-slate-200 bg-cover bg-center" style={`background-image: linear-gradient(180deg, rgba(15,39,68,0.12), rgba(15,39,68,0.58)), url('${category.image}')`}></div>
-            <div class="p-7">
-              <h3 class="text-2xl font-bold text-brand-navy">{category.title}</h3>
-              <p class="mt-4 text-sm leading-7 text-slate-600">{category.description}</p>
-              <a href={getLocalizedPath(lang, category.href)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{portalCopy.explore}</a>
+          <article class="overflow-hidden border border-slate-200 bg-white text-slate-900">
+            <div class="relative bg-slate-300" style={`aspect-ratio: ${getImageAspectRatio(category.image)};`}>
+              <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${category.image}')`}></div>
+              <div class="absolute inset-0 bg-brand-navy/55"></div>
+              <div class="relative flex h-full items-end p-6">
+                <h3 class="text-2xl font-extrabold tracking-tight text-white">{category.title}</h3>
+              </div>
+            </div>
+            <div class="grid gap-px border-t border-slate-200 bg-slate-200">
+              <div class="bg-white px-6 py-5">
+                <p class="text-sm leading-7 text-slate-600">{category.description}</p>
+              </div>
+              <div class="bg-white px-6 py-4">
+                <a href={getLocalizedPath(lang, category.href)} class="inline-flex items-center text-sm font-bold uppercase tracking-[0.08em] text-brand-navy transition hover:text-brand-orange">{portalCopy.explore}</a>
+              </div>
             </div>
           </article>
         ))}
@@ -209,22 +341,66 @@ const portalCopy = homePortalCopy[lang];
     </section>
 
     <section class="border-y border-slate-200 bg-white">
-      <div class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8">
+      <div class="mx-auto max-w-[1280px] px-4 py-7 lg:px-8 lg:py-8">
         <div class="max-w-3xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{portalCopy.articlesTitle}</p>
-          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">{copy.blog.title}</h2>
+          <p class="industrial-eyebrow">{portalCopy.articlesTitle}</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tighter text-brand-navy sm:text-4xl">{copy.blog.title}</h2>
           <p class="mt-4 text-base leading-8 text-slate-600">{portalCopy.articlesDescription}</p>
         </div>
-        <div class="mt-10 grid gap-8 lg:grid-cols-3">
+        <div class="mt-5 grid gap-6 lg:grid-cols-3">
           {portalCopy.articles.map((article) => (
-            <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-50 text-slate-900 shadow-sm">
-              <div class="h-48 bg-slate-200 bg-cover bg-center" style={`background-image: url('${article.image}')`}></div>
-              <div class="p-7">
-                <h3 class="text-xl font-bold leading-8 text-brand-navy">{article.title}</h3>
-                <p class="mt-4 text-sm leading-7 text-slate-600">{article.description}</p>
-                <a href={getLocalizedPath(lang, article.href)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{portalCopy.explore}</a>
+            <article class="overflow-hidden border border-slate-200 bg-brand-cold text-slate-900">
+              <div class="relative bg-slate-300" style={`aspect-ratio: ${getImageAspectRatio(article.image)};`}>
+                <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${article.image}')`}></div>
+                <div class="absolute inset-0 bg-brand-navy/35"></div>
+              </div>
+              <div class="grid gap-px border-t border-slate-200 bg-slate-200">
+                <div class="bg-white px-6 py-5">
+                  <h3 class="text-xl font-extrabold leading-8 tracking-tight text-brand-navy">{article.title}</h3>
+                  <p class="mt-4 text-sm leading-7 text-slate-600">{article.description}</p>
+                </div>
+                <div class="bg-white px-6 py-4">
+                  <a href={getLocalizedPath(lang, article.href)} class="inline-flex items-center text-sm font-bold uppercase tracking-[0.08em] text-brand-navy transition hover:text-brand-orange">{portalCopy.explore}</a>
+                </div>
               </div>
             </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1280px] px-4 py-7 lg:px-8 lg:py-8">
+        <div class="max-w-3xl">
+          <p class="industrial-eyebrow">{portalCopy.platformsEyebrow}</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tighter text-brand-navy sm:text-4xl">{portalCopy.platformsTitle}</h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">{portalCopy.platformsDescription}</p>
+        </div>
+
+        <div class="mt-5 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {localizedPlatforms.map((platform) => (
+            <a
+              href={platform.href}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="group block border border-slate-200 bg-brand-cold p-6 text-slate-900 transition duration-300 hover:-translate-y-1 hover:border-brand-orange hover:bg-white"
+            >
+              <div class="platform-logo-card flex h-full flex-col justify-between gap-6 grayscale transition duration-300 group-hover:grayscale-0">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.24em] text-slate-400 transition group-hover:text-brand-orange">{portalCopy.platformBadge}</p>
+                    <h3 class="mt-3 text-xl font-extrabold tracking-tight text-brand-navy">{platform.name}</h3>
+                  </div>
+                  <div class={`inline-flex min-w-[88px] justify-center bg-gradient-to-r ${platform.accent} px-4 py-3 text-lg font-black uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_rgba(15,39,68,0.18)]`}>
+                    {platform.mark}
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 pt-5">
+                  <p class="text-sm leading-7 text-slate-600">{platform.description}</p>
+                </div>
+              </div>
+            </a>
           ))}
         </div>
       </div>

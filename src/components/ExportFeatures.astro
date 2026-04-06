@@ -1,0 +1,229 @@
+---
+import type { SiteLang } from '../data/i18n';
+
+interface Props {
+  lang: SiteLang;
+}
+
+const { lang } = Astro.props as Props;
+
+const featureImages = [
+  '/assets/images/index/index_1.jpg',
+  '/assets/images/index/index_2.jpg',
+  '/assets/images/index/index_3.jpg',
+  '/assets/images/index/index_4.jpg'
+] as const;
+
+const copy = {
+  en: {
+    eyebrow: 'Export Features',
+    title: 'Export support for compact gantry cranes and lifting platforms',
+    description: 'Built for overseas demand in compact lifting and access equipment, with practical configuration support for small gantry cranes, electric hoists, and export lift platforms.',
+    cards: [
+      {
+        title: 'Compact Lifting Integration',
+        description: 'Provide matched solutions combining compact gantry cranes with high-quality electric hoists, helping overseas buyers assemble and commission equipment quickly after arrival.',
+        image: featureImages[0],
+        alt: 'Compact gantry crane detail'
+      },
+      {
+        title: 'Industrial Site Resilience',
+        description: 'Optimized for demanding conditions such as outdoor worksites and cold-room maintenance, with corrosion-resistant structures and hydraulic systems designed for operation down to -20°C.',
+        image: featureImages[1],
+        alt: 'Lift control box detail'
+      },
+      {
+        title: 'Global Voltage Compliance',
+        description: 'Configure dedicated motors for export lift platforms and hoists, supporting global power standards including 110V, 220V, 380V, and 480V.',
+        image: featureImages[2],
+        alt: 'Export lifting equipment detail'
+      },
+      {
+        title: 'Rapid Parts Fulfillment',
+        description: 'Keep frequently used spare parts such as casters, motors, and switches available for after-sales maintenance, helping overseas orders reduce downtime during service support.',
+        image: featureImages[3],
+        alt: 'Compact lifting parts detail'
+      }
+    ]
+  },
+  zh: {
+    eyebrow: '出口配套能力',
+    title: '面向海外市场的微型龙门架与升降平台出口配套',
+    description: '围绕海外市场对小型起重与升降设备的实际需求，提供微型龙门架、电动葫芦与出口型升降平台的务实配套方案。',
+    cards: [
+      {
+        title: '紧凑型起重集成配套',
+        description: '提供微型龙门架与高品质电动葫芦的完美匹配方案，确保到货即可组装投入使用。',
+        image: featureImages[0],
+        alt: '铝合金龙门架特写'
+      },
+      {
+        title: '工业现场环境适应性',
+        description: '针对户外施工、冷库维修等复杂环境优化。结构件耐腐蚀，液压系统支持 -20°C 环境运行。',
+        image: featureImages[1],
+        alt: '升降机控制盒特写'
+      },
+      {
+        title: '全球电压匹配能力',
+        description: '为所有出口升降平台和葫芦定制专用电机，支持 110V/220V/380V/480V 等全球动力标准。',
+        image: featureImages[2],
+        alt: '出口升降设备细节图'
+      },
+      {
+        title: '快速配件保障',
+        description: '常备脚轮、电机、开关等易损配件。确保海外订单后期维护无忧，缩短停工时间。',
+        image: featureImages[3],
+        alt: '小型起重配件特写'
+      }
+    ]
+  },
+  ru: {
+    eyebrow: 'Экспортные преимущества',
+    title: 'Экспортная поддержка компактных портальных кранов и подъемных платформ',
+    description: 'Раздел ориентирован на зарубежный спрос на компактное подъемное и подъемно-доступное оборудование, включая малые портальные краны, электрические тали и экспортные платформы.',
+    cards: [
+      {
+        title: 'Интеграция компактных подъемных решений',
+        description: 'Предлагаем согласованные решения для компактных портальных кранов и электрических талей, чтобы оборудование можно было быстро собрать и ввести в работу после поставки.',
+        image: featureImages[0],
+        alt: 'Деталь компактного портального крана'
+      },
+      {
+        title: 'Устойчивость к условиям промышленной площадки',
+        description: 'Решения оптимизированы для сложных условий, включая наружные площадки и обслуживание холодильных помещений, с антикоррозионной конструкцией и гидросистемой для работы до -20°C.',
+        image: featureImages[1],
+        alt: 'Деталь блока управления подъемником'
+      },
+      {
+        title: 'Соответствие мировым стандартам напряжения',
+        description: 'Для экспортных платформ и талей подбираются специальные двигатели с поддержкой мировых стандартов питания 110V, 220V, 380V и 480V.',
+        image: featureImages[2],
+        alt: 'Деталь экспортного подъемного оборудования'
+      },
+      {
+        title: 'Быстрое обеспечение запчастями',
+        description: 'Расходные и сервисные запчасти, включая колеса, моторы и переключатели, подготавливаются для ускорения обслуживания и сокращения простоев зарубежных заказов.',
+        image: featureImages[3],
+        alt: 'Деталь комплектующих для подъемного оборудования'
+      }
+    ]
+  },
+  de: {
+    eyebrow: 'Exportmerkmale',
+    title: 'Exportunterstützung für kompakte Portalkrane und Hebebühnen',
+    description: 'Ausgerichtet auf internationale Anforderungen an kompakte Hebe- und Zugangstechnik mit praxisnaher Ausstattung für kleine Portalkrane, Elektrozüge und Export-Hebebühnen.',
+    cards: [
+      {
+        title: 'Kompakte Hebelösungs-Integration',
+        description: 'Wir liefern abgestimmte Kombinationen aus kompakten Portalkranen und hochwertigen Elektrozügen, damit die Ausrüstung nach Ankunft schnell montiert und eingesetzt werden kann.',
+        image: featureImages[0],
+        alt: 'Detail eines kompakten Portalkrans'
+      },
+      {
+        title: 'Widerstandsfähigkeit für Industrieeinsätze',
+        description: 'Für anspruchsvolle Einsatzorte wie Außenbaustellen und Kühlraumwartung optimiert, mit korrosionsbeständigen Strukturen und Hydrauliksystemen für Betrieb bis -20°C.',
+        image: featureImages[1],
+        alt: 'Detail eines Hebebühnen-Steuerkastens'
+      },
+      {
+        title: 'Globale Spannungskompatibilität',
+        description: 'Spezielle Motoren für Export-Hebebühnen und Hebezeuge unterstützen weltweite Spannungsstandards wie 110V, 220V, 380V und 480V.',
+        image: featureImages[2],
+        alt: 'Detail eines Export-Hebesystems'
+      },
+      {
+        title: 'Schnelle Ersatzteilverfügbarkeit',
+        description: 'Verschleiß- und Serviceteile wie Rollen, Motoren und Schalter werden vorgehalten, um Wartung zu erleichtern und Stillstand bei Auslandsaufträgen zu verkürzen.',
+        image: featureImages[3],
+        alt: 'Detail von Ersatzteilen für Hebetechnik'
+      }
+    ]
+  },
+  fr: {
+    eyebrow: 'Atouts export',
+    title: 'Support export pour portiques compacts et plateformes élévatrices',
+    description: 'Pensé pour les besoins internationaux en levage compact et accès en hauteur, avec une offre pratique autour des mini-portiques, palans électriques et plateformes export.',
+    cards: [
+      {
+        title: 'Intégration compacte de levage',
+        description: 'Nous proposons des combinaisons adaptées entre mini-portiques et palans électriques de qualité afin de faciliter le montage et la mise en service dès réception.',
+        image: featureImages[0],
+        alt: 'Détail d’un portique compact'
+      },
+      {
+        title: 'Résilience en environnement industriel',
+        description: 'Optimisé pour des environnements exigeants comme les chantiers extérieurs et la maintenance en chambre froide, avec structures anticorrosion et hydraulique jusqu’à -20°C.',
+        image: featureImages[1],
+        alt: 'Détail d’un boîtier de commande de plateforme'
+      },
+      {
+        title: 'Compatibilité mondiale des tensions',
+        description: 'Des moteurs dédiés peuvent être configurés pour plateformes export et palans afin de répondre aux standards électriques mondiaux 110V, 220V, 380V et 480V.',
+        image: featureImages[2],
+        alt: 'Détail d’un équipement de levage export'
+      },
+      {
+        title: 'Disponibilité rapide des pièces',
+        description: 'Les pièces d’usure courantes comme roulettes, moteurs et interrupteurs sont préparées pour faciliter la maintenance et réduire les arrêts des commandes export.',
+        image: featureImages[3],
+        alt: 'Détail de pièces pour levage compact'
+      }
+    ]
+  },
+  es: {
+    eyebrow: 'Ventajas de exportación',
+    title: 'Soporte de exportación para pórticos compactos y plataformas elevadoras',
+    description: 'Orientado a la demanda internacional de equipos compactos de elevación y acceso, con soluciones prácticas para mini pórticos, polipastos eléctricos y plataformas de exportación.',
+    cards: [
+      {
+        title: 'Integración compacta de elevación',
+        description: 'Ofrecemos combinaciones ajustadas entre mini pórticos y polipastos eléctricos de alta calidad para facilitar el montaje y la puesta en marcha al llegar el equipo.',
+        image: featureImages[0],
+        alt: 'Detalle de un pórtico compacto'
+      },
+      {
+        title: 'Resistencia para entornos industriales',
+        description: 'Optimizado para entornos exigentes como obras exteriores y mantenimiento en cámaras frigoríficas, con estructuras anticorrosión y sistemas hidráulicos operables hasta -20°C.',
+        image: featureImages[1],
+        alt: 'Detalle de una caja de control elevadora'
+      },
+      {
+        title: 'Compatibilidad global de voltaje',
+        description: 'Se configuran motores dedicados para plataformas y polipastos de exportación compatibles con estándares globales de 110V, 220V, 380V y 480V.',
+        image: featureImages[2],
+        alt: 'Detalle de equipo de elevación para exportación'
+      },
+      {
+        title: 'Suministro rápido de repuestos',
+        description: 'Se preparan repuestos de desgaste frecuente como ruedas, motores e interruptores para reducir tiempos de parada en el mantenimiento posterior de pedidos internacionales.',
+        image: featureImages[3],
+        alt: 'Detalle de repuestos para elevación compacta'
+      }
+    ]
+  }
+} as const;
+
+const localized = copy[lang];
+---
+
+<section class="border-y border-slate-200 bg-white">
+  <div class="mx-auto max-w-[1280px] px-4 py-8 lg:px-8 lg:py-10">
+    <div class="max-w-3xl">
+      <p class="industrial-eyebrow">{localized.eyebrow}</p>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tighter text-brand-navy sm:text-4xl">{localized.title}</h2>
+      <p class="mt-4 text-base leading-8 text-slate-600">{localized.description}</p>
+    </div>
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      {localized.cards.map((card) => (
+        <article class="rounded-sm border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_12px_32px_rgba(15,39,68,0.06)]">
+          <div class="rounded-sm border border-slate-200 bg-slate-50">
+            <img src={card.image} alt={card.alt} class="aspect-[16/9] w-full rounded-sm object-cover" loading="lazy" />
+          </div>
+          <h3 class="mt-5 text-2xl font-extrabold tracking-tight text-brand-navy">{card.title}</h3>
+          <p class="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

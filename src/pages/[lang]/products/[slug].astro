@@ -1,6 +1,6 @@
 ---
 import ProductLayout from '../../../layouts/ProductLayout.astro';
-import SpecTable from '../../../components/SpecTable.astro';
+import DataSheetTable from '../../../components/DataSheetTable.astro';
 import ContactForm from '../../../components/ContactForm.astro';
 import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
 import { getProductCategoryAnchor, getProductCategoryLabel, productCategoryOrder, type ProductCategory } from '../../../data/productCategories';
@@ -33,27 +33,31 @@ const { lang, slug } = Astro.params as { lang: SiteLang; slug: string };
 const { product } = Astro.props as {
   product: {
     data: Record<string, string>;
-    Content: unknown;
   };
 };
-const Content = product.Content;
-const { title, description, model, tonnage, span, liftingHeight, powerSource, stockStatus, price, priceCurrency, heroImage, category } = product.data;
+const { title, description, model, stockStatus, price, priceCurrency, heroImage, category, galleryImages = [], tableHeaders = [], tableRows = [] } = product.data as Record<string, unknown> & {
+  title: string;
+  description: string;
+  model: string;
+  stockStatus: string;
+  price: string;
+  priceCurrency: string;
+  heroImage: string;
+  category: string;
+  galleryImages?: string[];
+  tableHeaders?: string[];
+  tableRows?: string[][];
+};
 const productCategory = category as ProductCategory;
 const detailCopy = {
   en: {
     eyebrow: 'Product Detail',
     quote: 'Request Quote for',
     contact: 'Contact Crane Sales Team',
-    specs: 'Technical Specifications',
-    tonnage: 'Tonnage',
-    span: 'Span',
-    liftingHeight: 'Lifting Height',
-    powerSource: 'Power Source',
-    model: 'Model',
+    excelTable: 'Factory Specification Table',
     tocTitle: 'Content',
     readyTitle: 'Ready to Start?',
     readyText: 'Share your project scope, destination market, and required specifications to get a structured quotation path.',
-    whatsappLabel: 'WhatsApp',
     categoriesTitle: 'Product Categories',
     home: 'Home',
     products: 'Products'
@@ -62,16 +66,10 @@ const detailCopy = {
     eyebrow: '产品详情',
     quote: '获取以下产品报价：',
     contact: '联系起重设备销售团队',
-    specs: '技术参数',
-    tonnage: '起重量',
-    span: '跨度',
-    liftingHeight: '起升高度',
-    powerSource: '动力方式',
-    model: '型号',
+    excelTable: 'Excel 原始规格表',
     tocTitle: '内容',
     readyTitle: '准备开始？',
     readyText: '分享您的项目范围、目的地市场和所需的技术参数，以获得结构化的报价路径。',
-    whatsappLabel: '微信',
     categoriesTitle: '产品分类',
     home: '首页',
     products: '产品中心'
@@ -80,16 +78,10 @@ const detailCopy = {
     eyebrow: 'Детали продукта',
     quote: 'Запросить предложение на',
     contact: 'Связаться с отделом продаж',
-    specs: 'Технические характеристики',
-    tonnage: 'Грузоподъемность',
-    span: 'Пролет',
-    liftingHeight: 'Высота подъема',
-    powerSource: 'Источник питания',
-    model: 'Модель',
+    excelTable: 'Таблица заводских спецификаций',
     tocTitle: 'Содержание',
     readyTitle: 'Готовы начать?',
     readyText: 'Поделитесь своим проектом, целевым рынком и необходимыми техническими характеристиками, чтобы получить структурированный путь к котировке.',
-    whatsappLabel: 'WhatsApp',
     categoriesTitle: 'Категории продукции',
     home: 'Главная',
     products: 'Продукция'
@@ -98,16 +90,10 @@ const detailCopy = {
     eyebrow: 'Produktdetail',
     quote: 'Angebot anfordern für',
     contact: 'Kran-Vertrieb kontaktieren',
-    specs: 'Technische Daten',
-    tonnage: 'Tragfähigkeit',
-    span: 'Spannweite',
-    liftingHeight: 'Hubhöhe',
-    powerSource: 'Antriebsart',
-    model: 'Modell',
+    excelTable: 'Werksspezifikationstabelle',
     tocTitle: 'Inhalt',
     readyTitle: 'Bereit zu beginnen?',
     readyText: 'Teilen Sie Ihr Projekt, Zielmarkt und erforderliche technische Daten, um einen strukturierten Angebotsweg zu erhalten.',
-    whatsappLabel: 'WhatsApp',
     categoriesTitle: 'Produktkategorien',
     home: 'Startseite',
     products: 'Produkte'
@@ -116,16 +102,10 @@ const detailCopy = {
     eyebrow: 'Détail produit',
     quote: 'Demander un devis pour',
     contact: 'Contacter l’équipe commerciale',
-    specs: 'Spécifications techniques',
-    tonnage: 'Capacité',
-    span: 'Portée',
-    liftingHeight: 'Hauteur de levage',
-    powerSource: 'Alimentation',
-    model: 'Modèle',
+    excelTable: 'Tableau des spécifications usine',
     tocTitle: 'Contenu',
     readyTitle: 'Prêt à commencer?',
     readyText: 'Partagez votre projet, votre marché cible et vos spécifications techniques requises pour obtenir un chemin de devis structuré.',
-    whatsappLabel: 'WhatsApp',
     categoriesTitle: 'Catégories de produits',
     home: 'Accueil',
     products: 'Produits'
@@ -134,33 +114,19 @@ const detailCopy = {
     eyebrow: 'Detalle del producto',
     quote: 'Solicitar cotización para',
     contact: 'Contactar al equipo comercial',
-    specs: 'Especificaciones técnicas',
-    tonnage: 'Capacidad',
-    span: 'Luz',
-    liftingHeight: 'Altura de elevación',
-    powerSource: 'Fuente de energía',
-    model: 'Modelo',
+    excelTable: 'Tabla de especificaciones de fábrica',
     tocTitle: 'Contenido',
     readyTitle: '¿Listo para empezar?',
     readyText: 'Comparta su proyecto, mercado de destino y especificaciones técnicas requeridas para obtener un camino de cotización estructurado.',
-    whatsappLabel: 'WhatsApp',
     categoriesTitle: 'Categorías de productos',
     home: 'Inicio',
     products: 'Productos'
   }
 } as const;
 const detailText = detailCopy[lang];
-const specificationRows = [
-  { label: detailText.tonnage, value: tonnage },
-  { label: detailText.span, value: span },
-  { label: detailText.liftingHeight, value: liftingHeight },
-  { label: detailText.powerSource, value: powerSource },
-  { label: detailText.model, value: model }
-];
 const tocItems = [
   { id: 'overview', text: detailText.eyebrow, level: 2 },
-  { id: 'content-body', text: title, level: 2 },
-  { id: 'specifications', text: detailText.specs, level: 2 },
+  { id: 'excel-spec-table', text: detailText.excelTable, level: 2 },
   { id: 'quote-form', text: detailText.quote, level: 2 }
 ] as const;
 const breadcrumbItems = [
@@ -194,7 +160,6 @@ const categoryItems = productCategoryOrder.map((item) => ({
     getQuote: `${detailText.quote} ${title}`,
     readyTitle: detailText.readyTitle,
     readyText: detailText.readyText,
-    whatsappLabel: detailText.whatsappLabel,
     categoriesTitle: detailText.categoriesTitle
   }}
   breadcrumbItems={breadcrumbItems}
@@ -206,24 +171,27 @@ const categoryItems = productCategoryOrder.map((item) => ({
   <section id="overview">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{detailText.eyebrow}</p>
-        <h2 class="mt-3 text-2xl font-bold text-brand-navy">{title}</h2>
+        <p class="industrial-eyebrow">{detailText.eyebrow}</p>
+        <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-brand-navy">{title}</h2>
       </div>
-      <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50 hover:text-slate-900 focus:text-slate-900">{detailText.contact}</a>
+      <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center border border-slate-300 px-5 py-3 text-sm font-bold uppercase tracking-[0.08em] text-slate-900 transition hover:bg-slate-100 hover:text-slate-900">{detailText.contact}</a>
     </div>
+    <div class="mt-6 border border-slate-200 bg-white px-6 py-5 text-base leading-8 text-slate-600">
+      {description}
+    </div>
+    {galleryImages.length > 0 && (
+      <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {galleryImages.map((image, index) => (
+          <div class="overflow-hidden border border-slate-200 bg-white">
+            <img src={image} alt={`${title} image ${index + 1}`} class="h-64 w-full object-cover" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    )}
   </section>
 
-  <article id="content-body" class="prose prose-slate mt-10 max-w-none prose-headings:scroll-mt-28 prose-headings:text-brand-navy prose-a:text-primary-700">
-    <Content />
-  </article>
-
-  <section class="mt-10 grid gap-6">
-    <div class="h-64 rounded-[24px] border border-slate-200 bg-slate-100 shadow-sm"></div>
-    <div class="h-64 rounded-[24px] border border-slate-200 bg-slate-100 shadow-sm"></div>
-  </section>
-
-  <section id="specifications" class="mt-12">
-    <SpecTable rows={specificationRows} title={detailText.specs} />
+  <section id="excel-spec-table" class="mt-12">
+    <DataSheetTable lang={lang} title={detailText.excelTable} headers={tableHeaders} rows={tableRows} />
   </section>
 
   <section id="quote-form" class="mt-12">

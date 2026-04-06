@@ -1,0 +1,98 @@
+---
+interface Props {
+  lang?: 'en' | 'zh' | 'ru' | 'de' | 'fr' | 'es';
+  title?: string;
+  headers?: string[];
+  rows?: string[][];
+}
+
+const { lang = 'en', title, headers = [], rows = [] } = Astro.props;
+const headerLabels = {
+  '产品规格': { en: 'Product Variant', zh: '产品规格', ru: 'Исполнение', de: 'Produktvariante', fr: 'Variante produit', es: 'Variante del producto' },
+  '型号': { en: 'Model', zh: '型号', ru: 'Модель', de: 'Modell', fr: 'Modèle', es: 'Modelo' },
+  '额定载荷(kg)': { en: 'Rated Load (kg)', zh: '额定载荷(kg)', ru: 'Номинальная нагрузка (кг)', de: 'Nennlast (kg)', fr: 'Charge nominale (kg)', es: 'Carga nominal (kg)' },
+  '额定载重(吨)': { en: 'Rated Capacity (t)', zh: '额定载重(吨)', ru: 'Номинальная грузоподъемность (т)', de: 'Nenntragfähigkeit (t)', fr: 'Capacité nominale (t)', es: 'Capacidad nominal (t)' },
+  '荷载(T)': { en: 'Load (T)', zh: '荷载(T)', ru: 'Нагрузка (T)', de: 'Last (T)', fr: 'Charge (T)', es: 'Carga (T)' },
+  '标准提升高度(m)': { en: 'Standard Lift Height (m)', zh: '标准提升高度(m)', ru: 'Стандартная высота подъема (м)', de: 'Standardhubhöhe (m)', fr: 'Hauteur de levage standard (m)', es: 'Altura estándar de elevación (m)' },
+  '最高高度(mm)': { en: 'Maximum Height (mm)', zh: '最高高度(mm)', ru: 'Максимальная высота (мм)', de: 'Maximale Höhe (mm)', fr: 'Hauteur maximale (mm)', es: 'Altura máxima (mm)' },
+  '起升功率(kw)': { en: 'Lifting Power (kW)', zh: '起升功率(kw)', ru: 'Мощность подъема (kW)', de: 'Hubleistung (kW)', fr: 'Puissance de levage (kW)', es: 'Potencia de elevación (kW)' },
+  '电机功率(kw)': { en: 'Motor Power (kW)', zh: '电机功率(kw)', ru: 'Мощность двигателя (kW)', de: 'Motorleistung (kW)', fr: 'Puissance moteur (kW)', es: 'Potencia del motor (kW)' },
+  '电机功率': { en: 'Motor Power', zh: '电机功率', ru: 'Мощность двигателя', de: 'Motorleistung', fr: 'Puissance moteur', es: 'Potencia del motor' },
+  '电源电压(V)': { en: 'Power Supply (V)', zh: '电源电压(V)', ru: 'Напряжение питания (V)', de: 'Versorgungsspannung (V)', fr: 'Tension d’alimentation (V)', es: 'Voltaje de alimentación (V)' },
+  '电源电压(kw)': { en: 'Power Supply', zh: '电源电压(kw)', ru: 'Питание', de: 'Versorgung', fr: 'Alimentation', es: 'Alimentación' },
+  '结构形式': { en: 'Structure Type', zh: '结构形式', ru: 'Тип конструкции', de: 'Bauform', fr: 'Type de structure', es: 'Tipo de estructura' },
+  '额定起重力矩(kN.m)': { en: 'Rated Lifting Moment (kN·m)', zh: '额定起重力矩(kN.m)', ru: 'Номинальный грузовой момент (kN·m)', de: 'Nennhubmoment (kN·m)', fr: 'Moment nominal de levage (kN·m)', es: 'Momento nominal de elevación (kN·m)' },
+  '台面尺寸': { en: 'Platform Size', zh: '台面尺寸', ru: 'Размер платформы', de: 'Plattformgröße', fr: 'Dimensions de plateforme', es: 'Dimensión de plataforma' },
+  '台面尺寸(mm)': { en: 'Platform Size (mm)', zh: '台面尺寸(mm)', ru: 'Размер платформы (мм)', de: 'Plattformgröße (mm)', fr: 'Dimensions de plateforme (mm)', es: 'Dimensión de plataforma (mm)' },
+  '本体高度(mm)': { en: 'Machine Height (mm)', zh: '本体高度(mm)', ru: 'Высота корпуса (мм)', de: 'Gerätehöhe (mm)', fr: 'Hauteur machine (mm)', es: 'Altura del equipo (mm)' },
+  '本体高度': { en: 'Machine Height', zh: '本体高度', ru: 'Высота корпуса', de: 'Gerätehöhe', fr: 'Hauteur machine', es: 'Altura del equipo' },
+  '上升时间(s)': { en: 'Lifting Time (s)', zh: '上升时间(s)', ru: 'Время подъема (с)', de: 'Hubzeit (s)', fr: 'Temps de montée (s)', es: 'Tiempo de elevación (s)' },
+  '上升时间': { en: 'Lifting Time', zh: '上升时间', ru: 'Время подъема', de: 'Hubzeit', fr: 'Temps de montée', es: 'Tiempo de elevación' },
+  '工作行程(mm)': { en: 'Working Stroke (mm)', zh: '工作行程(mm)', ru: 'Рабочий ход (мм)', de: 'Arbeitsweg (mm)', fr: 'Course utile (mm)', es: 'Recorrido útil (mm)' },
+  '设备材质': { en: 'Material', zh: '设备材质', ru: 'Материал', de: 'Werkstoff', fr: 'Matériau', es: 'Material' },
+  '设备自重': { en: 'Equipment Weight', zh: '设备自重', ru: 'Вес оборудования', de: 'Eigengewicht', fr: 'Poids de l’équipement', es: 'Peso del equipo' },
+  '设备自重(kg)': { en: 'Equipment Weight (kg)', zh: '设备自重(kg)', ru: 'Вес оборудования (кг)', de: 'Eigengewicht (kg)', fr: 'Poids de l’équipement (kg)', es: 'Peso del equipo (kg)' },
+  '最大宽度(m)': { en: 'Maximum Width (m)', zh: '最大宽度(m)', ru: 'Максимальная ширина (м)', de: 'Maximale Breite (m)', fr: 'Largeur maximale (m)', es: 'Ancho máximo (m)' },
+  '材质': { en: 'Material', zh: '材质', ru: 'Материал', de: 'Material', fr: 'Matériau', es: 'Material' },
+  '表面处理': { en: 'Surface Finish', zh: '表面处理', ru: 'Обработка поверхности', de: 'Oberflächenbehandlung', fr: 'Traitement de surface', es: 'Tratamiento superficial' },
+  '卸扣载额': { en: 'Shackle Rating', zh: '卸扣载额', ru: 'Нагрузка скобы', de: 'Schäkeltraglast', fr: 'Charge de manille', es: 'Capacidad del grillete' },
+  '产品尺寸(mm)': { en: 'Product Dimensions (mm)', zh: '产品尺寸(mm)', ru: 'Размеры изделия (мм)', de: 'Produktabmessungen (mm)', fr: 'Dimensions du produit (mm)', es: 'Dimensiones del producto (mm)' },
+  '链条直径(mm)': { en: 'Chain Diameter (mm)', zh: '链条直径(mm)', ru: 'Диаметр цепи (мм)', de: 'Kettendurchmesser (mm)', fr: 'Diamètre de chaîne (mm)', es: 'Diámetro de cadena (mm)' },
+  '链条数量': { en: 'Chain Quantity', zh: '链条数量', ru: 'Количество цепей', de: 'Anzahl Ketten', fr: 'Nombre de chaînes', es: 'Cantidad de cadenas' },
+  '规格': { en: 'Type', zh: '规格', ru: 'Исполнение', de: 'Typ', fr: 'Type', es: 'Tipo' },
+  '类型': { en: 'Type', zh: '类型', ru: 'Тип', de: 'Typ', fr: 'Type', es: 'Tipo' },
+  '轮数': { en: 'Wheel Count', zh: '轮数', ru: 'Количество колес', de: 'Anzahl Rollen', fr: 'Nombre de roues', es: 'Cantidad de ruedas' },
+  '颜色': { en: 'Color', zh: '颜色', ru: 'Цвет', de: 'Farbe', fr: 'Couleur', es: 'Color' },
+  '长(cm)': { en: 'Length (cm)', zh: '长(cm)', ru: 'Длина (см)', de: 'Länge (cm)', fr: 'Longueur (cm)', es: 'Longitud (cm)' },
+  '宽(cm)': { en: 'Width (cm)', zh: '宽(cm)', ru: 'Ширина (см)', de: 'Breite (cm)', fr: 'Largeur (cm)', es: 'Ancho (cm)' },
+  '高(cm)': { en: 'Height (cm)', zh: '高(cm)', ru: 'Высота (см)', de: 'Höhe (cm)', fr: 'Hauteur (cm)', es: 'Altura (cm)' },
+  '体积(cm³)': { en: 'Volume (cm³)', zh: '体积(cm³)', ru: 'Объем (см³)', de: 'Volumen (cm³)', fr: 'Volume (cm³)', es: 'Volumen (cm³)' },
+  '重量(g)': { en: 'Weight (g)', zh: '重量(g)', ru: 'Вес (г)', de: 'Gewicht (g)', fr: 'Poids (g)', es: 'Peso (g)' },
+  '配件适用对象': { en: 'Applicable Equipment', zh: '配件适用对象', ru: 'Применяемое оборудование', de: 'Passendes Gerät', fr: 'Équipement compatible', es: 'Equipo aplicable' },
+  '工程机械种类': { en: 'Machinery Type', zh: '工程机械种类', ru: 'Тип техники', de: 'Maschinentyp', fr: 'Type de machine', es: 'Tipo de maquinaria' },
+  '补充参数': { en: 'Additional Parameters', zh: '补充参数', ru: 'Дополнительные параметры', de: 'Zusatzparameter', fr: 'Paramètres complémentaires', es: 'Parámetros adicionales' },
+  '价格': { en: 'Price', zh: '价格', ru: 'Цена', de: 'Preis', fr: 'Prix', es: 'Precio' },
+  '价格 | 库存(台)': { en: 'Price / Stock (sets)', zh: '价格 / 库存(台)', ru: 'Цена / Наличие (компл.)', de: 'Preis / Bestand (Sätze)', fr: 'Prix / Stock (unités)', es: 'Precio / Stock (unid.)' },
+  '价格 | 库存(件)': { en: 'Price / Stock (pcs)', zh: '价格 / 库存(件)', ru: 'Цена / Наличие (шт.)', de: 'Preis / Bestand (Stk.)', fr: 'Prix / Stock (pcs)', es: 'Precio / Stock (pzs)' },
+  '价格 | 库存(个)': { en: 'Price / Stock (pcs)', zh: '价格 / 库存(个)', ru: 'Цена / Наличие (шт.)', de: 'Preis / Bestand (Stk.)', fr: 'Prix / Stock (pcs)', es: 'Precio / Stock (pzs)' },
+  '进货数量': { en: 'Purchase Qty', zh: '进货数量', ru: 'Количество закупки', de: 'Einkaufsmenge', fr: 'Qté d’achat', es: 'Cantidad de compra' },
+  '序号': { en: 'No.', zh: '序号', ru: '№', de: 'Nr.', fr: 'N°', es: 'N.º' }
+} as const;
+
+const visibleHeaders = headers
+  .filter((header) => String(header || '').trim() !== '')
+  .map((header) => headerLabels[header as keyof typeof headerLabels]?.[lang] ?? header);
+const normalizedRows = rows
+  .map((row) => row.slice(0, visibleHeaders.length).map((cell) => String(cell ?? '').trim() || '-'))
+  .filter((row) => row.some((cell) => cell !== '-'));
+---
+
+{visibleHeaders.length > 0 && normalizedRows.length > 0 && (
+  <section class="overflow-hidden border border-slate-200 bg-white">
+    {title && (
+      <div class="border-b border-slate-200 bg-brand-cold px-6 py-4">
+        <h3 class="text-lg font-extrabold uppercase tracking-[0.08em] text-brand-navy">{title}</h3>
+      </div>
+    )}
+    <div class="overflow-x-auto">
+      <table class="min-w-full border-collapse text-left text-sm">
+        <thead class="bg-brand-navy text-white">
+          <tr>
+            {visibleHeaders.map((header) => (
+              <th class="border-r border-white/10 px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] last:border-r-0">{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {normalizedRows.map((row, rowIndex) => (
+            <tr class={rowIndex % 2 === 0 ? 'bg-white' : 'bg-brand-cold'}>
+              {row.map((cell) => (
+                <td class="border-r border-t border-slate-200 px-4 py-3 font-mono text-brand-steel last:border-r-0">{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+)}

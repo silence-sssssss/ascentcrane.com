@@ -1,6 +1,6 @@
 import type { SiteLang } from './i18n';
 
-export const productCategoryOrder = ['gantry', 'lifts', 'hoists', 'buffers', 'handling', 'parts'] as const;
+export const productCategoryOrder = ['gantry', 'lifts', 'hoists', 'buffers', 'parts'] as const;
 
 export type ProductCategory = (typeof productCategoryOrder)[number];
 
@@ -22,12 +22,12 @@ export const productCategoryMap: Record<ProductCategory, ProductCategoryMeta> = 
       es: 'Pórticos'
     },
     descriptions: {
-      en: 'Portable and adjustable gantry systems for workshops, maintenance teams, and flexible lifting stations.',
-      zh: '适用于车间、检修团队和柔性起吊工位的便携式与可调式龙门架系统。',
-      ru: 'Переносные и регулируемые портальные системы для мастерских, сервисных команд и гибких подъемных участков.',
-      de: 'Mobile und höhenverstellbare Portalsysteme für Werkstätten, Wartungsteams und flexible Hebestationen.',
-      fr: 'Systèmes portiques portables et réglables pour ateliers, maintenance et postes de levage flexibles.',
-      es: 'Sistemas pórtico portátiles y ajustables para talleres, mantenimiento y puestos de elevación flexibles.'
+      en: 'Portable gantry systems built for efficient handling, fast deployment, and dependable lifting performance across industrial sites.',
+      zh: '面向工厂、仓储与项目现场打造的移动龙门架系统，兼顾部署效率、承载稳定性与工业应用可靠性。',
+      ru: 'Мобильные портальные системы для производств, складов и проектов, сочетающие быстрый монтаж и надежную грузоподъемность.',
+      de: 'Mobile Portalsysteme für Werk, Lager und Projekte mit hoher Einsatzflexibilität, schneller Bereitstellung und stabiler Hebeleistung.',
+      fr: 'Des portiques mobiles pensés pour l’industrie, avec mise en service rapide, manutention efficace et performance de levage fiable.',
+      es: 'Sistemas pórtico móviles para industria, almacenes y proyectos, con despliegue rápido y rendimiento de elevación confiable.'
     }
   },
   lifts: {
@@ -41,12 +41,12 @@ export const productCategoryMap: Record<ProductCategory, ProductCategoryMeta> = 
       es: 'Elevadores'
     },
     descriptions: {
-      en: 'Scissor lifts and access platforms designed for vertical reach, maintenance, and material positioning.',
-      zh: '面向高空作业、检修维护和物料定位场景的剪叉升降平台与高空设备。',
-      ru: 'Ножничные подъемники и платформы доступа для вертикального подъема, обслуживания и позиционирования материалов.',
-      de: 'Scherenbühnen und Hubplattformen für vertikalen Zugang, Wartung und Materialpositionierung.',
-      fr: 'Plateformes élévatrices et ciseaux pour accès en hauteur, maintenance et positionnement de charges.',
-      es: 'Plataformas elevadoras y tijeras para acceso vertical, mantenimiento y posicionamiento de materiales.'
+      en: 'Lift platforms engineered for safe elevation, smooth operation, and dependable performance in maintenance and access applications.',
+      zh: '升降平台系列面向高空作业与设备维护场景，突出安全稳定、运行平顺与持续作业能力。',
+      ru: 'Подъемные платформы для безопасной работы на высоте, технического обслуживания и устойчивой ежедневной эксплуатации.',
+      de: 'Hubplattformen für sicheren Höhenzugang, reibungslosen Betrieb und verlässliche Leistung in Wartung und Einsatz vor Ort.',
+      fr: 'Plateformes élévatrices conçues pour la sécurité en hauteur, la fluidité d’utilisation et la fiabilité en maintenance.',
+      es: 'Plataformas elevadoras diseñadas para trabajo seguro en altura, operación fluida y rendimiento confiable.'
     }
   },
   hoists: {
@@ -60,12 +60,12 @@ export const productCategoryMap: Record<ProductCategory, ProductCategoryMeta> = 
       es: 'Polipastos'
     },
     descriptions: {
-      en: 'Electric and manual hoist units for repeated lifting integration across gantry, jib, and overhead systems.',
-      zh: '适配龙门架、悬臂和桥机系统的电动或手动起重葫芦单元。',
-      ru: 'Электрические и ручные тали для интеграции в портальные, консольные и мостовые подъемные системы.',
-      de: 'Elektrische und manuelle Hubwerke für den Einsatz in Portal-, Schwenkarm- und Brückensystemen.',
-      fr: 'Palans électriques et manuels pour intégration dans des systèmes portiques, potences et ponts roulants.',
-      es: 'Polipastos eléctricos y manuales para integración en sistemas pórtico, pluma y puente grúa.'
+      en: 'Hoist products focused on lifting efficiency, steady operation, and integration with professional industrial lifting systems.',
+      zh: '起重葫芦系列聚焦起吊效率、运行稳定性与系统适配能力，满足多种工业起重配置需求。',
+      ru: 'Тали, ориентированные на эффективность подъема, стабильную работу и интеграцию в профессиональные промышленные системы.',
+      de: 'Hebezeuge mit Fokus auf Hubleistung, ruhigen Betrieb und flexible Einbindung in professionelle Industriesysteme.',
+      fr: 'Une gamme de palans axée sur l’efficacité de levage, la stabilité d’utilisation et l’intégration aux systèmes industriels.',
+      es: 'Polipastos enfocados en eficiencia de elevación, operación estable e integración con sistemas industriales profesionales.'
     }
   },
   buffers: {
@@ -79,31 +79,12 @@ export const productCategoryMap: Record<ProductCategory, ProductCategoryMeta> = 
       es: 'Amortiguadores'
     },
     descriptions: {
-      en: 'Impact absorption and end-stop protection components for crane travel paths, transfer zones, and docking points.',
-      zh: '用于起重机行走端部、转运区域与设备对接点的缓冲吸能与防撞部件。',
-      ru: 'Компоненты для поглощения удара и защиты конечных остановов на путях движения и стыковочных участках.',
-      de: 'Stoßdämpfende Endanschlag-Komponenten für Kranfahrwege, Übergabezonen und Andockpunkte.',
-      fr: 'Composants d’absorption d’impact et de protection de fin de course pour voies de roulement et zones de transfert.',
-      es: 'Componentes de absorción de impacto y protección de fin de carrera para recorridos y zonas de transferencia.'
-    }
-  },
-  handling: {
-    anchorId: 'category-handling',
-    labels: {
-      en: 'Material Handling',
-      zh: '装卸设备',
-      ru: 'Погрузочно-разгрузочное оборудование',
-      de: 'Handhabungstechnik',
-      fr: 'Équipements de manutention',
-      es: 'Equipos de manipulación'
-    },
-    descriptions: {
-      en: 'Manual and assisted handling equipment for positioning loads, warehouse support, and internal transfers.',
-      zh: '用于载荷定位、仓储辅助和内部转运的手动及半自动装卸设备。',
-      ru: 'Ручное и вспомогательное оборудование для позиционирования грузов, складской поддержки и внутренних перемещений.',
-      de: 'Manuelle und unterstützte Handhabungstechnik für Lastpositionierung, Lagerunterstützung und interne Transporte.',
-      fr: 'Équipements de manutention manuels et assistés pour positionnement de charges et transferts internes.',
-      es: 'Equipos manuales y asistidos para posicionamiento de carga, apoyo logístico y transferencias internas.'
+      en: 'Industrial buffer solutions that improve collision protection, absorb impact energy, and strengthen crane travel safety.',
+      zh: '工业缓冲器产品可提升防撞保护能力、吸收冲击能量，并增强起重设备运行安全性。',
+      ru: 'Буферные решения для промышленности, повышающие защиту от удара и безопасность движения кранового оборудования.',
+      de: 'Industrielle Pufferlösungen zur Verbesserung von Aufprallschutz, Energieaufnahme und Fahrsicherheit von Krananlagen.',
+      fr: 'Des solutions de buffers industrielles pour renforcer la protection anticollision et la sécurité des équipements de levage.',
+      es: 'Soluciones industriales de amortiguación para mejorar la protección contra impactos y la seguridad operativa de las grúas.'
     }
   },
   parts: {
@@ -117,12 +98,12 @@ export const productCategoryMap: Record<ProductCategory, ProductCategoryMeta> = 
       es: 'Otros accesorios'
     },
     descriptions: {
-      en: 'Electrical, control, and supporting spare parts that complete lifting system delivery and retrofit projects.',
-      zh: '用于完善起重系统交付与改造项目的电气、控制及其他配件。',
-      ru: 'Электрические, управляющие и вспомогательные комплектующие для поставки и модернизации подъемных систем.',
-      de: 'Elektrische, steuerungstechnische und ergänzende Ersatzteile für Lieferung und Retrofit von Hebesystemen.',
-      fr: 'Pièces électriques, de commande et accessoires complétant les projets de levage et de retrofit.',
-      es: 'Piezas eléctricas, de control y accesorios que completan proyectos de elevación y retrofit.'
+      en: 'Supporting crane parts and accessories selected to improve durability, compatibility, and stable long-term system service.',
+      zh: '配件与部件产品用于提升整机耐用性、系统适配性与长期运行稳定性。',
+      ru: 'Комплектующие и аксессуары для повышения долговечности, совместимости и стабильной долгосрочной работы оборудования.',
+      de: 'Ergänzende Komponenten und Zubehörteile zur Verbesserung von Haltbarkeit, Kompatibilität und langfristiger Betriebssicherheit.',
+      fr: 'Pièces et accessoires conçus pour améliorer la durabilité, la compatibilité et la stabilité de service à long terme.',
+      es: 'Piezas y accesorios orientados a mejorar la durabilidad, compatibilidad y estabilidad operativa a largo plazo.'
     }
   }
 };

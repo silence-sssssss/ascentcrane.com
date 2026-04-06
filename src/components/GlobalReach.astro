@@ -1,0 +1,334 @@
+---
+import { Image } from 'astro:assets';
+import globalMap from '../assets/images/global-map.png';
+import { type SiteLang } from '../data/i18n';
+
+interface LocationItem {
+  id: string;
+  projects: number;
+  top: string;
+  left: string;
+  featured?: boolean;
+}
+
+interface Props {
+  lang: SiteLang;
+}
+
+const { lang } = Astro.props;
+
+const copy = {
+  en: {
+    eyebrow: 'Global Delivery Reach',
+    title: 'Project distribution across industrial markets',
+    description: 'A map-based snapshot of recent crane and lifting equipment activity across export regions, dealer markets, and project destinations.',
+    listTitle: 'Key project markets'
+  },
+  zh: {
+    eyebrow: '全球交付版图',
+    title: '覆盖多区域工业市场的项目分布',
+    description: '以地图方式展示起重设备在出口市场、经销区域与项目目的地中的分布情况。',
+    listTitle: '重点项目市场'
+  },
+  ru: {
+    eyebrow: 'Глобальная география поставок',
+    title: 'Распределение проектов по промышленным рынкам',
+    description: 'Карта показывает активность по подъемному оборудованию на экспортных рынках, у дилеров и в проектных регионах.',
+    listTitle: 'Ключевые рынки проектов'
+  },
+  de: {
+    eyebrow: 'Globale Lieferreichweite',
+    title: 'Projektverteilung in industriellen Zielmärkten',
+    description: 'Eine kartengestützte Übersicht der aktuellen Aktivitäten für Krane und Hebetechnik in Export- und Projektmärkten.',
+    listTitle: 'Wichtige Projektmärkte'
+  },
+  fr: {
+    eyebrow: 'Présence mondiale',
+    title: 'Répartition des projets sur les marchés industriels',
+    description: 'Une visualisation cartographique des activités récentes en équipements de levage sur les marchés export, distributeurs et projets.',
+    listTitle: 'Marchés projets clés'
+  },
+  es: {
+    eyebrow: 'Cobertura global',
+    title: 'Distribución de proyectos en mercados industriales',
+    description: 'Un mapa del despliegue reciente de equipos de elevación en regiones de exportación, distribuidores y destinos de proyecto.',
+    listTitle: 'Mercados clave'
+  }
+} as const;
+
+const labels = {
+  en: {
+    usa: 'USA',
+    brazil: 'Brazil',
+    nigeria: 'Nigeria',
+    germany: 'Germany',
+    sweden: 'Sweden',
+    norway: 'Norway',
+    poland: 'Poland',
+    romania: 'Romania',
+    uae: 'UAE',
+    russia: 'Russia',
+    chile: 'Chile',
+    argentina: 'Argentina',
+    southAfrica: 'South Africa',
+    egypt: 'Egypt',
+    kenya: 'Kenya',
+    china: 'China',
+    australia: 'Australia'
+  },
+  zh: {
+    usa: '美国',
+    brazil: '巴西',
+    nigeria: '尼日利亚',
+    germany: '德国',
+    sweden: '瑞典',
+    norway: '挪威',
+    poland: '波兰',
+    romania: '罗马尼亚',
+    uae: '阿联酋',
+    russia: '俄罗斯',
+    chile: '智利',
+    argentina: '阿根廷',
+    southAfrica: '南非',
+    egypt: '埃及',
+    kenya: '肯尼亚',
+    china: '中国',
+    australia: '澳大利亚'
+  },
+  ru: {
+    usa: 'США',
+    brazil: 'Бразилия',
+    nigeria: 'Нигерия',
+    germany: 'Германия',
+    sweden: 'Швеция',
+    norway: 'Норвегия',
+    poland: 'Польша',
+    romania: 'Румыния',
+    uae: 'ОАЭ',
+    russia: 'Россия',
+    chile: 'Чили',
+    argentina: 'Аргентина',
+    southAfrica: 'ЮАР',
+    egypt: 'Египет',
+    kenya: 'Кения',
+    china: 'Китай',
+    australia: 'Австралия'
+  },
+  de: {
+    usa: 'USA',
+    brazil: 'Brasilien',
+    nigeria: 'Nigeria',
+    germany: 'Deutschland',
+    sweden: 'Schweden',
+    norway: 'Norwegen',
+    poland: 'Polen',
+    romania: 'Rumänien',
+    uae: 'VAE',
+    russia: 'Russland',
+    chile: 'Chile',
+    argentina: 'Argentinien',
+    southAfrica: 'Südafrika',
+    egypt: 'Ägypten',
+    kenya: 'Kenia',
+    china: 'China',
+    australia: 'Australien'
+  },
+  fr: {
+    usa: 'États-Unis',
+    brazil: 'Brésil',
+    nigeria: 'Nigeria',
+    germany: 'Allemagne',
+    sweden: 'Suède',
+    norway: 'Norvège',
+    poland: 'Pologne',
+    romania: 'Roumanie',
+    uae: 'EAU',
+    russia: 'Russie',
+    chile: 'Chili',
+    argentina: 'Argentine',
+    southAfrica: 'Afrique du Sud',
+    egypt: 'Égypte',
+    kenya: 'Kenya',
+    china: 'Chine',
+    australia: 'Australie'
+  },
+  es: {
+    usa: 'EE. UU.',
+    brazil: 'Brasil',
+    nigeria: 'Nigeria',
+    germany: 'Alemania',
+    sweden: 'Suecia',
+    norway: 'Noruega',
+    poland: 'Polonia',
+    romania: 'Rumanía',
+    uae: 'EAU',
+    russia: 'Rusia',
+    chile: 'Chile',
+    argentina: 'Argentina',
+    southAfrica: 'Sudáfrica',
+    egypt: 'Egipto',
+    kenya: 'Kenia',
+    china: 'China',
+    australia: 'Australia'
+  }
+} as const;
+
+const locations: LocationItem[] = [
+  { id: 'usa', projects: 5, top: '32%', left: '17%' },
+  { id: 'brazil', projects: 6, top: '68%', left: '34%' },
+  { id: 'chile', projects: 3, top: '78%', left: '29%' },
+  { id: 'argentina', projects: 3, top: '82%', left: '31%' },
+  { id: 'nigeria', projects: 2, top: '58%', left: '52%' },
+  { id: 'egypt', projects: 3, top: '46%', left: '55%' },
+  { id: 'kenya', projects: 2, top: '61%', left: '58%' },
+  { id: 'southAfrica', projects: 4, top: '83%', left: '56%' },
+  { id: 'germany', projects: 2, top: '29%', left: '52%' },
+  { id: 'norway', projects: 2, top: '23%', left: '51%' },
+  { id: 'sweden', projects: 3, top: '20%', left: '54%' },
+  { id: 'poland', projects: 3, top: '26%', left: '56%' },
+  { id: 'romania', projects: 2, top: '31%', left: '58%' },
+  { id: 'uae', projects: 9, top: '47%', left: '64%' },
+  { id: 'russia', projects: 8, top: '18%', left: '68%' },
+  { id: 'china', projects: 12, top: '38%', left: '78%', featured: true },
+  { id: 'australia', projects: 4, top: '77%', left: '86%' }
+];
+
+const sectionCopy = copy[lang];
+const labelSet = labels[lang];
+---
+
+<section class="border-b border-slate-200 bg-white" aria-label="Map showing Ascent Crane's global project distribution in over 50 countries">
+  <div class="mx-auto max-w-[1480px] px-4 py-14 lg:px-6 lg:py-16 xl:px-8">
+    <div class="max-w-3xl">
+      <p class="industrial-eyebrow">{sectionCopy.eyebrow}</p>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tighter text-brand-navy sm:text-4xl">{sectionCopy.title}</h2>
+      <p class="mt-4 text-base leading-8 text-slate-600">{sectionCopy.description}</p>
+    </div>
+
+    <div class="mt-10 w-full overflow-hidden">
+      <div class="w-full border border-slate-200 bg-brand-cold p-2 sm:p-4 lg:p-5">
+        <div class="global-stage relative w-full overflow-hidden bg-transparent">
+          <Image src={globalMap} alt="World map showing Ascent Crane's project footprint" format="webp" quality={85} class="global-map-image select-none" loading="eager" />
+
+          <div class="absolute inset-0">
+            {locations.map((location, index) => (
+              <div class="absolute" data-pin={location.id} style={`top:${location.top};left:${location.left};animation-delay:${index * 0.22}s;`}>
+                <div class={`global-pin ${location.featured ? 'global-pin-featured' : 'global-pin-standard'}`}>
+                  {location.featured && <span class="global-pin-pulse" aria-hidden="true"></span>}
+                  <span class="global-pin-label">{labelSet[location.id]} ({location.projects})</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .global-stage {
+    width: 100%;
+  }
+
+  .global-map-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .global-pin {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    border: 1px solid #f97316;
+    padding: 0.28rem 0.5rem;
+    border-radius: 2px;
+    background: #f97316;
+    color: white;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    animation: global-reach-float 3.6s ease-in-out infinite;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    box-shadow: 0 10px 26px rgba(249, 115, 22, 0.25);
+  }
+
+  .global-pin::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    bottom: -5px;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    transform: rotate(45deg);
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.95;
+  }
+
+  .global-pin-label {
+    position: relative;
+    z-index: 1;
+  }
+
+  .global-pin-standard {
+    background: #f97316;
+    border-color: #f97316;
+  }
+
+  .global-pin-featured {
+    background: #e11d48;
+    border-color: #e11d48;
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.14), 0 14px 32px rgba(225, 29, 72, 0.24);
+  }
+
+  .global-pin-pulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 999px;
+    background: rgba(225, 29, 72, 0.22);
+    animation: global-pin-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes global-reach-float {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+
+    50% {
+      transform: translate(-50%, -50%) translateY(-6px);
+    }
+  }
+
+  @keyframes global-pin-ping {
+    0% {
+      transform: scale(0.92);
+      opacity: 0.7;
+    }
+
+    75%,
+    100% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .global-pin {
+      font-size: 0.56rem;
+      padding: 0.22rem 0.38rem;
+    }
+
+    .global-pin::after {
+      left: 6px;
+      bottom: -4px;
+      width: 7px;
+      height: 7px;
+    }
+  }
+</style>

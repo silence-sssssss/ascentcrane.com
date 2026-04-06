@@ -223,7 +223,8 @@ for (const folderName of folders) {
   const model = String(primaryRow[0] || meta.zhName || meta.baseName).trim();
   const price = extractPrice(primaryRow, headers);
   const descriptionSummary = buildDescriptionSummary(meta, normalizedPrimary);
-  const variantsTable = buildVariantsTable(headers, validRows.slice(0, 8));
+  const tableHeaders = headers.filter((header) => header);
+  const tableRows = validRows.map((row) => tableHeaders.map((_, index) => String(row[index] ?? '').replace(/\|/g, '/').trim() || '-'));
   const imageMarkdown = imageOutputs.map((imagePath, index) => `![${meta.baseName} image ${index + 1}](${imagePath})`).join('\n\n');
   const videoMarkdown = videoOutputs.map((videoPath, index) => `- [Product video ${index + 1}](${videoPath})`).join('\n');
 
@@ -233,27 +234,7 @@ for (const folderName of folders) {
     const summary = localizeSummary(lang, specSummary, meta.category);
     const seoTitle = pack.seoTitle(title);
     const metaDescription = pack.metaDescription(title, summary);
-    const body = [
-      pack.intro(title, summary),
-      '',
-      `## ${pack.specsHeading}`,
-      '',
-      ...buildLocalizedSpecBullets(lang, normalizedPrimary),
-      '',
-      `## ${pack.variantsHeading}`,
-      '',
-      variantsTable,
-      '',
-      `## ${pack.assetsHeading}`,
-      '',
-      imageMarkdown || '- No image assets available.',
-      '',
-      videoMarkdown ? videoMarkdown : '- No video assets available.',
-      '',
-      `## ${pack.notesHeading}`,
-      '',
-      pack.notes(categoryLabels[meta.category][lang])
-    ].join('\n');
+    const body = '';
 
     const frontmatter = [
       '---',
@@ -275,6 +256,8 @@ for (const folderName of folders) {
       `metaDescription: ${yamlValue(metaDescription)}`,
       `videoUrls: ${yamlArray(videoOutputs)}`,
       `galleryImages: ${yamlArray(imageOutputs)}`,
+      `tableHeaders: ${yamlArray(tableHeaders)}`,
+      `tableRows: ${yamlMatrix(tableRows)}`,
       '---',
       ''
     ].join('\n');
@@ -348,6 +331,18 @@ function buildVariantsTable(headers, rows) {
   return lines.join('\n');
 }
 
+function buildTableReferenceNote(lang) {
+  const notes = {
+    zh: '详细的 Excel 原始规格表已在页面专用数据表模块中展示。',
+    en: 'The detailed factory Excel specification sheet is rendered in the dedicated data table module on the page.',
+    ru: 'Подробная заводская таблица Excel отображается в отдельном модуле спецификаций на странице.',
+    de: 'Die detaillierte werkseitige Excel-Spezifikation wird im separaten Datentabellen-Modul der Seite dargestellt.',
+    fr: 'Le tableau Excel détaillé des spécifications usine est affiché dans le module de données dédié de la page.',
+    es: 'La tabla detallada de especificaciones Excel de fábrica se muestra en el módulo de datos dedicado de la página.'
+  };
+  return notes[lang];
+}
+
 function buildLocalizedSpecBullets(lang, record) {
   const labelMap = {
     zh: ['- **原始规格**：以下内容依据源表格自动整理。'],
@@ -417,6 +412,11 @@ function yamlValue(value) {
 function yamlArray(values) {
   if (!values.length) return '[]';
   return `[${values.map((value) => JSON.stringify(value)).join(', ')}]`;
+}
+
+function yamlMatrix(rows) {
+  if (!rows.length) return '[]';
+  return `[${rows.map((row) => `[${row.map((value) => JSON.stringify(value)).join(', ')}]`).join(', ')}]`;
 }
 
 function fallbackByCategory(category, lang, field) {

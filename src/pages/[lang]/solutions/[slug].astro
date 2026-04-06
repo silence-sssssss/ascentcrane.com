@@ -1,0 +1,132 @@
+---
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+import { getLocalizedPath, supportedLangs, type SiteLang } from '../../../data/i18n';
+import { getSolutionImage } from '../../../data/contentMedia';
+
+export async function getStaticPaths() {
+  const solutionModules = import.meta.glob('../../../content/solutions/*.md');
+  const entries = await Promise.all(
+    Object.values(solutionModules).map(async (resolver) => {
+      const mod = (await resolver()) as {
+        frontmatter: Record<string, string>;
+        default: unknown;
+      };
+
+      return {
+        data: mod.frontmatter,
+        Content: mod.default
+      };
+    })
+  );
+
+  return entries
+    .filter((entry) => supportedLangs.includes(entry.data.lang as SiteLang))
+    .map((entry) => ({
+      params: { lang: entry.data.lang, slug: entry.data.slug },
+      props: { solution: entry }
+    }));
+}
+
+const { lang, slug } = Astro.params as { lang: SiteLang; slug: string };
+const { solution } = Astro.props as {
+  solution: {
+    data: Record<string, string>;
+    Content: unknown;
+  };
+};
+
+const Content = solution.Content;
+const { title, description } = solution.data;
+const heroImage = getSolutionImage(slug);
+const copy = {
+  en: {
+    eyebrow: 'Solution Detail',
+    tocTitle: 'Table of Contents',
+    quote: 'Get a Quote',
+    readyTitle: 'Discuss Your Scenario',
+    readyText: 'Share your working conditions, load range, and deployment constraints, and we will help you match a practical lifting solution.'
+  },
+  zh: {
+    eyebrow: '解决方案详情',
+    tocTitle: '目录',
+    quote: '获取报价',
+    readyTitle: '沟通你的应用场景',
+    readyText: '告诉我们现场工况、载荷范围与部署限制，我们将协助匹配更合适的起重与升降方案。'
+  },
+  ru: {
+    eyebrow: 'Детали решения',
+    tocTitle: 'Содержание',
+    quote: 'Получить предложение',
+    readyTitle: 'Обсудить ваш сценарий',
+    readyText: 'Сообщите рабочие условия, диапазон нагрузок и ограничения по размещению, и мы поможем подобрать практичное подъемное решение.'
+  },
+  de: {
+    eyebrow: 'Lösungsdetail',
+    tocTitle: 'Inhaltsverzeichnis',
+    quote: 'Angebot erhalten',
+    readyTitle: 'Einsatzszenario besprechen',
+    readyText: 'Teilen Sie Arbeitsumgebung, Lastbereich und Einsatzgrenzen mit, damit wir eine passende Hebelösung empfehlen können.'
+  },
+  fr: {
+    eyebrow: 'Détail solution',
+    tocTitle: 'Sommaire',
+    quote: 'Obtenir un devis',
+    readyTitle: 'Présenter votre scénario',
+    readyText: 'Partagez vos conditions de travail, la plage de charge et les contraintes de déploiement pour que nous proposions une solution adaptée.'
+  },
+  es: {
+    eyebrow: 'Detalle de solución',
+    tocTitle: 'Tabla de contenido',
+    quote: 'Obtener cotización',
+    readyTitle: 'Comente su escenario',
+    readyText: 'Comparta condiciones de trabajo, rango de carga y limitaciones de despliegue para ayudarle a definir una solución práctica de elevación.'
+  }
+} as const;
+const quickLinksCopy = {
+  en: { title: 'Quick Access', products: 'Products', blog: 'Blog', contact: 'Contact' },
+  zh: { title: '快捷入口', products: '产品中心', blog: '博客', contact: '联系我们' },
+  ru: { title: 'Быстрый доступ', products: 'Продукция', blog: 'Блог', contact: 'Контакты' },
+  de: { title: 'Schnellzugriff', products: 'Produkte', blog: 'Blog', contact: 'Kontakt' },
+  fr: { title: 'Accès rapide', products: 'Produits', blog: 'Blog', contact: 'Contact' },
+  es: { title: 'Acceso rápido', products: 'Productos', blog: 'Blog', contact: 'Contacto' }
+} as const;
+const text = copy[lang];
+const tocItems = [
+  { id: 'overview', text: text.eyebrow, level: 2 },
+  { id: 'content-body', text: title, level: 2 }
+] as const;
+---
+
+<ContentLayout
+  lang={lang}
+  pathname={`/solutions/${slug}`}
+  title={`${title} | Ascent Crane Solutions`}
+  description={description}
+  canonicalURL={`https://ascentcrane.com${getLocalizedPath(lang, `/solutions/${slug}`)}`}
+  ogImage={`https://ascentcrane.com${heroImage}`}
+  heroEyebrow={text.eyebrow}
+  heroTitle={title}
+  heroDescription={description}
+  tocItems={tocItems}
+  ctaCopy={{
+    tocTitle: text.tocTitle,
+    getQuote: text.quote,
+    readyTitle: text.readyTitle,
+    readyText: text.readyText
+  }}
+  quickLinksCopy={quickLinksCopy[lang]}
+  stickyHref={getLocalizedPath(lang, '/contact')}
+  stickyLabel={title}
+>
+  <section id="overview">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{text.eyebrow}</p>
+    <h2 class="mt-3 text-2xl font-bold text-brand-navy">{title}</h2>
+  </section>
+
+  <article id="content-body" class="prose prose-slate mt-10 max-w-none prose-headings:scroll-mt-28 prose-headings:text-brand-navy prose-a:text-primary-700">
+    <figure class="not-prose mb-8 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-50 shadow-sm">
+      <img src={heroImage} alt={title} class="aspect-[16/9] w-full object-cover" loading="eager" />
+    </figure>
+    <Content />
+  </article>
+</ContentLayout>

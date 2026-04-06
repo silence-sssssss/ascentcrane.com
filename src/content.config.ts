@@ -20,7 +20,9 @@ const products = defineCollection({
     seoTitle: z.string().optional(),
     metaDescription: z.string().optional(),
     videoUrls: z.array(z.string()).optional(),
-    galleryImages: z.array(z.string()).optional()
+    galleryImages: z.array(z.string()).optional(),
+    tableHeaders: z.array(z.string()).optional(),
+    tableRows: z.array(z.array(z.string())).optional()
   })
 });
 

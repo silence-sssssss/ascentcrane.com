@@ -1,6 +1,7 @@
 ---
 import ContentLayout from '../../../layouts/ContentLayout.astro';
 import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
+import { getBlogImage } from '../../../data/contentMedia';
 
 export async function getStaticPaths() {
   const blogModules = import.meta.glob('../../../content/blog/*.md');
@@ -36,62 +37,56 @@ const { article } = Astro.props as {
 
 const Content = article.Content;
 const { title, description } = article.data;
+const heroImage = getBlogImage(slug);
 const copy = {
   en: {
     eyebrow: 'Article Detail',
     tocTitle: 'Table of Contents',
     quote: 'Get a Quote',
     readyTitle: 'Ready to Start?',
-    readyText: 'If this article matches your project direction, send your requirements and we will help you map product options and quotation steps.',
-    whatsappLabel: 'WhatsApp'
+    readyText: 'If this article matches your project direction, send your requirements and we will help you map product options and quotation steps.'
   },
   zh: {
     eyebrow: '文章详情',
     tocTitle: '目录',
     quote: '获取报价',
     readyTitle: '准备开始？',
-    readyText: '如果这篇文章对应你的项目方向，请把需求发给我们，我们会协助梳理产品选型与报价路径。',
-    whatsappLabel: 'WhatsApp'
+    readyText: '如果这篇文章对应你的项目方向，请把需求发给我们，我们会协助梳理产品选型与报价路径。'
   },
   ru: {
     eyebrow: 'Детали статьи',
     tocTitle: 'Содержание',
     quote: 'Получить предложение',
     readyTitle: 'Готовы начать?',
-    readyText: 'Если материал соответствует вашему проекту, отправьте требования, и мы поможем подобрать оборудование и путь к коммерческому предложению.',
-    whatsappLabel: 'WhatsApp'
+    readyText: 'Если материал соответствует вашему проекту, отправьте требования, и мы поможем подобрать оборудование и путь к коммерческому предложению.'
   },
   de: {
     eyebrow: 'Artikeldetail',
     tocTitle: 'Inhaltsverzeichnis',
     quote: 'Angebot erhalten',
     readyTitle: 'Bereit zu starten?',
-    readyText: 'Wenn der Artikel zu Ihrem Projekt passt, senden Sie uns Ihre Anforderungen und wir strukturieren Produktauswahl und Angebotsweg.',
-    whatsappLabel: 'WhatsApp'
+    readyText: 'Wenn der Artikel zu Ihrem Projekt passt, senden Sie uns Ihre Anforderungen und wir strukturieren Produktauswahl und Angebotsweg.'
   },
   fr: {
     eyebrow: 'Détail article',
     tocTitle: 'Sommaire',
     quote: 'Obtenir un devis',
     readyTitle: 'Prêt à démarrer ?',
-    readyText: 'Si cet article correspond à votre projet, partagez votre besoin et nous vous aiderons à structurer le choix produit et le parcours devis.',
-    whatsappLabel: 'WhatsApp'
+    readyText: 'Si cet article correspond à votre projet, partagez votre besoin et nous vous aiderons à structurer le choix produit et le parcours devis.'
   },
   es: {
     eyebrow: 'Detalle del artículo',
     tocTitle: 'Tabla de contenido',
     quote: 'Obtener cotización',
     readyTitle: '¿Listo para empezar?',
-    readyText: 'Si este artículo encaja con su proyecto, envíenos sus requisitos y le ayudaremos a estructurar la selección de producto y la ruta de cotización.',
-    whatsappLabel: 'WhatsApp'
+    readyText: 'Si este artículo encaja con su proyecto, envíenos sus requisitos y le ayudaremos a estructurar la selección de producto y la ruta de cotización.'
   }
 } as const;
 
 const text = copy[lang];
 const tocItems = [
   { id: 'overview', text: text.eyebrow, level: 2 },
-  { id: 'content-body', text: title, level: 2 },
-  { id: 'image-blocks', text: 'Image Blocks', level: 2 }
+  { id: 'content-body', text: title, level: 2 }
 ] as const;
 const quickLinksCopy = {
   en: { title: 'Quick Access', products: 'Products', blog: 'Blog', contact: 'Contact' },
@@ -109,7 +104,7 @@ const quickLinksCopy = {
   title={`${title} | Ascent Crane Blog`}
   description={description}
   canonicalURL={`https://ascentcrane.com${getLocalizedPath(lang, `/blog/${slug}`)}`}
-  ogImage="https://ascentcrane.com/assets/images/hero.png"
+  ogImage={`https://ascentcrane.com${heroImage}`}
   heroEyebrow={text.eyebrow}
   heroTitle={title}
   heroDescription={description}
@@ -118,8 +113,7 @@ const quickLinksCopy = {
     tocTitle: text.tocTitle,
     getQuote: text.quote,
     readyTitle: text.readyTitle,
-    readyText: text.readyText,
-    whatsappLabel: text.whatsappLabel
+    readyText: text.readyText
   }}
   quickLinksCopy={quickLinksCopy[lang]}
   stickyHref={getLocalizedPath(lang, '/contact')}
@@ -131,11 +125,9 @@ const quickLinksCopy = {
   </section>
 
   <article id="content-body" class="prose prose-slate mt-10 max-w-none prose-headings:scroll-mt-28 prose-headings:text-brand-navy prose-a:text-primary-700">
+    <figure class="not-prose mb-8 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-50 shadow-sm">
+      <img src={heroImage} alt={title} class="aspect-[16/9] w-full object-cover" loading="eager" />
+    </figure>
     <Content />
   </article>
-
-  <section id="image-blocks" class="mt-10 grid gap-6">
-    <div class="h-64 rounded-[24px] border border-slate-200 bg-slate-100 shadow-sm"></div>
-    <div class="h-64 rounded-[24px] border border-slate-200 bg-slate-100 shadow-sm"></div>
-  </section>
 </ContentLayout>

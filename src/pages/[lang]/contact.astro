@@ -12,12 +12,12 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
 const contactInfoCopy = {
-  en: { title: 'Direct business contact', email: 'Email', whatsapp: 'WhatsApp', location: 'Location', locationValue: 'Changyuan / Xinxiang, Henan, China' },
-  zh: { title: '直接商务联系', email: '邮箱', whatsapp: 'WhatsApp', location: '地址', locationValue: '中国河南长垣 / 新乡' },
-  ru: { title: 'Прямой деловой контакт', email: 'Email', whatsapp: 'WhatsApp', location: 'Местоположение', locationValue: 'Чанъюань / Синьсян, Хэнань, Китай' },
-  de: { title: 'Direkter Geschäftskontakt', email: 'E-Mail', whatsapp: 'WhatsApp', location: 'Standort', locationValue: 'Changyuan / Xinxiang, Henan, China' },
-  fr: { title: 'Contact commercial direct', email: 'E-mail', whatsapp: 'WhatsApp', location: 'Localisation', locationValue: 'Changyuan / Xinxiang, Henan, Chine' },
-  es: { title: 'Contacto comercial directo', email: 'Correo electrónico', whatsapp: 'WhatsApp', location: 'Ubicación', locationValue: 'Changyuan / Xinxiang, Henan, China' }
+  en: { title: 'Direct business contact', phone: 'Phone', email: 'Email', location: 'Location', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
+  zh: { title: '直接商务联系', phone: '手机', email: '邮箱', location: '地址', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
+  ru: { title: 'Прямой деловой контакт', phone: 'Телефон', email: 'Email', location: 'Адрес', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
+  de: { title: 'Direkter Geschäftskontakt', phone: 'Telefon', email: 'E-Mail', location: 'Adresse', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
+  fr: { title: 'Contact commercial direct', phone: 'Téléphone', email: 'E-mail', location: 'Adresse', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' },
+  es: { title: 'Contacto comercial directo', phone: 'Teléfono', email: 'Correo electrónico', location: 'Dirección', locationValue: '河南省新乡市长垣市南蒲工业区纬二路35号' }
 } as const;
 const contactInfo = contactInfoCopy[lang];
 ---
@@ -43,8 +43,8 @@ const contactInfo = contactInfoCopy[lang];
         <aside class="rounded-[28px] border border-slate-200 bg-white p-8 text-slate-900 shadow-[0_20px_70px_rgba(15,39,68,0.08)]">
           <h2 class="text-2xl font-bold text-brand-navy">{contactInfo.title}</h2>
           <div class="mt-6 space-y-5 text-sm leading-7 text-slate-600">
-            <div><p class="font-semibold text-slate-900">{contactInfo.email}</p><p>sales@ascentcrane.com</p></div>
-            <div><p class="font-semibold text-slate-900">{contactInfo.whatsapp}</p><p>+86 138 0000 0000</p></div>
+            <div><p class="font-semibold text-slate-900">{contactInfo.phone}</p><p>+86 15903067111</p></div>
+            <div><p class="font-semibold text-slate-900">{contactInfo.email}</p><p>hntzs@gmail.com</p></div>
             <div><p class="font-semibold text-slate-900">{contactInfo.location}</p><p>{contactInfo.locationValue}</p></div>
           </div>
         </aside>

@@ -17,30 +17,30 @@ const navLinks = [
 ];
 ---
 
-<header class="fixed inset-x-0 top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur">
+<header class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100/50 bg-white/80 backdrop-blur-md">
   <nav class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 lg:px-6">
     <a href={getLocalizedPath(lang, '/')} class="flex items-center gap-3">
-      <img src="/assets/images/logo.svg" class="h-8 w-auto" alt="AscentCrane logo" />
-      <span class="self-center whitespace-nowrap text-xl font-semibold text-brand-navy">AscentCrane</span>
+      <img src="/assets/images/logo36px.png" class="h-9 w-auto" alt="AscentCrane logo" />
+      <span class="self-center whitespace-nowrap text-xl font-bold tracking-tight text-brand-navy">AscentCrane</span>
     </a>
     <div class="hidden items-center gap-8 lg:flex">
-      <ul class="flex items-center gap-8 text-sm font-medium text-slate-600">
+      <ul class="flex items-center gap-8 text-sm font-semibold uppercase tracking-[0.12em] text-slate-600">
         {navLinks.map((link) => (
           <li>
-            <a href={link.href} class="transition hover:text-primary-700">{link.label}</a>
+            <a href={link.href} class="transition hover:text-brand-navy">{link.label}</a>
           </li>
         ))}
       </ul>
       <div class="relative group">
-        <button type="button" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm focus:outline-none focus:ring-4 focus:ring-slate-100">
+        <button type="button" class="inline-flex items-center gap-2 rounded-sm border border-slate-300/80 bg-white/85 px-3 py-2 text-sm font-semibold uppercase tracking-[0.08em] text-slate-700 focus:outline-none">
           <span>{languageLabels[lang].flag}</span>
           <span>{languageLabels[lang].short}</span>
         </button>
         <div class="absolute right-0 top-full h-3 w-full"></div>
         <div class="invisible absolute right-0 top-[calc(100%-1px)] z-10 min-w-40 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-          <div class="rounded-xl border border-slate-200 bg-white p-2 shadow-xl">
+          <div class="rounded-sm border border-slate-300 bg-white/95 p-2 backdrop-blur-md">
           {supportedLangs.map((item) => (
-            <a href={buildLanguageSwitcherPath(item, currentPath)} class={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition hover:bg-slate-50 ${item === lang ? 'bg-slate-50 text-brand-navy' : 'text-slate-700'}`}>
+            <a href={buildLanguageSwitcherPath(item, currentPath)} data-language-switch-link class={`flex items-center justify-between rounded-sm px-3 py-2 text-sm transition hover:bg-slate-100 ${item === lang ? 'bg-slate-100 font-semibold text-brand-navy' : 'text-slate-700'}`}>
               <span class="flex items-center gap-2">
                 <span>{languageLabels[item].flag}</span>
                 <span>{languageLabels[item].native}</span>
@@ -51,12 +51,35 @@ const navLinks = [
           </div>
         </div>
       </div>
-      <a href={getLocalizedPath(lang, '/contact')} class="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-orange-200 focus:text-white">
+      <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center rounded-sm border border-brand-steel bg-brand-yellow px-5 py-2.5 text-sm font-bold uppercase tracking-[0.08em] text-brand-steel transition hover:bg-brand-orange hover:text-white">
         {copy.quote}
       </a>
     </div>
-    <a href={getLocalizedPath(lang, '/contact')} class="rounded-lg bg-brand-orange px-4 py-2 text-sm font-medium text-white transition hover:bg-orange-600 hover:text-white lg:hidden">
+    <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center rounded-sm border border-brand-steel bg-brand-yellow px-4 py-2 text-sm font-bold uppercase tracking-[0.08em] text-brand-steel transition hover:bg-brand-orange hover:text-white lg:hidden">
       {copy.contact}
     </a>
   </nav>
 </header>
+
+<script>
+  const scrollStorageKey = 'language-switch-scroll-y';
+  const targetStorageKey = 'language-switch-target-path';
+
+  document.querySelectorAll('[data-language-switch-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      sessionStorage.setItem(scrollStorageKey, String(window.scrollY));
+      sessionStorage.setItem(targetStorageKey, window.location.pathname);
+    });
+  });
+
+  const savedScrollY = sessionStorage.getItem(scrollStorageKey);
+  const savedTargetPath = sessionStorage.getItem(targetStorageKey);
+
+  if (savedScrollY && savedTargetPath) {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: Number(savedScrollY), left: 0, behavior: 'auto' });
+      sessionStorage.removeItem(scrollStorageKey);
+      sessionStorage.removeItem(targetStorageKey);
+    });
+  }
+</script>
