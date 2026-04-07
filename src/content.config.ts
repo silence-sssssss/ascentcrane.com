@@ -42,7 +42,11 @@ const blog = defineCollection({
     lang: z.enum(['en', 'zh', 'ru', 'de', 'fr', 'es']),
     slug: z.string(),
     title: z.string(),
-    description: z.string()
+    description: z.string(),
+    pubDate: z.coerce.date().optional(),
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    image: z.string().optional()
   })
 });
 

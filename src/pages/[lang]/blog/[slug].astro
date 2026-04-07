@@ -4,11 +4,11 @@ import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i
 import { getBlogImage } from '../../../data/contentMedia';
 
 export async function getStaticPaths() {
-  const blogModules = import.meta.glob('../../../content/blog/*.md');
+  const blogModules = import.meta.glob('../../../content/blog/**/*.md');
   const entries = await Promise.all(
     Object.values(blogModules).map(async (resolver) => {
       const mod = (await resolver()) as {
-        frontmatter: Record<string, string>;
+        frontmatter: Record<string, string | string[]>;
         default: unknown;
       };
 
@@ -30,14 +30,15 @@ export async function getStaticPaths() {
 const { lang, slug } = Astro.params as { lang: SiteLang; slug: string };
 const { article } = Astro.props as {
   article: {
-    data: Record<string, string>;
+    data: Record<string, string | string[]>;
     Content: unknown;
   };
 };
 
 const Content = article.Content;
-const { title, description } = article.data;
-const heroImage = getBlogImage(slug);
+const title = String(article.data.title ?? '');
+const description = String(article.data.description ?? '');
+const heroImage = typeof article.data.image === 'string' ? article.data.image : getBlogImage(slug);
 const copy = {
   en: {
     eyebrow: 'Article Detail',

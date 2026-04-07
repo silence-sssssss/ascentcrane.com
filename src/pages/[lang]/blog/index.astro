@@ -9,7 +9,7 @@ export function getStaticPaths() {
   return getAllLangStaticPaths();
 }
 
-const blogModules = import.meta.glob('../../../content/blog/*.md', { eager: true });
+const blogModules = import.meta.glob('../../../content/blog/**/*.md', { eager: true });
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
 const blogListCopy = {
@@ -58,7 +58,7 @@ const blogListCopy = {
 } as const;
 const blogListText = blogListCopy[lang];
 const articles = Object.values(blogModules)
-  .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter)
+  .map((module) => (module as { frontmatter: Record<string, string | string[]> }).frontmatter)
   .filter((article) => article.lang === lang)
   .sort((a, b) => a.slug.localeCompare(b.slug))
   .slice(0, 6);
@@ -99,11 +99,11 @@ const articles = Object.values(blogModules)
       <div class="grid gap-8 lg:grid-cols-3">
         {articles.map((article) => (
           <article class="overflow-hidden rounded-[30px] border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.14)]">
-            <img src={getBlogImage(article.slug)} alt={article.title} class="h-48 w-full object-cover" loading="lazy" />
+            <img src={typeof article.image === 'string' ? article.image : getBlogImage(String(article.slug))} alt={String(article.title)} class="h-48 w-full object-cover" loading="lazy" />
             <div class="p-7">
-              <h2 class="text-xl font-bold leading-8 text-brand-navy">{article.title}</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-600">{article.description}</p>
-              <a href={getLocalizedPath(lang, `/blog/${article.slug}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{blogListText.cta}</a>
+              <h2 class="text-xl font-bold leading-8 text-brand-navy">{String(article.title)}</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{String(article.description)}</p>
+              <a href={getLocalizedPath(lang, `/blog/${String(article.slug)}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{blogListText.cta}</a>
             </div>
           </article>
         ))}
