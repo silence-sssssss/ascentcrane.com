@@ -60,11 +60,15 @@ const blogListCopy = {
   }
 } as const;
 const blogListText = blogListCopy[lang];
+const legacyPlaceholderImages = new Set(['/assets/images/content/img_1.jpg', '/assets/images/content/img_2.jpg', '/assets/images/content/img_3.jpg']);
 const articles = Object.values(blogModules)
   .map((module) => (module as { frontmatter: Record<string, string | string[]> }).frontmatter)
   .filter((article) => article.lang === lang)
-  .sort((a, b) => a.slug.localeCompare(b.slug))
-  .slice(0, 6);
+  .sort((a, b) => {
+    const aDate = Date.parse(String(a.pubDate ?? '1970-01-01'));
+    const bDate = Date.parse(String(b.pubDate ?? '1970-01-01'));
+    return bDate - aDate;
+  });
 
 ---
 
@@ -102,7 +106,22 @@ const articles = Object.values(blogModules)
       <div class="grid gap-8 lg:grid-cols-3">
         {articles.map((article) => (
           <article class="overflow-hidden rounded-[30px] border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.14)]">
-            <Image src={getMappedContentImage(typeof article.image === 'string' ? article.image : getBlogImage(String(article.slug)))} alt={String(article.title)} class="h-48 w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1024px) 30vw, 100vw" width={1200} height={675} loading="lazy" />
+            <Image
+              src={getMappedContentImage(
+                typeof article.image === 'string' && !legacyPlaceholderImages.has(article.image)
+                  ? article.image
+                  : getBlogImage(String(article.slug))
+              )}
+              alt={String(article.title)}
+              class="h-48 w-full object-cover"
+              format="avif"
+              quality="mid"
+              widths={[400,800,1200]}
+              sizes="(min-width: 1024px) 30vw, 100vw"
+              width={1200}
+              height={675}
+              loading="lazy"
+            />
             <div class="p-7">
               <h2 class="text-xl font-bold leading-8 text-brand-navy">{String(article.title)}</h2>
               <p class="mt-4 text-sm leading-7 text-slate-600">{getBlogSeoDescription(String(article.title), String(article.description), lang)}</p>

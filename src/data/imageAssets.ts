@@ -3,8 +3,6 @@ import banner2 from '../assets/images/banners/banner_2.jpg';
 import banner3 from '../assets/images/banners/banner_3.jpg';
 import banner4 from '../assets/images/banners/banner_4.jpg';
 import contentImg1 from '../assets/images/content/img_1.jpg';
-import contentImg2 from '../assets/images/content/img_2.jpg';
-import contentImg3 from '../assets/images/content/img_3.jpg';
 import indexImg1 from '../assets/images/index/index_1.jpg';
 import indexImg2 from '../assets/images/index/index_2.jpg';
 import indexImg3 from '../assets/images/index/index_3.jpg';
@@ -22,11 +20,17 @@ import wireRopeElectricHoist01 from '../assets/images/products/wire-rope-electri
 
 export const heroBannerImages = [banner1, banner2, banner3, banner4] as const;
 
-export const contentImageByPath = {
-  '/assets/images/content/img_1.jpg': contentImg1,
-  '/assets/images/content/img_2.jpg': contentImg2,
-  '/assets/images/content/img_3.jpg': contentImg3
-} as const;
+const contentImageModules = import.meta.glob('../assets/images/content/*.{webp,png,jpg,jpeg}', {
+  eager: true,
+  import: 'default'
+});
+
+export const contentImageByPath = Object.fromEntries(
+  Object.entries(contentImageModules).map(([modulePath, value]) => {
+    const normalizedPath = modulePath.replace('../assets/images', '/assets/images');
+    return [normalizedPath, value];
+  })
+);
 
 export const productHeroImageByPath = {
   '/assets/images/products/c-track-cable-trolley-01.webp': cTrackCableTrolley01,

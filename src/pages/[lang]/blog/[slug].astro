@@ -42,7 +42,9 @@ const Content = article.Content;
 const title = String(article.data.title ?? '');
 const rawDescription = String(article.data.description ?? '');
 const description = getBlogSeoDescription(title, rawDescription, lang);
-const heroImage = typeof article.data.image === 'string' ? article.data.image : getBlogImage(slug);
+const legacyPlaceholderImages = new Set(['/assets/images/content/img_1.jpg', '/assets/images/content/img_2.jpg', '/assets/images/content/img_3.jpg']);
+const frontmatterImage = typeof article.data.image === 'string' ? article.data.image : undefined;
+const heroImage = frontmatterImage && !legacyPlaceholderImages.has(frontmatterImage) ? frontmatterImage : getBlogImage(slug);
 const copy = {
   en: {
     eyebrow: 'Article Detail',
