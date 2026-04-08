@@ -4,6 +4,7 @@ import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
 import { getBlogImage } from '../../../data/contentMedia';
+import { getBlogSeoDescription } from '../../../data/seo';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -102,7 +103,7 @@ const articles = Object.values(blogModules)
             <img src={typeof article.image === 'string' ? article.image : getBlogImage(String(article.slug))} alt={String(article.title)} class="h-48 w-full object-cover" loading="lazy" />
             <div class="p-7">
               <h2 class="text-xl font-bold leading-8 text-brand-navy">{String(article.title)}</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-600">{String(article.description)}</p>
+              <p class="mt-4 text-sm leading-7 text-slate-600">{getBlogSeoDescription(String(article.title), String(article.description), lang)}</p>
               <a href={getLocalizedPath(lang, `/blog/${String(article.slug)}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{blogListText.cta}</a>
             </div>
           </article>

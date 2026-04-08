@@ -1,5 +1,7 @@
 ---
 import { defaultLang, getLocalizedSiteAddress, type SiteLang } from '../data/i18n';
+import { getProductFaqEntries } from '../data/seo';
+import type { ProductCategory } from '../data/productCategories';
 
 interface ProductSchema {
   name: string;
@@ -10,6 +12,7 @@ interface ProductSchema {
   availability?: string;
   price?: string;
   priceCurrency?: string;
+  category?: ProductCategory;
 }
 
 interface Props {
@@ -80,8 +83,27 @@ const productSchema = product
     }
   : null;
 
+const productFaqSchema = pageType === 'product' && product?.category
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: getProductFaqEntries({
+        lang,
+        title: product.name,
+        category: product.category
+      }).map((entry) => ({
+        '@type': 'Question',
+        name: entry.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: entry.answer
+        }
+      }))
+    }
+  : null;
+
 const schemas = pageType === 'product' && product
-  ? [organizationSchema, localBusinessSchema, productSchema]
+  ? [organizationSchema, localBusinessSchema, productSchema, productFaqSchema].filter(Boolean)
   : [organizationSchema, localBusinessSchema];
 ---
 

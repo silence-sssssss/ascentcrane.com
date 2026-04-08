@@ -2,6 +2,7 @@
 import ContentLayout from '../../../layouts/ContentLayout.astro';
 import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
 import { getBlogImage } from '../../../data/contentMedia';
+import { getBlogSeoDescription } from '../../../data/seo';
 
 export async function getStaticPaths() {
   const blogModules = import.meta.glob('../../../content/blog/**/*.md');
@@ -37,7 +38,8 @@ const { article } = Astro.props as {
 
 const Content = article.Content;
 const title = String(article.data.title ?? '');
-const description = String(article.data.description ?? '');
+const rawDescription = String(article.data.description ?? '');
+const description = getBlogSeoDescription(title, rawDescription, lang);
 const heroImage = typeof article.data.image === 'string' ? article.data.image : getBlogImage(slug);
 const copy = {
   en: {

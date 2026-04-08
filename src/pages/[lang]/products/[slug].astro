@@ -167,7 +167,7 @@ const categoryItems = productCategoryOrder.map((item) => ({
   categoryItems={categoryItems}
   stickyLabel={title}
   pageType="product"
-  product={{ name: title, model: localizedModel, image: heroImage, description, sku: localizedModel, availability: stockStatus, price, priceCurrency }}
+  product={{ name: title, model: localizedModel, image: heroImage, description, sku: localizedModel, availability: stockStatus, price, priceCurrency, category: productCategory }}
 >
   <section id="overview">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -184,7 +184,7 @@ const categoryItems = productCategoryOrder.map((item) => ({
       <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {galleryImages.map((image, index) => (
           <div class="overflow-hidden border border-slate-200 bg-white">
-            <img src={image} alt={`${title} image ${index + 1}`} class="h-64 w-full object-cover" loading="lazy" />
+            <img src={image} alt={`${title} product image ${index + 1}`} class="h-64 w-full object-cover" loading="lazy" />
           </div>
         ))}
       </div>
