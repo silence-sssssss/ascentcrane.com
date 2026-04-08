@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import ProductLayout from '../../../layouts/ProductLayout.astro';
 import DataSheetTable from '../../../components/DataSheetTable.astro';
 import ContactForm from '../../../components/ContactForm.astro';
 import { supportedLangs, getLocalizedPath, localizeProductFieldValue, type SiteLang } from '../../../data/i18n';
 import { getProductCategoryAnchor, getProductCategoryLabel, productCategoryOrder, type ProductCategory } from '../../../data/productCategories';
+import { getMappedProductGalleryImage } from '../../../data/imageAssets';
 
 export async function getStaticPaths() {
   const productModules = import.meta.glob('../../../content/products/**/*.md');
@@ -184,7 +186,7 @@ const categoryItems = productCategoryOrder.map((item) => ({
       <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {galleryImages.map((image, index) => (
           <div class="overflow-hidden border border-slate-200 bg-white">
-            <img src={image} alt={`${title} product image ${index + 1}`} class="h-64 w-full object-cover" loading="lazy" />
+            <Image src={getMappedProductGalleryImage(image)} alt={`${title} product image ${index + 1}`} class="h-64 w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1280px) 20vw, (min-width: 768px) 45vw, 100vw" width={1200} height={800} loading="lazy" />
           </div>
         ))}
       </div>

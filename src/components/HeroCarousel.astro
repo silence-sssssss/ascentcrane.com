@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { getLocalizedPath, type SiteLang } from '../data/i18n';
+import { heroBannerImages } from '../data/imageAssets';
 
 interface SlideCopy {
   title: string;
@@ -111,7 +113,7 @@ const text = uiCopy[lang];
           aria-hidden={index === 0 ? 'false' : 'true'}
         >
           <div class="hero-slide__media">
-            <img src={slide.image} alt={localized.title} class="hero-slide__image" width="3663" height="1144" loading={index === 0 ? 'eager' : 'lazy'} />
+            <Image src={heroBannerImages[index]} alt={localized.title} class="hero-slide__image" format="avif" quality="mid" widths={[400,800,1200]} sizes="100vw" width={3663} height={1144} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
           </div>
           <div class="hero-slide__veil"></div>
           <div class="hero-slide__grid"></div>

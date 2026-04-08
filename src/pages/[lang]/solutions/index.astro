@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
 import { getSolutionImage } from '../../../data/contentMedia';
+import { getMappedContentImage } from '../../../data/imageAssets';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -64,7 +66,7 @@ const solutions = Object.values(solutionModules)
       <div class="mt-12 grid gap-8 lg:grid-cols-3">
         {solutions.map((solution) => (
           <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-50 text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.12)]">
-            <img src={getSolutionImage(solution.slug)} alt={solution.title} class="h-52 w-full object-cover" loading="lazy" />
+            <Image src={getMappedContentImage(getSolutionImage(solution.slug))} alt={solution.title} class="h-52 w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1024px) 30vw, 100vw" width={1200} height={675} loading="lazy" />
             <div class="p-8">
               <h2 class="text-2xl font-bold text-brand-navy">{solution.title}</h2>
               <p class="mt-4 text-sm leading-7 text-slate-600">{solution.description}</p>

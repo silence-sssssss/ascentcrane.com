@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import ContentLayout from '../../../layouts/ContentLayout.astro';
 import { supportedLangs, getLocalizedPath, type SiteLang } from '../../../data/i18n';
 import { getBlogImage } from '../../../data/contentMedia';
+import { getMappedContentImage } from '../../../data/imageAssets';
 import { getBlogSeoDescription } from '../../../data/seo';
 
 export async function getStaticPaths() {
@@ -129,7 +131,7 @@ const quickLinksCopy = {
 
   <article id="content-body" class="prose prose-slate mt-10 max-w-none prose-headings:scroll-mt-28 prose-headings:text-brand-navy prose-a:text-primary-700">
     <figure class="not-prose mb-8 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-50 shadow-sm">
-      <img src={heroImage} alt={title} class="aspect-[16/9] w-full object-cover" loading="eager" />
+      <Image src={getMappedContentImage(heroImage)} alt={title} class="aspect-[16/9] w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1024px) 70vw, 100vw" width={1200} height={675} loading="eager" fetchpriority="high" />
     </figure>
     <Content />
   </article>

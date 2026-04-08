@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
 import { getBlogImage } from '../../../data/contentMedia';
+import { getMappedContentImage } from '../../../data/imageAssets';
 import { getBlogSeoDescription } from '../../../data/seo';
 
 export function getStaticPaths() {
@@ -100,7 +102,7 @@ const articles = Object.values(blogModules)
       <div class="grid gap-8 lg:grid-cols-3">
         {articles.map((article) => (
           <article class="overflow-hidden rounded-[30px] border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.14)]">
-            <img src={typeof article.image === 'string' ? article.image : getBlogImage(String(article.slug))} alt={String(article.title)} class="h-48 w-full object-cover" loading="lazy" />
+            <Image src={getMappedContentImage(typeof article.image === 'string' ? article.image : getBlogImage(String(article.slug)))} alt={String(article.title)} class="h-48 w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1024px) 30vw, 100vw" width={1200} height={675} loading="lazy" />
             <div class="p-7">
               <h2 class="text-xl font-bold leading-8 text-brand-navy">{String(article.title)}</h2>
               <p class="mt-4 text-sm leading-7 text-slate-600">{getBlogSeoDescription(String(article.title), String(article.description), lang)}</p>

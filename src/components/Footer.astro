@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { defaultLang, getLocalizedPath, getLocalizedSiteAddress, siteCopy, type SiteLang } from '../data/i18n';
+import { getLogoImage } from '../data/imageAssets';
 
 interface Props {
   lang?: SiteLang;
@@ -87,7 +89,7 @@ const footerGroups = [
     <div class="grid gap-10 border-b border-slate-200 pb-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
       <div>
         <a href={getLocalizedPath(lang, '/')} class="mb-5 flex items-center gap-3 text-2xl font-bold tracking-tight text-brand-navy">
-          <img src="/assets/images/logo36px.png" class="h-9 w-auto" alt="AscentCrane logo" />
+          <Image src={getLogoImage()} class="h-9 w-auto" alt="AscentCrane logo" width={36} height={36} format="avif" quality="mid" loading="lazy" />
           AscentCrane
         </a>
         <p class="max-w-md text-sm leading-7 text-slate-600">

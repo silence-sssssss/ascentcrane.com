@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { buildLanguageSwitcherPath, defaultLang, getLocalizedPath, languageLabels, siteCopy, supportedLangs, type SiteLang } from '../data/i18n';
+import { getLogoImage } from '../data/imageAssets';
 
 interface Props {
   lang?: SiteLang;
@@ -20,7 +22,7 @@ const navLinks = [
 <header class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100/50 bg-white/80 backdrop-blur-md">
   <nav class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 lg:px-6">
     <a href={getLocalizedPath(lang, '/')} class="flex items-center gap-3">
-      <img src="/assets/images/logo36px.png" class="h-9 w-auto" alt="AscentCrane logo" />
+      <Image src={getLogoImage()} class="h-9 w-auto" alt="AscentCrane logo" width={36} height={36} format="avif" quality="mid" loading="eager" />
       <span class="self-center whitespace-nowrap text-xl font-bold tracking-tight text-brand-navy">AscentCrane</span>
     </a>
     <div class="hidden items-center gap-8 lg:flex">
