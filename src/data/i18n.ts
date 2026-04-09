@@ -28,7 +28,7 @@ export function getLocalizedSiteAddress(lang: SiteLang) {
 
 export const siteCopy = {
   en: {
-    nav: { home: 'Home', products: 'Products', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Request a Crane Quote' },
+    nav: { home: 'Home', products: 'Products', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Request a Crane Quote', languageMenu: 'Language' },
     home: {
       eyebrow: 'AscentCrane Export Solutions',
       title: 'Ascent Crane | Portable Gantry Crane & Scissor Lift Manufacturer',
@@ -63,7 +63,7 @@ export const siteCopy = {
     }
   },
   zh: {
-    nav: { home: '首页', products: '产品中心', solutions: '解决方案', blog: '博客', contact: '联系我们', quote: '获取起重机报价' },
+    nav: { home: '首页', products: '产品中心', solutions: '解决方案', blog: '博客', contact: '联系我们', quote: '获取起重机报价', languageMenu: '语言' },
     home: {
       eyebrow: 'AscentCrane 出口解决方案',
       title: 'Ascent Crane | 便携式龙门吊与剪叉升降平台制造商',
@@ -98,7 +98,7 @@ export const siteCopy = {
     }
   },
   ru: {
-    nav: { home: 'Главная', products: 'Продукция', solutions: 'Решения', blog: 'Блог', contact: 'Контакты', quote: 'Запросить предложение' },
+    nav: { home: 'Главная', products: 'Продукция', solutions: 'Решения', blog: 'Блог', contact: 'Контакты', quote: 'Запросить предложение', languageMenu: 'Язык' },
     home: {
       eyebrow: 'Экспортные решения AscentCrane',
       title: 'Ascent Crane | Производитель мобильных козловых кранов и ножничных подъемников',
@@ -133,7 +133,7 @@ export const siteCopy = {
     }
   },
   de: {
-    nav: { home: 'Startseite', products: 'Produkte', solutions: 'Lösungen', blog: 'Blog', contact: 'Kontakt', quote: 'Kranangebot anfordern' },
+    nav: { home: 'Startseite', products: 'Produkte', solutions: 'Lösungen', blog: 'Blog', contact: 'Kontakt', quote: 'Kranangebot anfordern', languageMenu: 'Sprache' },
     home: {
       eyebrow: 'AscentCrane Exportlösungen',
       title: 'Ascent Crane | Hersteller für mobile Portalkrane und Scherenhebebühnen',
@@ -168,7 +168,7 @@ export const siteCopy = {
     }
   },
   fr: {
-    nav: { home: 'Accueil', products: 'Produits', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Demander un devis' },
+    nav: { home: 'Accueil', products: 'Produits', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Demander un devis', languageMenu: 'Langue' },
     home: {
       eyebrow: 'Solutions export AscentCrane',
       title: 'Ascent Crane | Fabricant de portiques mobiles et plateformes élévatrices à ciseaux',
@@ -203,7 +203,7 @@ export const siteCopy = {
     }
   },
   es: {
-    nav: { home: 'Inicio', products: 'Productos', solutions: 'Soluciones', blog: 'Blog', contact: 'Contacto', quote: 'Solicitar cotización' },
+    nav: { home: 'Inicio', products: 'Productos', solutions: 'Soluciones', blog: 'Blog', contact: 'Contacto', quote: 'Solicitar cotización', languageMenu: 'Idioma' },
     home: {
       eyebrow: 'Soluciones de exportación AscentCrane',
       title: 'Ascent Crane | Fabricante de grúas pórtico portátiles y plataformas tipo tijera',

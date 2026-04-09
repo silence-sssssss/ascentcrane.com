@@ -20,10 +20,14 @@ const navLinks = [
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100/50 bg-white/80 backdrop-blur-md">
-  <nav class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3 lg:px-6">
-    <a href={getLocalizedPath(lang, '/')} class="flex items-center gap-3">
-      <Image src={getLogoImage()} class="h-9 w-auto" alt="AscentCrane logo" width={36} height={36} format="avif" quality="mid" loading="eager" />
-      <span class="self-center whitespace-nowrap text-xl font-bold tracking-tight text-brand-navy">AscentCrane</span>
+  <nav class="mx-auto flex max-w-screen-xl items-center justify-between gap-3 px-4 py-3 lg:px-6">
+    <a
+      href={getLocalizedPath(lang, '/')}
+      class="inline-flex min-h-[44px] min-w-0 max-w-[min(100%,18rem)] flex-1 items-center gap-3 rounded-lg py-2 pl-1 pr-1 -ml-1 transition hover:bg-slate-50/80 active:bg-slate-100"
+      aria-label={`${copy.home} — AscentCrane`}
+    >
+      <Image src={getLogoImage()} class="h-9 w-auto shrink-0" alt="" width={36} height={36} format="avif" quality="mid" loading="eager" />
+      <span class="truncate text-left text-xl font-bold tracking-tight text-brand-navy">AscentCrane</span>
     </a>
     <div class="hidden items-center gap-8 lg:flex">
       <ul class="flex items-center gap-8 text-sm font-semibold uppercase tracking-[0.12em] text-slate-600">
@@ -57,13 +61,74 @@ const navLinks = [
         {copy.quote}
       </a>
     </div>
-    <a href={getLocalizedPath(lang, '/contact')} class="inline-flex items-center justify-center rounded-sm border border-brand-steel bg-brand-yellow px-4 py-2 text-sm font-bold uppercase tracking-[0.08em] text-brand-steel transition hover:bg-brand-orange hover:text-white lg:hidden">
-      {copy.contact}
-    </a>
+
+    <!-- Mobile: full navigation + language + quote in a menu -->
+    <details class="relative shrink-0 lg:hidden" id="mobile-nav-menu">
+      <summary
+        class="flex h-11 min-w-[44px] cursor-pointer list-none items-center justify-center rounded-lg border border-slate-300/80 bg-white/90 px-3 text-slate-700 shadow-sm transition hover:bg-slate-50 [&::-webkit-details-marker]:hidden"
+        aria-label="Menu"
+      >
+        <span class="sr-only">Menu</span>
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+      </summary>
+      <div
+        class="absolute right-0 top-full z-50 mt-2 w-[min(calc(100vw-2rem),20rem)] rounded-sm border border-slate-300 bg-white/98 p-2 shadow-lg backdrop-blur-md"
+        role="navigation"
+        aria-label="Mobile navigation"
+      >
+        <ul class="space-y-1 border-b border-slate-200 pb-2 text-sm font-semibold uppercase tracking-[0.08em] text-slate-700">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="mobile-nav-link block rounded-sm px-3 py-3 transition hover:bg-slate-100 hover:text-brand-navy"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{copy.languageMenu}</p>
+        <div class="space-y-0.5 pb-2">
+          {supportedLangs.map((item) => (
+            <a
+              href={buildLanguageSwitcherPath(item, currentPath)}
+              data-language-switch-link
+              class={`mobile-nav-link flex items-center justify-between rounded-sm px-3 py-2.5 text-sm transition hover:bg-slate-100 ${item === lang ? 'bg-slate-100 font-semibold text-brand-navy' : 'text-slate-700'}`}
+            >
+              <span class="flex items-center gap-2">
+                <span>{languageLabels[item].flag}</span>
+                <span>{languageLabels[item].native}</span>
+              </span>
+              <span>{languageLabels[item].short}</span>
+            </a>
+          ))}
+        </div>
+        <a
+          href={getLocalizedPath(lang, '/contact')}
+          class="mobile-nav-link mt-1 block rounded-sm border border-brand-steel bg-brand-yellow px-3 py-3 text-center text-sm font-bold uppercase tracking-[0.08em] text-brand-steel transition hover:bg-brand-orange hover:text-white"
+        >
+          {copy.quote}
+        </a>
+      </div>
+    </details>
   </nav>
 </header>
 
 <script>
+  const mobileNav = document.getElementById('mobile-nav-menu');
+  if (mobileNav) {
+    mobileNav.querySelectorAll('.mobile-nav-link').forEach((el) => {
+      el.addEventListener('click', () => {
+        mobileNav.removeAttribute('open');
+      });
+    });
+  }
+
   const scrollStorageKey = 'language-switch-scroll-y';
   const targetStorageKey = 'language-switch-target-path';
 
