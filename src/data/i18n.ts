@@ -26,6 +26,8 @@ export function getLocalizedSiteAddress(lang: SiteLang) {
   return localizedSiteAddress[lang];
 }
 
+export const siteContactEmails = ['hntzs@gmail.com', '15903067111@163.com'] as const;
+
 export const siteCopy = {
   en: {
     nav: { home: 'Home', products: 'Products', solutions: 'Solutions', blog: 'Blog', contact: 'Contact', quote: 'Request a Crane Quote', languageMenu: 'Language' },

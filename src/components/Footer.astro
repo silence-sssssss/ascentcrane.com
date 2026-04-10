@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { defaultLang, getLocalizedPath, getLocalizedSiteAddress, siteCopy, type SiteLang } from '../data/i18n';
+import { defaultLang, getLocalizedPath, getLocalizedSiteAddress, siteContactEmails, siteCopy, type SiteLang } from '../data/i18n';
 import { getLogoImage } from '../data/imageAssets';
 
 interface Props {
@@ -96,7 +96,9 @@ const footerGroups = [
           {footerText.description}
         </p>
         <div class="mt-6 grid gap-px border border-slate-200 bg-slate-200 text-sm">
-          <p class="bg-white px-4 py-3 font-mono text-slate-700">hntzs@gmail.com</p>
+          {siteContactEmails.map((email) => (
+            <p class="bg-white px-4 py-3 font-mono text-slate-700">{email}</p>
+          ))}
           <p class="bg-white px-4 py-3 font-mono text-slate-700">+86 15903067111</p>
           <p class="bg-white px-4 py-3 font-mono text-slate-700">{localizedAddress}</p>
         </div>

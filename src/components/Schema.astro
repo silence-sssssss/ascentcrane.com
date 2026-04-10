@@ -1,5 +1,5 @@
 ---
-import { defaultLang, getLocalizedSiteAddress, type SiteLang } from '../data/i18n';
+import { defaultLang, getLocalizedSiteAddress, siteContactEmails, type SiteLang } from '../data/i18n';
 import { getProductFaqEntries } from '../data/seo';
 import type { ProductCategory } from '../data/productCategories';
 
@@ -49,6 +49,7 @@ const localBusinessSchema = {
   image: `${siteUrl}/assets/images/hero.png`,
   url: siteUrl,
   telephone: '+86 15903067111',
+  email: [...siteContactEmails],
   address: {
     '@type': 'PostalAddress',
     streetAddress: localizedAddress,

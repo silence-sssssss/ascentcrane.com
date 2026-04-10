@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
@@ -7,6 +8,7 @@ import ExportFeatures from '../../components/ExportFeatures.astro';
 import GlobalReach from '../../components/GlobalReach.astro';
 import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../data/i18n';
 import { getBlogImage, getSolutionImage } from '../../data/contentMedia';
+import { getMappedContentImage } from '../../data/imageAssets';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -361,9 +363,20 @@ const localizedPlatforms = verifiedPlatforms.map((platform, index) => ({
         <div class="mt-5 grid gap-6 lg:grid-cols-3">
           {portalCopy.articles.map((article) => (
             <article class="overflow-hidden border border-slate-200 bg-brand-cold text-slate-900">
-              <div class="relative bg-slate-300" style={`aspect-ratio: ${getImageAspectRatio(article.image)};`}>
-                <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${article.image}')`}></div>
-                <div class="absolute inset-0 bg-brand-navy/35"></div>
+              <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-300">
+                <Image
+                  src={getMappedContentImage(article.image)}
+                  alt={article.title}
+                  class="absolute inset-0 h-full w-full object-contain"
+                  format="avif"
+                  quality="mid"
+                  widths={[400, 800, 1200]}
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  width={1200}
+                  height={675}
+                  loading="lazy"
+                />
+                <div class="pointer-events-none absolute inset-0 bg-brand-navy/35"></div>
               </div>
               <div class="grid gap-px border-t border-slate-200 bg-slate-200">
                 <div class="bg-white px-6 py-5">

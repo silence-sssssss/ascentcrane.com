@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import ContactForm from '../../components/ContactForm.astro';
-import { getAllLangStaticPaths, getLocalizedPath, getLocalizedSiteAddress, siteCopy, type SiteLang } from '../../data/i18n';
+import { getAllLangStaticPaths, getLocalizedPath, getLocalizedSiteAddress, siteContactEmails, siteCopy, type SiteLang } from '../../data/i18n';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -45,7 +45,12 @@ const contactInfo = contactInfoCopy[lang];
           <h2 class="text-2xl font-bold text-brand-navy">{contactInfo.title}</h2>
           <div class="mt-6 space-y-5 text-sm leading-7 text-slate-600">
             <div><p class="font-semibold text-slate-900">{contactInfo.phone}</p><p>+86 15903067111</p></div>
-            <div><p class="font-semibold text-slate-900">{contactInfo.email}</p><p>hntzs@gmail.com</p></div>
+            <div>
+              <p class="font-semibold text-slate-900">{contactInfo.email}</p>
+              {siteContactEmails.map((email) => (
+                <p>{email}</p>
+              ))}
+            </div>
             <div><p class="font-semibold text-slate-900">{contactInfo.location}</p><p>{localizedAddress}</p></div>
           </div>
         </aside>
