@@ -1,3 +1,23 @@
 ---
-return Astro.redirect('/en/contact');
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const targetPath = '/en/contact';
 ---
+
+<BaseLayout
+  lang="en"
+  pathname="/contact"
+  title="Ascent Crane Contact"
+  description="Ascent Crane contact language entry page."
+  canonicalURL="https://ascentcrane.com/contact"
+>
+  <main class="flex min-h-screen items-center justify-center px-6 text-center">
+    <div class="space-y-4">
+      <p class="text-sm font-medium text-slate-600">Continue to the default language contact page.</p>
+      <a href={targetPath} class="inline-flex items-center justify-center border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">Open contact</a>
+    </div>
+  </main>
+  <script is:inline>
+    window.location.replace('/en/contact');
+  </script>
+</BaseLayout>

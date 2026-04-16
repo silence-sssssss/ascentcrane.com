@@ -1,3 +1,23 @@
 ---
-return Astro.redirect('/en');
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const targetPath = '/en';
 ---
+
+<BaseLayout
+  lang="en"
+  pathname="/"
+  title="Ascent Crane"
+  description="Ascent Crane language entry page."
+  canonicalURL="https://ascentcrane.com/"
+>
+  <main class="flex min-h-screen items-center justify-center px-6 text-center">
+    <div class="space-y-4">
+      <p class="text-sm font-medium text-slate-600">Continue to the default language site.</p>
+      <a href={targetPath} class="inline-flex items-center justify-center border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">Open site</a>
+    </div>
+  </main>
+  <script is:inline>
+    window.location.replace('/en');
+  </script>
+</BaseLayout>
