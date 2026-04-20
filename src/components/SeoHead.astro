@@ -37,9 +37,6 @@ const alternates = supportedLangs.map((item) => ({
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="yandex-verification" content="db5a31061058c3d3" />
-<link rel="icon" type="image/png" sizes="120x120" href="/favicon-120.png?v=2" />
-<link rel="icon" type="image/png" sizes="144x144" href="/favicon-144.png?v=2" />
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="canonical" href={absoluteCanonical} />
 {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
 <link rel="alternate" hreflang="x-default" href={`${siteUrl}${getLocalizedPath(defaultLang, pathname)}`} />
