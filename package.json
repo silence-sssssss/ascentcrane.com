@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/indexnow.js",
     "preview": "astro preview",
     "astro": "astro",
     "seo:auto-link-blog-keywords": "node scripts/auto-link-blog-keywords.mjs"
