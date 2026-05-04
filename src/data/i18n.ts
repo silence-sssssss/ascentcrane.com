@@ -2,6 +2,16 @@ export const supportedLangs = ['en', 'zh', 'ru', 'de', 'fr', 'es'] as const;
 
 export type SiteLang = (typeof supportedLangs)[number];
 
+/** Short label on blog / solutions list cards (entire card is clickable). */
+export const listCardViewLabel: Record<SiteLang, string> = {
+  en: 'View',
+  zh: '查看',
+  ru: 'Открыть',
+  de: 'Ansehen',
+  fr: 'Voir',
+  es: 'Ver'
+};
+
 export const defaultLang: SiteLang = 'en';
 
 export const languageLabels: Record<SiteLang, { short: string; native: string; locale: string; flag: string }> = {

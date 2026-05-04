@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
-import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
+import ContentListCard from '../../../components/ContentListCard.astro';
+import { getAllLangStaticPaths, getLocalizedPath, listCardViewLabel, siteCopy, type SiteLang } from '../../../data/i18n';
 import { getSolutionImage } from '../../../data/contentMedia';
-import { getMappedContentImage } from '../../../data/imageAssets';
 
 export function getStaticPaths() {
   return getAllLangStaticPaths();
@@ -14,33 +13,6 @@ export function getStaticPaths() {
 const solutionModules = import.meta.glob('../../../content/solutions/*.md', { eager: true });
 const { lang } = Astro.params as { lang: SiteLang };
 const copy = siteCopy[lang];
-const solutionsCopy = {
-  en: {
-    description: 'Browse scenario-based lifting recommendations built around portable gantries, access platforms, and practical deployment requirements.',
-    cta: 'View Solution'
-  },
-  zh: {
-    description: '浏览围绕便携式龙门架、升降平台与实际部署需求整理的场景化解决方案。',
-    cta: '查看方案'
-  },
-  ru: {
-    description: 'Изучите сценарные решения по подъему грузов на базе мобильных порталов, подъемных платформ и практических условий эксплуатации.',
-    cta: 'Открыть решение'
-  },
-  de: {
-    description: 'Entdecken Sie einsatzbezogene Hebelösungen rund um mobile Portale, Hebebühnen und praktische Einsatzanforderungen.',
-    cta: 'Lösung ansehen'
-  },
-  fr: {
-    description: 'Découvrez des solutions de levage par scénario autour des portiques mobiles, plateformes élévatrices et contraintes réelles de déploiement.',
-    cta: 'Voir la solution'
-  },
-  es: {
-    description: 'Explore soluciones de elevación por escenario basadas en pórticos portátiles, plataformas elevadoras y requisitos reales de despliegue.',
-    cta: 'Ver solución'
-  }
-} as const;
-const solutionsText = solutionsCopy[lang];
 const solutions = Object.values(solutionModules)
   .map((module) => (module as { frontmatter: Record<string, string> }).frontmatter)
   .filter((solution) => solution.lang === lang)
@@ -56,23 +28,22 @@ const solutions = Object.values(solutionModules)
   ogImage="https://ascentcrane.com/assets/images/hero.png"
 >
   <Navbar lang={lang} currentPath={Astro.url.pathname} />
-  <main class="bg-white pt-28">
-    <section class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6 lg:py-24">
+  <main class="bg-slate-50 pt-28">
+    <section class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8 lg:py-20">
       <div class="max-w-3xl">
         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-orange">{copy.solutions.eyebrow}</p>
         <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-brand-navy sm:text-5xl">{copy.solutions.title}</h1>
         <p class="mt-5 text-lg leading-8 text-slate-600">{copy.solutions.description}</p>
       </div>
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
+      <div class="mt-12 grid auto-rows-fr gap-8 lg:grid-cols-3">
         {solutions.map((solution) => (
-          <article class="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-50 text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.12)]">
-            <Image src={getMappedContentImage(getSolutionImage(solution.slug))} alt={solution.title} class="h-52 w-full object-cover" format="avif" quality="mid" widths={[400,800,1200]} sizes="(min-width: 1024px) 30vw, 100vw" width={1200} height={675} loading="lazy" />
-            <div class="p-8">
-              <h2 class="text-2xl font-bold text-brand-navy">{solution.title}</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-600">{solution.description}</p>
-              <a href={getLocalizedPath(lang, `/solutions/${solution.slug}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{solutionsText.cta}</a>
-            </div>
-          </article>
+          <ContentListCard
+            href={getLocalizedPath(lang, `/solutions/${solution.slug}`)}
+            title={solution.title}
+            description={solution.description}
+            imagePath={getSolutionImage(solution.slug)}
+            viewLabel={listCardViewLabel[lang]}
+          />
         ))}
       </div>
     </section>

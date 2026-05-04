@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
-import { getAllLangStaticPaths, getLocalizedPath, siteCopy, type SiteLang } from '../../../data/i18n';
+import ContentListCard from '../../../components/ContentListCard.astro';
+import { getAllLangStaticPaths, getLocalizedPath, listCardViewLabel, siteCopy, type SiteLang } from '../../../data/i18n';
 import { getBlogImage } from '../../../data/contentMedia';
-import { getMappedContentImage } from '../../../data/imageAssets';
 import { getBlogSeoDescription } from '../../../data/seo';
 
 export function getStaticPaths() {
@@ -20,43 +19,37 @@ const blogListCopy = {
     description: 'Publishing-ready article slot for future multilingual SEO expansion.',
     heroTag: 'Editorial Matrix',
     heroStats: ['5 core topics', '6 languages', 'SEO-ready technical themes'],
-    featuredTitle: 'Latest intelligence for industrial buyers',
-    cta: 'Read Article'
+    featuredTitle: 'Latest intelligence for industrial buyers'
   },
   zh: {
     description: '此处为后续多语言 SEO 长文内容预留的文章卡片位。',
     heroTag: '内容矩阵',
     heroStats: ['5 个核心主题', '6 种语言', '面向 SEO 的技术选题'],
-    featuredTitle: '面向工业采购商的最新内容',
-    cta: '阅读文章'
+    featuredTitle: '面向工业采购商的最新内容'
   },
   ru: {
     description: 'Подготовленный слот статьи для дальнейшего многоязычного SEO-расширения.',
     heroTag: 'Контент-матрица',
     heroStats: ['5 ключевых тем', '6 языков', 'SEO-ориентированные статьи'],
-    featuredTitle: 'Свежие материалы для промышленных покупателей',
-    cta: 'Читать статью'
+    featuredTitle: 'Свежие материалы для промышленных покупателей'
   },
   de: {
     description: 'Vorbereiteter Artikelplatz für den weiteren mehrsprachigen SEO-Ausbau.',
     heroTag: 'Content-Matrix',
     heroStats: ['5 Kernthemen', '6 Sprachen', 'SEO-fähige Fachthemen'],
-    featuredTitle: 'Neueste Inhalte für industrielle Einkäufer',
-    cta: 'Artikel lesen'
+    featuredTitle: 'Neueste Inhalte für industrielle Einkäufer'
   },
   fr: {
     description: 'Emplacement d’article prêt à publier pour l’extension SEO multilingue future.',
     heroTag: 'Matrice éditoriale',
     heroStats: ['5 sujets clés', '6 langues', 'Thèmes techniques prêts pour le SEO'],
-    featuredTitle: 'Derniers contenus pour acheteurs industriels',
-    cta: 'Lire l’article'
+    featuredTitle: 'Derniers contenus pour acheteurs industriels'
   },
   es: {
     description: 'Espacio de artículo listo para futuras ampliaciones SEO multilingües.',
     heroTag: 'Matriz editorial',
     heroStats: ['5 temas clave', '6 idiomas', 'Temas técnicos listos para SEO'],
-    featuredTitle: 'Últimos contenidos para compradores industriales',
-    cta: 'Leer artículo'
+    featuredTitle: 'Últimos contenidos para compradores industriales'
   }
 } as const;
 const blogListText = blogListCopy[lang];
@@ -103,32 +96,22 @@ const articles = Object.values(blogModules)
     </section>
 
     <section class="mx-auto max-w-[1280px] px-4 py-16 lg:px-8 lg:py-20">
-      <div class="grid gap-8 lg:grid-cols-3">
-        {articles.map((article) => (
-          <article class="overflow-hidden rounded-[30px] border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(15,39,68,0.14)]">
-            <Image
-              src={getMappedContentImage(
-                typeof article.image === 'string' && !legacyPlaceholderImages.has(article.image)
-                  ? article.image
-                  : getBlogImage(String(article.slug))
-              )}
-              alt={String(article.title)}
-              class="h-48 w-full object-cover"
-              format="avif"
-              quality="mid"
-              widths={[400,800,1200]}
-              sizes="(min-width: 1024px) 30vw, 100vw"
-              width={1200}
-              height={675}
-              loading="lazy"
+      <div class="grid auto-rows-fr gap-8 lg:grid-cols-3">
+        {articles.map((article) => {
+          const imagePath =
+            typeof article.image === 'string' && !legacyPlaceholderImages.has(article.image)
+              ? article.image
+              : getBlogImage(String(article.slug));
+          return (
+            <ContentListCard
+              href={getLocalizedPath(lang, `/blog/${String(article.slug)}`)}
+              title={String(article.title)}
+              description={getBlogSeoDescription(String(article.title), String(article.description), lang)}
+              imagePath={imagePath}
+              viewLabel={listCardViewLabel[lang]}
             />
-            <div class="p-7">
-              <h2 class="text-xl font-bold leading-8 text-brand-navy">{String(article.title)}</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-600">{getBlogSeoDescription(String(article.title), String(article.description), lang)}</p>
-              <a href={getLocalizedPath(lang, `/blog/${String(article.slug)}`)} class="mt-6 inline-flex items-center text-sm font-semibold text-primary-700 transition hover:text-primary-800">{blogListText.cta}</a>
-            </div>
-          </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   </main>
